@@ -1,0 +1,71 @@
+.tool-tip{
+  position: relative;
+  left: -20px;
+  top: 4px;
+}
+input.ng-invalid.ng-touched
+{
+    border: 1px solid #ff000085 !important; /*change color if you want*/
+}
+.form-control:focus {
+  border-color: rgb(206, 206, 206);
+  box-shadow: none;
+}
+.pTop{
+  padding-top: 2px;
+}
+.addressBox{
+  margin-bottom: 5px;
+  border: 1px #afafaf solid;
+  padding: 5px;
+  border-radius: 11px;
+}
+.formhaif{
+  font-size: 10px ;
+  border-radius: 10px ;
+  height: 26px !important;
+  width: 100%;
+  padding-left: 5px;
+}
+.text-area{
+  border-radius: 13px;
+  margin: 2% 8%;
+  background-color: #F7F8FC;
+  border: 1px solid #719ECE;
+  font-size: 12px;
+}
+
+.text-area::placeholder{
+  font-size: 12px;
+  padding: 5px 5px;
+}
+.yes{
+  font-family: Poppins;
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  border: .5px;
+  border-style: solid;
+  border-color: rgba(209, 209, 209, 0.493);
+}
+
+.text-area:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #719ECE;
+}
+.delete-icon{
+  margin-top: 20px;
+  position: relative;
+  left: -10px;
+  color: #29A8DF;
+  font-size: 20px;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #2BA8E0;
+}
+
+:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #ffffff ;
+}

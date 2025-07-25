@@ -1,0 +1,75 @@
+<div  [ngClass]="collapsedValue == 'false' ? 'drop-div':'collapsedTrue' "(click)="dropdown()">
+  <div class="drop-headDiv">
+    <!-- <div class="drop-header flex">
+      <div [style.dispaly]="collapsedValue? 'none':'block'" class="drop-heading">{{heading}}</div>
+      <div [style.dispaly]="collapsedValue?'flex':'none'"><i class="drop-header-icon {{iconClass}}"></i></div>
+    </div> -->
+    <div *ngIf="collapsedValue == 'false'; else elseBlock" class="drop-header flex">{{heading}}</div>
+    <ng-template #elseBlock><i class="fs-lg {{iconClass}}"></i></ng-template>
+
+    <div [ngClass]="{'arrowDiv':collapsedValue == 'false','arrowDiv-collapsed':collapsedValue == 'true'}"><i  [className]="up ? 'arrow down' : 'arrow up'" #arrow></i></div>
+  </div>
+</div>
+<div *ngIf="collapsedValue == 'false';else collapsedValueTrue">
+  <div #dropDiv [style.display]="show ? 'block' : 'none'">
+
+    <div [ngSwitch]="heading">
+      <div *ngSwitchCase="'Trigger'">
+        <!-- Trigger Component -->
+        <trigger-root collapsedValue = {{collapsedValue}}></trigger-root>
+      </div>
+      <!-- <div *ngSwitchCase="'Bot Response'">
+        BotResponse Component
+        <bot-root #one collapsedValue = {{collapsedValue}}></bot-root>
+      </div> -->
+      <div *ngSwitchCase="'WhatsApp'">
+        <!-- BotResponse Component -->
+        <bot-root #one collapsedValue = {{collapsedValue}}></bot-root>
+      </div>
+      <div *ngSwitchCase="'Logistics'">
+        <!-- Logistics Component -->
+        <logistics-root collapsedValue = {{collapsedValue}}></logistics-root>
+      </div>
+      <div *ngSwitchCase="'Operations'">
+        <!-- Operations Component -->
+        <operations-root collapsedValue = {{collapsedValue}}></operations-root>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #collapsedValueTrue>
+  <div>
+    <div [ngSwitch]="heading">
+      <div *ngSwitchCase="'Trigger'">
+        <!-- Trigger Component -->
+        <trigger-root></trigger-root>
+      </div>
+      <!-- <div *ngSwitchCase="'Bot Response'">
+        BotResponse Component
+        <bot-root #one></bot-root>
+      </div> -->
+      <div *ngSwitchCase="'WhatsApp'">
+        <!-- BotResponse Component -->
+        <bot-root #one></bot-root>
+      </div>
+      <div *ngSwitchCase="'Logistics'">
+        <!-- Logistics Component -->
+        <logistics-root></logistics-root>
+      </div>
+      <div *ngSwitchCase="'Operations'">
+        <!-- Operations Component -->
+        <operations-root></operations-root>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<!--
+  <div class="drop-header flex">
+      <div>{{heading}}</div>
+      <i class="{{icon}} "></i>
+    </div>
+ -->

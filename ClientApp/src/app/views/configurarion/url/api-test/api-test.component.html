@@ -1,0 +1,172 @@
+<!--<button mat-button [mat-dialog-close]="true" (click)="closeDialog()" class="pull-right mx-2">close</button> -->
+<!--<button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+  <span aria-hidden="true">&times;</span>
+</button>
+<h2 mat-dialog-title>API Tester</h2>-->
+<!-- <mat-dialog-content class="mat-typography"> -->
+<!--<div class="container">-->
+  <!--<div class="row">
+    <div class="col-md-3 ">Name</div>
+    <div class="col-md-9">{{name}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">Description</div>
+    <div class="col-md-9">{{description}}</div>
+  </div>-->
+  <!--<div class="row">
+    <div class="col-md-3 ">Api</div>
+    <div class="col-md-9">{{url}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 ">Method</div>
+    <div class="col-md-9">{{method}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">Date Format</div>
+    <div class="col-md-9">{{date_format}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 ">Content Type</div>
+    <div class="col-md-9">{{content_type}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 ">Proxy</div>
+    <div class="col-md-9">{{proxy}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 ">Authentication</div>
+    <div class="col-md-9">{{authentication}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 ">Timeout</div>
+    <div class="col-md-9">{{timeout}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">Retry</div>
+    <div class="col-md-9">{{retry}}</div>
+  </div>-->
+  <!--<div class="row">
+    <div class="col-md-3 ">Type</div>
+    <div class="col-md-9">{{type}}</div>
+  </div>-->
+  <!--<div class="row" *ngIf="token">
+    <div class="col-md-3 ">Token</div>
+    <div class="col-md-4">{{token}}</div>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <textarea disabled matInput id="token" [(ngModel)]="token"
+                name="token" #title="ngModel" required class="text-dark"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="basic">
+    <div class="col-md-3 ">Basic</div>
+    <div class="col-md-4">{{basic}}</div>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <textarea disabled matInput id="basic" [(ngModel)]="basic"
+                name="basic" #title="ngModel" required class="text-dark"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row w-100 ">
+        <div class="col-md-12 header">
+          <label>Header Parameters : </label>
+          <button mat-icon-button class="table-button" (click)="add_parameter(3)" color="accent">
+            <mat-icon>library_add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="container parameter-table">
+        <div class="row row-no-padding table-header">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5">
+            Key
+          </div>
+          <div class="col-md-6">
+            Value
+          </div>
+        </div>-->
+        <!--<div class="row row-no-padding" *ngFor="let param of header_param; let i = index">
+          <div class="col-md-1 text-center justify-content-center align-self-center">
+            <div class="w-100 h-100">{{i+1}} </div>
+          </div>
+          <div class="col-md-5">
+            <input matInput [(ngModel)]="param.Name" name="header_{{i}}" #header_{{i}}="ngModel" required>
+          </div>
+          <div class="col-md-5">
+            <select-variable name="header_val_{{i}}" #header_val_{{i}}="ngModel" [(ngModel)]="param.Value" required>
+            </select-variable>
+          </div>
+          <div class="col-md-1">
+            <button mat-raised-button type="button" matTooltip="Delete" matTooltipPosition="above"
+                    (click)="delete_parameter(i,3)" class="btn btn-sm tbl-button">
+              <span class="fa fa-remove fa-lg"></span>
+            </button>
+          </div>
+
+        </div>-->
+
+      <!--</div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row w-100 ">
+        <div class="col-md-12 header">
+          <label>Request Parameters : </label>
+          <button class="table-button" (click)="add_parameter(1)" mat-icon-button color="accent">
+            <mat-icon>library_add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="container parameter-table">
+        <div class="row row-no-padding table-header">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5">
+            Key
+          </div>
+          <div class="col-md-6">
+            Value
+          </div>
+        </div>-->
+        <!--<div class="row row-no-padding" *ngFor="let param of request_param; let i = index">
+          <div class="col-md-1 text-center justify-content-center align-self-center">
+            <div class="w-100 h-100">{{i+1}} </div>
+          </div>
+          <div class="col-md-5">
+            <input matInput [(ngModel)]="param.Name" name="req_{{i}}" #req_{{i}}="ngModel" required>
+          </div>
+          <div class="col-md-5">
+            <select-variable name="req_val_{{i}}" #req_val_{{i}}="ngModel" [(ngModel)]="param.Value" required>
+            </select-variable>
+          </div>
+          <div class="col-md-1">
+            <button mat-raised-button type="button" matTooltip="Delete" matTooltipPosition="above"
+                    (click)="delete_parameter(i,1)" class="btn btn-sm tbl-button">
+              <span class="fa fa-remove fa-lg"></span>
+            </button>
+          </div>
+
+        </div>-->
+
+      <!--</div>
+
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-3">Response</div>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <textarea matInput id="response" name="response" required class="text-dark"></textarea>--><!--[(ngModel)]="response3" #title="ngModel"-->
+    <!--</mat-form-field>
+  </div>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="apiTest()" class="btntest">Test your API</button>--><!--class="btn btn-primary"-->
+<!--</mat-dialog-actions>-->
+
+

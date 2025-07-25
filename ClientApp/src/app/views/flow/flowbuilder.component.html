@@ -1,0 +1,39 @@
+<select-language ></select-language>
+
+<div class="wrapper">
+  <div class="custom_col" id="customCol">
+    <flow-builder-sidebar></flow-builder-sidebar>
+  </div>
+
+  <!-- <div id="drawflow" ondrop="drop(event)" (drop)="ngDrop($event)" (click)="ngClick()" ondragover="allowDrop(event)"> -->
+
+    <div id="drawflow" (drop)="drop($event)" (click)="ngClick()" (dragover)="allowDrop($event)">
+      <!-- <div id="drawflow"  (dragover)="allowDrop($event)"> -->
+        <div class="btn-export btn-validate btn-close" matTooltip="Close" (click)="redirectToFlow()">
+          <i class="bi bi-x"></i>
+        </div>
+      <div class="btn-export" (click)="export(1)">
+         <img src="./assets/images/floppy-disk.png" height="19px" alt="" matTooltip="Save Flow">
+      </div>
+      <div class="btn-export btn-validate" (click)="jsonValidation()" matTooltip="Validate Flow">
+        <i class="bi bi-check2-all"></i>
+      </div>
+
+    <!-- <div class="bar-zoom"> -->
+      <div class="zoom zoom-" matTooltip="Zoom Out" (click)="zoom_out()"><i class="bi bi-zoom-out"></i></div>
+      <!-- <i class="fas fa-search" onclick="editor.zoom_reset()"></i> -->
+      <div class="zoom zoomP" matTooltip="Zoom In" (click)="zoom_in()"><i class="bi bi-zoom-in"></i></div>
+      <!-- <div  (click)="resetPosition()"><i class="bi bi-zoom-in"></i></div> -->
+    <!-- </div> -->
+
+  </div>
+  <div><div id="minimap" [ngStyle]="{'right':propertywithMinimap=='false'?'20px':'250px'}"></div></div>
+  <!-- <div class="col-right">
+
+  </div> -->
+  <property-builder node = {{element}} showProperty={{showPropertyWindow}}  ></property-builder>
+  <app-help-window></app-help-window>
+
+</div>
+
+

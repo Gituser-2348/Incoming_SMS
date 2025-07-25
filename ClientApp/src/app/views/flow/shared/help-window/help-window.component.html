@@ -1,0 +1,91 @@
+<div class="helpWindow" [ngStyle]="{'display':displayStyle}">
+    <div class="row">
+        <button class="helpBtn btn btn-primary btn-sm" (click)="close()">HELP >>></button>
+    </div>
+   
+    <div class="row heading1 mt-3">
+        About
+    </div>
+    <div class="row heading2">
+        <div class="col-12">
+            Seamless webhook integration makes it easy for customers/businesses to interact with this
+            product.
+            This webhook must be developed and hosted by the client. Before you kick off designing and developing
+            webhook,
+            consider the following.
+        </div>
+    </div>
+    <div class="row heading1 mt-3">
+        Authentication guide
+    </div>
+    <div class="row heading2">
+        <div class="col-12">
+            ACP is supporting following authentication methods
+        </div>
+
+        <ol>
+            <li>No Authentication: Nothing to do in header, just keep it blank.</li>
+            <img src="assets/img/help/NoAuthentication.png" alt="">
+            <li>HTTP basic authentication:  It uses username and password and relies on Base64 encoding.</li>
+            <img src="assets/img/help/basicValidation.png" alt="">
+            <li>API access tokens: API keys have unique identifiers for each user and for every time they attempt to
+                authenticate.</li>
+            <img src="assets/img/help/api.png" alt="">
+            <li>Bearer Authentication:  HTTP authentication scheme that involves security tokens called bearer tokens. 
+            </li>
+            <img src="assets/img/help/bearer.png" alt="">
+        </ol>
+    </div>
+
+    <div class="row heading1 mt-3">
+        Webhook Method & Content Type
+    </div>
+    <div class="row heading2">
+        <div class="col-12">ACP is supporting following http methods </div>
+        <ul>
+            <li>GET</li>
+            <img src="assets/img/help/plain.png" alt="">
+            <li>POST</li>
+            <img src="assets/img/help/postRequest.png" alt="">
+        </ul>
+    </div>
+
+    <div class="row heading1 mt-3">
+        Webhook Request Parameter settings
+    </div>
+    <div class="row heading2">
+        <ul>
+            <li>Clients can define their own parameter names in the request body and will be able to assign system variables, user-defined variables, and static values ​​(length limit 50) to this parameter.</li>
+            <li>ACP will support up to 10 input parameters in a webhook call.</li>
+            <li>When configuring date parameters, please note that ACP will only transmit date parameters in the format <b>"DD/MM/YYYY HH24:MI:SS"</b>. Therefore, the client API should only be developed in this way.</li>
+        </ul>
+        <div class="col-12">
+            Example:
+        </div>
+        <ul>
+            <li>Plain Text</li>
+            <img src="assets/img/help/plain.png" alt="">
+            <li>Application/Json</li>
+            <img src="assets/img/help/postRequest.png" alt="">
+        </ul>
+    </div>
+
+    <div class="row heading1 mt-3">
+        Webhook Response settings
+    </div>
+    <div class="row heading2">
+        <ul>
+            <li>Clients can define their own parameter names in the response body and will be able to assign to a user-defined variables.</li>
+            <li>ACP will support up to 10 input parameters in a webhook call.</li>
+            <li>When configuring date parameters in response body, please note that ACP will only accept date parameters in the format <b>"DD/MM/YYYY HH24:MI:SS"</b> . Therefore, the client API should only be developed in this way.</li>
+        </ul>
+        <div class="col-12">
+            For all type of webhooks, response body format will be like as below.
+        </div>
+        <div class="col-12">
+            <img style="margin-left: 26px;" src="assets/img/help/response.png" alt="">
+
+        </div>
+    </div>
+    
+</div>

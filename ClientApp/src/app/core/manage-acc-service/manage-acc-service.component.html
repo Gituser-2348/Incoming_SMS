@@ -1,0 +1,34 @@
+<div class="nav navbar-nav ml-auto">
+  <!-- <form #account_service_form="ngForm"> -->
+    <li class="nav-item d-md-down-none">
+      <mat-form-field appearance="none" class="w-50" required>
+        <mat-select  id=account [(ngModel)]="selectedAccount.Value" [disabled]="IsAccSelectDisabled"
+        name="account" #account="ngModel">
+        <!-- <mat-option value="-1" (onSelectionChange)="onAccountChange({Value:'-1',Text:''},$event)"> </mat-option> -->
+        <mat-option *ngFor="let acc of accInfo | async" [value]="acc.Value"
+        (onSelectionChange)="onAccountChange(acc,$event)">
+        {{acc.Text}}
+      </mat-option>
+    </mat-select>
+    <mat-label>
+      <mat-label>Account</mat-label>
+    </mat-label>
+  </mat-form-field>
+</li>
+    <!-- <li class="nav-item d-md-down-none">
+      <mat-form-field appearance="none" class="w-50" required>
+        <mat-select  id=service [(ngModel)]="selectedService.Value" [disabled]="IsServiceSelectDisabled"
+          name="service" #service="ngModel">
+          <mat-option *ngFor="let service of serviceInfo | async" [value]="service.Value"
+            (onSelectionChange)="onServiceChange(service,$event)">
+            {{service.Text}}
+          </mat-option>
+        </mat-select>
+        <mat-label>
+          <mat-label>Service</mat-label>
+        </mat-label>
+      </mat-form-field>
+
+    </li> -->
+  <!-- </form> -->
+</div>

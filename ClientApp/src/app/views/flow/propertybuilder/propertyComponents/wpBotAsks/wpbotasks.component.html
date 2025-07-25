@@ -1,0 +1,497 @@
+<div class="property">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="d-flex">
+      <div class="question-head">Name <span class="text text-danger">*</span></div>
+      <div class=" ml-auto question-head">
+        <i class="bi bi-question-circle tooltipBlue "
+          matTooltip="This helps to define the Name of an Object in the flow"></i>
+      </div>
+    </div>
+    <input type="text" #initialCurser class="form-control inputFull" maxlength="15" placeholder="Enter Name *"
+      name="uniqueName" [(ngModel)]="botask.uniqueName" (keyup)="checkUniqueName(botask.uniqueName)"
+      (paste)="checkUniqueName(botask.uniqueName)" #uniqueName="ngModel" [required]="true" />
+    <div *ngIf="uniqueName.errors && (uniqueName.touched || f.submitted)">
+      <small class="text-danger">Name Required</small>
+    </div>
+    <div *ngIf="duplicateUniquecheckFlag == true">
+      <small class="text-danger">Duplicate Unique name not allowed</small>
+    </div>
+    <!-- <span class="ml-3" style="font-size: 10px;">{{botask.uniqueName.length}}/15</span> -->
+    <div *ngIf="botask.uniqueName.trim().length == 0">
+      <small class="text-danger">Space or Empty name not allowed</small>
+    </div>
+    <div class="d-flex">
+      <div class="question-head">Keyword</div>
+      <div class=" ml-auto question-head">
+        <i class="bi bi-question-circle tooltipBlue " matTooltip="This property will help the user to define the Key words to define
+        the beginning of a flow.
+        With Single number user can manage different routes"></i>
+      </div>
+    </div>
+
+    <input type="text" class="form-control inputFull" maxlength="15" name="keyword"
+      (keyup)="checkKeyword(botask.keyword)" (keydown)="checkKeyword(botask.keyword)" [(ngModel)]="botask.keyword"
+      placeholder="Enter Keyword" (paste)="preventPaste($event)" />
+    <div *ngIf="duplicatekeywordcheckFlag ==true">
+      <small class="text-danger">Duplicate Keyword not allowed</small>
+    </div>
+    <!-- <div *ngIf="keyword.errors && (keyword.touched || f.submitted)"></div> -->
+
+    <app-variable-pop (childToParent)="childToParent($event)"></app-variable-pop>
+
+    <div class="d-flex">
+      <div class="question-head ">Question Type <span class="text text-danger">*</span></div>
+      <div class=" ml-auto question-head">
+        <i class="bi bi-question-circle tooltipBlue " matTooltip="Question type used"></i>
+      </div>
+
+    </div>
+    <select class="form-control inputFull" (change)="select($event)" name="selectFieldValue"
+      [(ngModel)]="botask.selectFieldvalue" #selectFieldValue="ngModel" [required]="true">
+      <option value="1">Predefined Answers</option>
+      <option value="4">Free text</option>
+      <option value="2">Button</option>
+      <option value="3">Menu/List</option>
+    </select>
+
+    <container-element [ngSwitch]="selectFieldToggle">
+      <div
+        *ngSwitchCase="selectFieldToggle == '1' || selectFieldToggle == '2' || selectFieldToggle == '3' || selectFieldToggle == '4'?selectFieldToggle : ''">
+
+        <div
+          *ngSwitchCase="selectFieldToggle == '1' || selectFieldToggle == '2' || selectFieldToggle == '3' || selectFieldToggle == '4'?selectFieldToggle : ''">
+          <div class="d-flex">
+            <div class="question-head ">Content Type <span class="text text-danger">*</span></div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue " matTooltip="Property used for the communication"></i>
+            </div>
+            <!-- <div class=" ml-auto tool-tip"  data-toggle="tooltip" data-placement="bottom" title="User to define the type of properties associated with this object">
+            <i class="bi bi-question-circle"></i>
+          </div> -->
+          </div>
+          <select class="form-control inputFull" (change)="multimediaSelect($event)" name="multimediaFieldValue"
+            [(ngModel)]="botask.multimediaFieldValue" #multimediaFieldValue="ngModel" [required]="false">
+            <option *ngIf="selectFieldToggle ==2 || selectFieldToggle ==3" value="-1">--Select--</option>
+            <option *ngIf="selectFieldToggle!=3" value="1">Image</option>
+            <!-- <option value="2">Audio</option> -->
+            <option *ngIf="selectFieldToggle!=3" value="3">Video</option>
+            <option *ngIf="selectFieldToggle!=3" value="4">Document</option>
+            <option value="5">Message</option>
+          </select>
+        </div>
+        <div>
+          <ngx-loading-bar fixed color="#4CAF50"></ngx-loading-bar>
+        </div>
+        <div *ngSwitchDefault></div>
+        <div *ngIf="mulSelectFieldToggle != 5 && mulSelectFieldToggle != -1" class="row mt-2">
+          <div class="col-sm small">From File</div>
+          <div class="col-sm">
+            <mat-slide-toggle class="example-margin" color="primary" (change)="switchMediaUrlFlag()"
+              matTooltip="Activate" [checked]="mediaUrlFlag"></mat-slide-toggle>
+          </div>
+          <div class="col-sm small">Media Url</div>
+        </div>
+        <container-element [ngSwitch]="mulSelectFieldToggle">
+          <div *ngSwitchCase="1" class="form-group  mt-3">
+            <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+              <div class="custom-file " style="font-size: 11px; width: 100%;">
+                <input type="file" class="custom-file-input" accept="image/*" name="multimediaImage"
+                  [(ngModel)]="botask.multimediaImage" (change)="getMediaPath($event)">
+                <label class="custom-file-label w-100 small" for="image">
+                  {{botask.fileName.image}}
+                </label>
+                <ng-template [ngIf]="sizeLimit">
+                  <div class="text-danger">Max size 5 MB</div>
+                </ng-template>
+                <ng-template [ngIf]="gifWarning == true">
+                  <div class="text-danger">Only support .png, .jpg and .jpeg</div>
+                </ng-template>
+              </div>
+            </ng-container>
+            <ng-template #mediaUrl>
+              <input type="text" class="form-control inputFull" id="imageMediaurl" name="imageMediaUrl"
+                [(ngModel)]="botask.mediaUrl.image" #imageMediaUrl="ngModel" placeholder="Enter Media Url *"
+                [required]="true" />
+              <div *ngIf="imageMediaUrl.errors && (imageMediaUrl.touched || f.submitted)">
+                <small class="text-danger">Media Url required</small>
+              </div>
+            </ng-template>
+          </div>
+          <!-- <div *ngSwitchCase="2" class="form-group mt-3">
+            <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+              <div class="custom-file" style="font-size: 11px; width: 100%;">
+                <input type="file" class="custom-file-input" id="audio" accept="audio/*" name="multimediaAudio"
+                  [(ngModel)]="botask.multimediaAudio" #multimediaAudio="ngModel" (change)="getMediaPath($event)">
+                <label class="custom-file-label small" for="audio">{{botask.fileName.audio}}</label>
+                <ng-template [ngIf]="sizeLimit">
+                  <div class="text-danger">Max size 5 MB</div>
+                </ng-template>
+              </div>
+            </ng-container>
+            <ng-template #mediaUrl>
+                <input type="text" class="form-control inputFull" id="audioMediaurl" name="audioMediaUrl"
+                [(ngModel)]="botask.mediaUrl.audio" #audioMediaUrl="ngModel" placeholder="Enter Media Url" [required]="true"/>
+                <div *ngIf="audioMediaurl.errors && (audioMediaurl.touched || f.submitted)">
+                  <small class="text-danger">Media Url required</small>
+                </div>
+            </ng-template>
+
+          </div> -->
+          <div *ngSwitchCase="3" class="form-group mt-3">
+            <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+              <div class="custom-file" style="font-size: 11px; width: 100%;">
+                <input type="file" class="custom-file-input" id="video" accept=".3gp,.mp4" name="multimediaVideo"
+                  [(ngModel)]="botask.multimediaVideo" #multimediaVideo="ngModel" (change)="getMediaPath($event)">
+                <label class="custom-file-label small" for="video">{{botask.fileName.video}}</label>
+                <ng-template [ngIf]="sizeLimit">
+                  <div class="text-danger">Max size 16 MB</div>
+                </ng-template>
+                <ng-template [ngIf]="gifWarning">
+                  <div class="text-danger">Only support 3gp and mp4</div>
+                </ng-template>
+              </div>
+            </ng-container>
+            <ng-template #mediaUrl>
+              <input type="text" class="form-control inputFull" id="videoMediaurl" name="videoMediaUrl"
+                [(ngModel)]="botask.mediaUrl.video" #videoMediaUrl="ngModel" placeholder="Enter Media Url *"
+                [required]="true" />
+              <div *ngIf="videoMediaUrl.errors && (videoMediaUrl.touched || f.submitted)">
+                <small class="text-danger">Media Url required</small>
+              </div>
+            </ng-template>
+
+          </div>
+          <div *ngSwitchCase="4" class="form-group mt-3">
+            <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+              <div class="custom-file" style="font-size: 11px; width: 100%;">
+                <input type="file" class="custom-file-input" id="document"
+                  accept=".pdf,.xlsx,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  name="multimediaDocument" [(ngModel)]="botask.multimediaDocument" #multimediaDocument="ngModel"
+                  (change)="getMediaPath($event)">
+                <label class="custom-file-label small" for="document">{{botask.fileName.document}}
+                </label>
+                <ng-template [ngIf]="sizeLimit">
+                  <div class="text-danger">Max size 100 MB</div>
+                </ng-template>
+                <input type="text" class="form-control mt-2 inputFull" [(ngModel)]="botask.documentFileName"
+                  name="filename" placeholder="Enter file Name" maxlength="240">
+              </div>
+            </ng-container>
+            <ng-template #mediaUrl>
+              <input type="text" class="form-control inputFull" id="documentMediaurl" name="documentMediaUrl"
+                [(ngModel)]="botask.mediaUrl.document" #documentMediaUrl placeholder="Enter Media Url *"
+                [required]="true" />
+              <div *ngIf="documentMediaurl.errors && (documentMediaurl.touched || f.submitted)">
+                <small class="text-danger">Media Url required</small>
+              </div>
+            </ng-template>
+          </div>
+          <div *ngSwitchCase="'default'"></div>
+        </container-element>
+        <div *ngIf="mulSelectFieldToggle == 5 && (selectFieldToggle== 3 || selectFieldToggle == 2)">
+          <div class="d-flex">
+            <div class="question-head">Header <span class="text text-danger">*</span></div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue " matTooltip="Header part of the Message"></i>
+            </div>
+          </div>
+          <input type="text" placeholder="Header of Message *" class="form-control mt-2 inputFull" maxlength="60"
+            name="body" [(ngModel)]="botask.header" #header="ngModel" [required]="true">
+          <div *ngIf="header.errors && (header.touched || f.submitted)">
+            <small class="text-danger">Header Required</small>
+          </div>
+          <!-- <custom-textarea placeHolder="Enter Header" [model]="botask.header" minHeight=100 classOverride="botsask.header"
+          (messageData)="getMessage($event,'botask.header')" (textLength)="getTextLength($event)">
+        </custom-textarea> -->
+        </div>
+        <div class="d-flex">
+          <div class="question-head">{{content}} <span class="text text-danger">*</span></div>
+          <div class=" ml-auto question-head">
+            <i class="bi bi-question-circle tooltipBlue " matTooltip="Content used for the communication"></i>
+          </div>
+        </div>
+        <custom-textarea placeHolder="Enter {{content}} *" [model]="modelToPass" minHeight=100
+          classOverride={{tempModel}} (messageData)="getMessage($event,tempModel)" (textLength)="getTextLength($event)"
+          maxLen={{contentLength}}>
+        </custom-textarea>
+        <div *ngIf="mulSelectFieldToggle==5" class="d-flex">
+          <div class="question-head">Check Url</div>
+          <input class="ml-auto arrange-checkbox" type="checkbox" style="position: relative;top: 8px;"
+            [checked]="previewUrlFlag" (change)="setPreviewUrl()" matTooltip="used to check if the content have any valid urls.
+            NB:'Automatically disabled(unchecked) after submitting if the content doesn't have any valid URL'" />
+        </div>
+        <!-- <div *ngIf="mulSelectFieldToggle == -1">
+
+        </div> -->
+        <div *ngIf="selectFieldToggle== 3 || selectFieldToggle == 2 ">
+          <input type="text" placeholder="footer" class="form-control mt-2 inputFull" maxlength="60" name="footer"
+            [(ngModel)]="botask.footer">
+        </div>
+        <!-- <container-element [ngSwitch]="selectFieldToggle">
+
+
+      </container-element> -->
+        <div *ngIf="selectFieldToggle== 3">
+          <input type="text" placeholder="List Button Name *" class="form-control mt-2 inputFull" name="listButtonName"
+            [(ngModel)]="botask.listButtonName" #buttonName="ngModel" [required]="true" maxlength="20">
+          <div *ngIf="buttonName.errors && (buttonName.touched || f.submitted)">
+            <small class="text-danger">List Button name Required</small>
+          </div>
+          <div *ngIf="botask.listButtonName.trim().length == 0  && buttonName.touched ">
+            <small class="text-danger">Space or Empty name not allowed</small>
+          </div>
+        </div>
+
+        <!-- <div class="d-flex mt-2">
+          <div class="question-head">Add Answer Options</div>
+          <div class="ml-auto"><i class="bi bi-plus-circle-fill addBtn" (click)="addOption()"></i></div>
+        </div>
+        <div class="mapping-div" *ngFor="let answer of answerOptions; let i = index">
+          <div class="relative mt-2">
+            <i class="bi bi-trash input-icon" (click)="deleteOption(i,f)"></i>
+            <div>
+              <small>{{optionName}}-{{i+1}}</small>
+            </div>
+            <input type="text" class="form-control inputFull" name="answer{{i}}" [(ngModel)]="botask.answerOptions[i]"
+              [required]="true">
+          </div>
+          <div>
+            <small>Key-{{i+1}} Redirection Object</small>
+          </div>
+          <next-object [arrayNode]=selectedNode [index]=i [nodeId]=nodeId (childValue)="childValue($event,i)"></next-object>
+        </div> -->
+        <div *ngIf="botask.selectFieldvalue == 3">
+          <div class="d-flex mt-2">
+            <div class="question-head">Add Section</div>
+            <div class="ml-auto">
+
+              <i class="bi bi-plus-circle-fill addBtn" matTooltip="helps to add more sections for list grouping"
+                (click)="addSection()"></i>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let section of sections; let secNum = index">
+          <div class="mapping-div mt-2">
+            <div *ngIf="botask.selectFieldvalue == 3">
+              <input type="text" placeholder="section Name *" class="form-control inputFull" name="section{{secNum}}"
+                [(ngModel)]="sections[secNum].name" maxlength="24" required="true" (keydown)="checkNullSectionName()"
+                (keyup)="checkNullSectionName()" (paste)="checkNullSectionName()">
+              <div *ngIf="sections[secNum].name.errors && (sections[secNum].name.touched || f.submitted)">
+                <small class="text-danger">Section name Required</small>
+              </div>
+              <div *ngIf="sections[secNum].name.trim().length == 0  && sections[secNum].name.touched">
+                <small class="text-danger">Space or Empty name not allowed</small>
+              </div>
+            </div>
+            <div class="d-flex " *ngIf="botask.selectFieldvalue != 4">
+              <div class="question-head">Add Answer Options</div>
+              <div class="ml-auto">
+                <i class="bi bi-plus-circle-fill" matTooltip="helps to add more options"
+                  (click)="addOption(secNum)"></i>
+                <i *ngIf="botask.selectFieldvalue == 3 && sections.length>1"
+                  matTooltip="helps to delete this entire section" class="bi bi-trash delBtn"
+                  (click)="deleteSection(secNum)"></i>
+              </div>
+            </div>
+            <div *ngFor="let option of sections[secNum].options let i = index" class="section-mapping">
+              <div class="relative mt-2">
+                <i *ngIf="sections[secNum].options.length>1" class="bi bi-trash input-icon"
+                  matTooltip="helps to delete each option" (click)="deleteOption(i,secNum)"></i>
+                <div>
+                  <small *ngIf="botask.selectFieldvalue != 4">{{optionName}}-{{i+1}} <span
+                      class="text text-danger">*</span></small>
+                  <small *ngIf="botask.selectFieldvalue == 4">Exit Node</small>
+                </div>
+                <!-- name="answer{{i}}_of_section{{secNum}}" [(ngModel)]="sections[secNum].options[i].optionName" -->
+                <input type="text" *ngIf="botask.selectFieldvalue != 4" class="form-control inputFull"
+                  name="answer{{i}}_of_section{{secNum}}" [(ngModel)]="sections[secNum].options[i].optionName"
+                  [required]="true" [maxlength]="maxLength" (keydown)="checkNullOption()" (keyup)="checkNullOption()"
+                  (paste)="checkNullOption()">
+                <div
+                  *ngIf="sections[secNum].options[i].optionName.errors && (sections[secNum].options[i].optionName.touched || f.submitted)">
+                  <small class="text-danger">Options Required</small>
+                </div>
+                <!-- <div *ngIf="sections[secNum].options[i].optionName.trim().length == 0">
+                   <div class="text-danger">
+                    <small>Space or Empty Options not allowed</small>
+                   </div>
+                  </div> -->
+                <input type="text" *ngIf="botask.selectFieldvalue == 4" class="form-control inputFull"
+                  name="answer{{i}}_of_section{{secNum}}" [required]="true" value="Exit Node" disabled>
+              </div>
+              <div *ngIf="botask.selectFieldvalue == 3">
+                <div>
+                  <small>Description-{{i+1}}</small>
+                </div>
+                <input type="text" class="form-control inputFull" name="description{{i}}_of_section{{secNum}}"
+                  maxlength="72" [(ngModel)]="sections[secNum].options[i].description">
+              </div>
+              <div>
+                <small>Key-{{i+1}} Redirection Object</small>
+              </div>
+              <next-object [arrayNode]=outputNode [index]={sec:secNum,index:i} [nodeId]=nodeId
+                (childValue)="childValue($event,secNum,i)"></next-object>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchDefault></div>
+    </container-element>
+
+    <!-- <div class="d-flex">
+      <div class="question-head">Add Connection</div>
+      <input class="form-control inputFull" type="checkbox" class="arrange-checkbox" value="checkedValue"
+        [disabled]="answerArrayLength == 0" (change)="addConnectionToggle = !addConnectionToggle">
+    </div> -->
+    <!-- <div *ngIf="addConnectionToggle">
+      <div *ngIf="uniqueObjectLength == 0; else elseBlock" class="mt-3 ml-1 alert-danger">
+        There is no other nodes saved
+      </div>
+      <ng-template #elseBlock>
+        <div class="row">
+          <div class="col-md small ml-1">Output Node</div>
+          <div class="col-md small ml-1">Input Node</div>
+        </div>
+        <div class="row" *ngFor="let in of createArray(answerArrayLength);  let i = index">
+          <div class="col-6 col">
+            <select class="form-control formhaif" ngModel name="selectOutput{{i}}">
+              <option *ngFor="let in of createArray(answerArrayLength);  let i = index" value="{{i+1}}">output{{i+1}}
+              </option>
+            </select>
+          </div>
+          <div class="col-6 col">
+            <select class="form-control formhaif" ngModel name="selectInput{{i}}">
+              <option *ngFor="let nodes of uniqueObject | keyvalue " value="{{nodes.value['id']}}">
+                {{nodes.value["name"]}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </ng-template>
+    </div> -->
+    <div class="mapping-div">
+      <div class="relative mt-2">
+        <div class="d-flex">
+          <small>invalid response </small>
+          <small class="ml-4">Retry Count</small>
+        </div>
+        <div class="d-flex">
+          <input type="text" class="form-control formhaif" name="answer{{answerArrayLength+1}}"
+            [(ngModel)]="botask.invalidresponseKey" [required]="true" disabled>
+          <input type="text" class="form-control formhaif ml-3 mb-2" name="retryCount" [(ngModel)]="botask.retryCount"
+            (keydown)="checkingNumber($event)" placeholder="0" maxlength="10" />
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="question-head">Invalid Response</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the content of an Invalid response"></i>
+        </div>
+      </div>
+
+      <custom-textarea placeHolder="Enter invalid response message" [model]="botask.invalidMessage" minHeight=100
+        classOverride="botask.invalidMessage" (messageData)="getMessage($event,'botask.invalidMessage')"
+        (textLength)="getTextLength($event)" maxLen=4000></custom-textarea>
+
+      <div>
+        <small> Redirection Object</small>
+      </div>
+      <!-- <next-object [arrayNode]=selectedNode [index]={answerOptions.length} [nodeId]=nodeId  (childValue)="childValue($event, answerArrayLength)"></next-object> -->
+      <next-object [arrayNode]=outputNode [index]={sec:sections.length,index:0} [nodeId]=nodeId
+        (childValue)="childValue($event,sections.length,0)"></next-object>
+    </div>
+
+    <div class="d-flex" *ngIf="selectFieldToggle == 4">
+      <div class="question-head ">Expected Input <span class="text text-danger">*</span></div>
+      <div class=" ml-auto question-head">
+        <i class="bi bi-question-circle tooltipBlue "
+          matTooltip="helped to define what type of input user will sent"></i>
+      </div>
+
+    </div>
+    <select *ngIf="selectFieldToggle == 4" class="form-control inputFull" (change)="expectedInputFn($event)"
+      name="expectedInput" [(ngModel)]="botask.expectedInput" #expectedInput="ngModel" [required]="true">
+      <option value="1">Image</option>
+      <option value="2">Audio</option>
+      <option value="3">Video</option>
+      <option value="4">Document</option>
+      <option value="5">Text</option>
+      <option value="6">Contact</option>
+      <option value="8">Location</option>
+    </select>
+
+    <div class="d-flex">
+      <div class="question-head">Save Response <span class="text text-danger">*</span></div>
+      <div class=" ml-auto question-head">
+
+        <i *ngIf="selectFieldToggle == 4 && botask.expectedInput == 5" class="bi bi-list-check mr-2"
+          matTooltip="This will help to make Validation on variable" (click)="callValidator()"
+          style="cursor:pointer;"></i>
+
+        <i class="bi bi-question-circle tooltipBlue "
+          matTooltip="This property will help the user to define response in a variable"></i>
+      </div>
+    </div>
+    <div class="icon" (click)="input(0,'variable')">{{icon}}</div>
+    <input type="text" class="form-control formhaif pr-4" name="variable" #response="ngModel"
+      [(ngModel)]="botask.variable" [required]="true" (keydown)="checkVaraibleLength($event)"
+      (paste)="checkVaraibleLength($event)">
+    <div *ngIf="response.errors && (response.touched || f.submitted)">
+      <small class="text-danger">Response Required</small>
+    </div>
+    <div *ngIf="variableFlag == true">
+      <small class="text-danger">Space or Empty Response not allowed</small>
+    </div>
+    <app-free-text-validator (childToParent)="bindValidation($event)">
+    </app-free-text-validator>
+    <div class="row mt-2">
+      <div class="col-7 col pTop">
+        <div>Wait in sec</div>
+      </div>
+      <div class="col-5 col">
+        <input #timeout="ngModel" type="text" class="form-control formhaif" name="waitTime"
+          [(ngModel)]="botask.waitTime" placeholder="0" maxlength="8" (keydown)="checkingNumber($event)"
+          matTooltip="This object will wait for the mentioned time">
+        <!-- <div *ngIf="timeout.errors && (timeout.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+          </div> -->
+      </div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-7  col mt-1">
+        <div><b>Timeout in sec</b></div>
+      </div>
+      <div class="col-5 col">
+        <input type="text" class="form-control formhaif mb-2" name="timeout" [(ngModel)]="botask.timeout"
+          (keydown)="checkingNumber($event)" placeholder="0" maxlength="10" />
+      </div>
+    </div>
+
+    <custom-textarea placeHolder="Enter Timeout message" [model]="botask.timeoutMessage" minHeight=100
+      classOverride="botask.timeoutMessage" (messageData)="getMessage($event,'botask.timeoutMessage')"
+      (textLength)="getTextLength($event)" maxLen=4000>
+    </custom-textarea>
+
+    <div class="d-flex fixedSave">
+      <button class="savebtn ml-auto mr-auto mt-3 mb-2" [disabled]="textLength==false ||
+        fileUploadFlag== false ||
+        !f.valid ||
+        sizeLimit==true||
+        duplicatekeywordcheckFlag == true||
+        botask.uniqueName.trim().length == 0 ||
+        duplicateUniquecheckFlag ==true ||
+        gifWarning == true||
+        mediaErrorFlag == true||
+        (selectFieldToggle == 3 && botask.listButtonName.trim().length == 0) ||
+        variableFlag == true ||
+        nullOptionFLag == true||
+        nullSectionFlag == true||
+        disabledForView == true">
+        Submit
+      </button>
+      <!-- <i class="bi bi-trash delete-icon mt-3 mb-2" (click)="f.reset();clearForm(); "></i> -->
+    </div>
+  </form>
+</div>

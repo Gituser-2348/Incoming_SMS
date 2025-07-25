@@ -1,0 +1,52 @@
+<app-header [fixed]="true" [style]=headerStyle
+  [navbarBrandFull]="{src: 'assets/img/logo/Etisalat Logo AI-01.png',  height:50,width:50}"
+  [navbarBrandMinimized]=brandMin [sidebarToggler]="'lg'"
+  [asideMenuToggler]="false" [mobileAsideMenuToggler]="false" [appAsideMenuToggler]="false">
+
+  <div *ngIf="isHomeRoute()" class="flowName">
+    << Flow : {{flowName}}</div>
+      <ul class="nav navbar-nav ml-auto">
+        <li style="display:none;" class="nav-item d-md-down-none dropdown" role="button">
+          <app-manage-acc-service></app-manage-acc-service>
+
+        </li>
+        <!--
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+    </li> -->
+        <li class="nav-item dropdown" dropdown placement="bottom right">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            dropdownToggle (click)="false">
+            <img src="assets/img/avatars/6.jpg" class="img-avatar mr-4" alt="Logo" />
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+            <div class="dropdown-header text-center"><strong>{{userName}}</strong></div>
+
+            <div class="divider"></div>
+
+            <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+          </div>
+        </li>
+      </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
+    (minimizedChange)="toggleMinimize($event)" [style]=sidebarStyle class="ng-star-inserted open">
+    <app-sidebar-nav [navItems]="navItems"  ></app-sidebar-nav>
+    <!-- <app-sidebar-minimizer></app-sidebar-minimizer> -->
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main" style="background-color: #F7F8FC;" id="mainTag">
+
+    <div class="container-fluid " id="container" style="padding-top: 1.75rem; ">
+      <router-outlet></router-outlet>
+      <app-verification></app-verification>
+      <!-- <app-regiform></app-regiform> -->
+    </div>
+  </main>
+  <app-chat-bot id="chatBotComp" *ngIf="agentWindow" class="chatBotWindow"></app-chat-bot>
+</div>
+<app-footer>
+  <span><a target="_blank" href={{footerHref}}>IncomingSMS 1.00</a> &copy; 2024.</span>
+  <span class="ml-auto">Powered by <a target="_blank" href={{footerHref}}>{{footerName}}</a></span>
+</app-footer>

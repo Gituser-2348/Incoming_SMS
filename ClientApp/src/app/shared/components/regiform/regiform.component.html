@@ -1,0 +1,72 @@
+<div class="modal modelfade " tabindex="-1" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog">
+        <div class="modal-content model">
+            <div class="modal-body ">
+                <div class="container">
+                    <div class="row custom-wrapper">
+                        <div class="col-md-12 mt-4">
+                            <form [formGroup]="registrationForm">
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
+                                        <div class="group-gap">
+                                            <div class="avatar-upload">
+                                                <div class="avatar-edit">
+                                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"
+                                                        #fileInput (change)="uploadFile($event)" />
+                                                </div>
+                                                <div class="avatar-preview">
+                                                    <div id="imagePreview"
+                                                        [style.backgroundImage]="'url('+ imageUrl +')'">
+                                                    <!-- <button (click)="removeUploadedFile()" >X</button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6 detail">
+                                        <div class="row mt-4">
+                                            <div><h2>Full Name</h2></div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div><h4>emailid@gmail.com</h4></div>
+                                            <button type="submit" class="button" (click)="fileInput.click()">Upload
+                                                Image</button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <label class="label mt-4" for="">ABOUT *</label>
+                                <input class="input" type="text" formControlName="about">
+                                <div *ngIf="(this.registrationForm.get('about')?.touched||registrationForm.get('about')?.dirty)&&registrationForm.get('about')?.errors" class="danger"><small>About Required</small></div>
+                                <label class="label mt-4" for="">ADDRESS *</label>
+                                <input class="input" type="text" formControlName="address">
+                                <div *ngIf="(this.registrationForm.get('address')?.touched||registrationForm.get('address')?.dirty)&&registrationForm.get('address')?.errors" class="danger"><small>Address Required</small></div>
+
+                                <label class="label mt-4" for="">DESCRIPTION *</label>
+                                <textarea class="inputtext" type="text" formControlName="description"></textarea>
+                                <div *ngIf="(this.registrationForm.get('description')?.touched||registrationForm.get('description')?.dirty)&&registrationForm.get('description')?.errors" class="danger"><small>Description Required</small></div>
+                                <label class="label mt-4" for="">WEBSITE *</label>
+                                <input class="input" type="text" formControlName="website">
+                                <div *ngIf="(this.registrationForm.get('website')?.touched||registrationForm.get('website')?.dirty)&&registrationForm.get('website')?.errors" class="danger"><small>Website Required</small></div>
+                                <label class="label mt-4" for="">API KEY *</label>
+                                <input class="input" type="text" formControlName="api">
+                                <div *ngIf="(this.registrationForm.get('api')?.touched||registrationForm.get('api')?.dirty)&&registrationForm.get('api')?.errors" class="danger"><small>API Key Required</small></div>
+                                <label class="label mt-4" for="">BUSINESS VERTICAL *</label>
+                                <select class="input" type="text" formControlName="vertical">
+                                <option >Option 1</option>
+                                <option >Option 2</option>
+                                </select> 
+                                <div *ngIf="(this.registrationForm.get('vertical')?.touched||registrationForm.get('vertical')?.dirty)&&registrationForm.get('vertical')?.errors" class="danger"><small>Business Vertical Required</small></div>
+                                <label class="label mt-4" for="">SPOC PERSON DETAILS *</label>
+                                <input class="input" type="text" formControlName="person">
+                                <div *ngIf="(this.registrationForm.get('person')?.touched||registrationForm.get('person')?.dirty)&&registrationForm.get('person')?.errors" class="danger"><small>Details Required</small></div>
+                                <button type="button" (click)="onSubmit()" class="button mt-4 float-right">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

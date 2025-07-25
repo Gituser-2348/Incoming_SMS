@@ -1,0 +1,94 @@
+/* .property-outer{
+  width: 20%;
+} */
+.property-outer{
+  background-color:white ;
+  /* border: 1px solid #b9b6b6; */
+  /* width:190px; */
+	position:relative;
+  /* top: -23px; */
+  border-radius: 20px;
+  /* height: calc(100vh - 115px); */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 0px -5px 0px 5px;
+
+  /* after Meet */
+  box-shadow: 0 2px 15px 2px #cacaca;
+  height: calc(100vh - 100px);
+
+  /* top: -20px; */
+  width: 230px;
+}
+.property-outer::-webkit-scrollbar {
+  width: 5px;
+}
+.property-outer::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px #ffffff; */
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 15px;
+
+  margin-top: 40px;
+  margin-bottom: 450px;
+}
+
+.property-outer::-webkit-scrollbar-thumb {
+  background: #aaaaaa;
+  border-radius: 10px;
+}
+.property-outer::-webkit-scrollbar-button {
+  height: 10px;
+}
+
+.property-header{
+  color: rgba(37.00000159442425, 39.00000147521496, 51.00000075995922, 1);
+  margin: 15px;
+  font-size: 16px;
+  font-family: Poppins;
+  font-weight: bold;
+}
+.header-icon{
+  height: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  top: 18px;
+  left: -15px;
+  cursor: pointer;
+}
+.arrowDiv{
+  position: relative;
+  /* top: -20px; */
+  cursor: pointer;
+  /* after Meet */
+  left: 5px;
+  z-index: 5;
+  top: 40px;
+}
+.arrow {
+  /* border: solid rgb(129 129 129); */
+  border: solid #000000d6;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 5px;
+}
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.fixedHeader{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+}
+
+
+

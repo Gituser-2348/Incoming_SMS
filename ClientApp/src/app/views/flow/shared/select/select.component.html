@@ -1,0 +1,22 @@
+<div style="text-align:center" id="simpleKey">
+
+    <div cdkDrag class="simple-keyboard "
+      [style]="{width:'500px',position :'fixed',top:'370px',right:'250px','z-index':'1000','cursor':'move','padding':'5px'}">
+      <div class="input">
+        <div class="languageWindow" *ngIf="showWindow">
+          <div>
+            <!-- <i class="bi bi-search icon"></i> -->
+            <input class="formcontrol" [(ngModel)]="search" (ngModelChange)="onSearch()" placeholder="Search" />
+          </div>
+          <ul class=" list">
+            <li *ngFor="let language of languages">
+              <button [class.selected]="language === selectedLanguage" type="button"
+                (click)="getLanguage(language)">
+                <span class="name">{{language}}</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

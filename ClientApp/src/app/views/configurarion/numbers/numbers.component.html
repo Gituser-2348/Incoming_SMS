@@ -1,0 +1,142 @@
+
+<div class="row"  >
+    <div class="col-lg-12 ">
+    
+      <div class="card-header" >
+          <div class='card shadow-lg ' >
+            <div class="d-flex">
+            <h2 style="margin-left:5px;font-size:16px;" class="card-title">Configuration MSISDN</h2>
+            <!--<div style="margin-left:60%;">
+              <mat-form-field>
+                <mat-select [(ngModel)]="customer_" placeholder="Select Customer">
+                  <mat-option value=" ">-select-</mat-option>
+                  <mat-option *ngFor="let item of customerlist" [value]="item.value">
+                    {{ item.text }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-icon-button (click)="customer_search()" class="search-button">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>-->
+           </div>
+        </div>
+          <div class="card-body scrollable-content" style="margin-top: 10px; overflow-y: auto;height:30vw; ">
+            <!-- <div class="mainDiv p-2"> -->
+            <div style="font-weight:bold;" *ngIf="is_show_vmn_data">
+              <h5 style="font-weight:bold;">Customer Name : {{customer_name_}} </h5>
+             
+            </div>
+            
+
+            <!--<table>-->
+            <!--<tr>
+    <th style="text-align: center;">MDN / MSISDN</th>
+    <th style="text-align: center;"><span style="color:red;">*</span> IMSI</th>
+  </tr>-->
+            <!--<tr *ngFor="let item of items">
+    <td><div [innerHTML]="item.msisdn"></div></td>
+    <td style="padding-left:20px;"><div style="display:flex"><div [innerHTML]="item.imsi"></div> <i (click)="minus(item.index);" style="color:red" class="bi bi-dash-circle addi"></i></div></td>
+
+  </tr>-->
+            
+            <!--tr *ngFor="let item of org_item; let i=index">
+    <td><input class="in_box1" type="text" [(ngModel)]="item.msisdn"></td>
+    <td style="padding-left:20px;"><input class="in_box1" type="text" [(ngModel)]="item.imsi"></td>
+    <td><button (click)="minus(i)" style="color:red" class="btnnumb"> <i class="bi bi-dash-circle addm"></i></button></td>
+  </tr>-->
+            <!--</table>-->
+            <div class="card-body" style="margin-top: 10px; width: 60%; margin-left: 20%; height: 300px; overflow-y: auto;">
+              <!-- <div class="mainDiv p-2"> -->
+              <div class="card-body " >
+
+                <div *ngIf="is_show_vmn_data">
+                  <div *ngIf="dataSource?.data.length > 0">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;">
+
+                      <!-- Sl No Column -->
+                      <ng-container matColumnDef="Sl_No">
+                        <th mat-header-cell *matHeaderCellDef> Sl No </th>
+                        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                      </ng-container>
+
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="MDN / MSISDN">
+                        <th mat-header-cell *matHeaderCellDef> MDN / MSISDN </th>
+                        <td mat-cell *matCellDef="let element">
+                          <ng-container *ngIf="element.editable; else readOnlyInput">
+                            <mat-form-field>
+                             
+                              <input maxlength="15" matInput type="text" [(ngModel)]="element.msisdn"  >
+                            </mat-form-field>
+                          </ng-container>
+                          <ng-template #readOnlyInput>
+                            {{ element.msisdn }} 
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="IMSI">
+                        <th mat-header-cell *matHeaderCellDef> IMSI</th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                          <ng-container *ngIf="element.editable; else readOnlyInput">
+                            <mat-form-field>
+                              <div style="display:flex;">
+                                <input maxlength="15" matInput type="text" [(ngModel)]="element.imsi" >
+                                <!--<input maxlength="15" matInput type="text" [(ngModel)]="element.imsi" [style.color]="element.imsiDuplicate ? 'red !important' : 'initial'">-->
+                                <span style="margin-left:3%;">
+                                  <button *ngIf="element.editable" (click)="minus(i)" style="color:red; border:0px;">
+                                    <mat-icon>delete_outline</mat-icon>
+                                  </button>
+                                </span>
+                              </div>
+                            </mat-form-field>
+                          </ng-container>
+                          <ng-template #readOnlyInput>{{ element.imsi}}
+                          </ng-template>
+                        </td>
+                      </ng-container>
+
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <div *ngIf="is_show_dup_err" class="d-flex" style="color:red"><mat-icon>warning</mat-icon> Avoid Duplicate msisdn/imsi(They are already in use)</div>
+                    <div *ngIf="is_show_val_error" class="d-flex" style="color:red"><mat-icon>warning</mat-icon> msisdn/imsi should be numeric (9 to 15 digit)</div>
+                  </div>
+                </div>
+               
+
+                <div *ngIf="is_show_no_data_err">
+                  <div  style="color: red; ">
+                    <div class="d-flex" style="margin-left:15vw;margin-top:5vw"><mat-icon>warning</mat-icon> <div>No VMN data available.Please select a request to configure</div></div>
+                  </div>
+                </div>
+
+                <!--{{dataSource}}-->
+                <!--<ag-grid-angular #agGrid id="myGrid" [paginationPageSize]="50" style="width: 100%; height: 100%; overflow-y: auto;" class="ag-theme-alpine"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData" ></ag-grid-angular>-->
+                <!--<ag-grid-angular style="width: 500px; height: 500px;"
+                       class="ag-theme-alpine"
+                       [rowData]="rowData"
+                       [columnDefs]="columnDefs">
+      </ag-grid-angular>-->
+
+              </div>
+            </div>
+            <div style="display:flex">
+              <div style="flex-grow:1"> <button class="btn" (click)="pre_back();" style="color:grey;"><<  Back</button></div>
+             
+              <div *ngIf="is_show_vmn_data">
+                <button *ngIf="isvmnbtnEnabled" (click)="add_button();" class="btnnumb"> <mat-icon>add_circle_outline</mat-icon> <span>Add Numbers</span> </button>
+                <button *ngIf="isvmnbtnEnabled" (click)="save_();" class="btnsave">Save & Next</button>
+              </div>
+            </div>
+           
+
+          </div> 
+        </div>
+ </div>
+
+
+</div>

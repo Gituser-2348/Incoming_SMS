@@ -1,0 +1,113 @@
+.inputFull.ng-invalid.ng-touched {
+  border: 1px solid #ff000085 !important;
+  /*change color if you want*/
+}
+
+.formhaif.ng-invalid.ng-touched {
+  border: 1px solid #ff000085 !important;
+  /*change color if you want*/
+}
+
+.propListTextBox.ng-invalid.ng-touched {
+  border: none;
+  border-bottom: 1px solid #ff000085 !important;
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid #ff000085 !important;
+  /*change color if you want*/
+}
+
+.helpBi {
+  font-size: 10px !important;
+}
+
+.helpBtn {
+  font-size: 12px !important;
+  padding: 1px 5px 2px 5px !important;
+  border-radius: 8px;
+  height: 21px;
+}
+
+
+.formhaif {
+  font-size: 10px;
+  border-radius: 10px;
+  height: 26px !important;
+  width: 100% !important;
+  padding: 5px;
+}
+
+.form-control:focus {
+  border-color: rgb(206, 206, 206);
+  box-shadow: none;
+}
+
+.col {
+  padding: 0px;
+}
+
+.pTop {
+  padding-top: 2px;
+}
+
+.box {
+  margin: 0px 15px;
+}
+
+.icon {
+  font-size: 12px;
+  position: absolute;
+  margin-left: 72.5px;
+  cursor: pointer;
+}
+
+.yes {
+  font-family: Poppins;
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  border: .5px;
+  border-style: solid;
+  border-color: rgba(209, 209, 209, 0.493);
+}
+
+.list {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--main-color);
+}
+
+.propIconStyle {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--main-color);
+  padding-left: 2px;
+}
+
+
+.prop-label {
+  color: rgba(37.00000159442425, 39.00000147521496, 51.00000075995922, 1);
+  /* position: relative; */
+  font-family: Poppins;
+  text-align: left;
+  font-size: 12px;
+  height: 20px !important;
+  margin: 5px 0px 0px 5px;
+}
+
+.tool-tip {
+  position: relative;
+  left: -20px;
+  top: 4px;
+}
+
+.propListTextBox {
+  font-size: 10px;
+  width: 98%;
+  background: transparent;
+  border: none;
+  /* border-bottom: 1px solid #F3F0F0; */
+  border-bottom: 1px solid #9CB9F7;
+}

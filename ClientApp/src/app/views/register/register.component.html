@@ -1,0 +1,143 @@
+<div class="app-body" style=" background-image:linear-gradient(0deg, rgba(84.47757616639137, 136.29560083150864, 184.87500607967377, 1) 0%,rgba(138.73885452747345, 181.19622588157654, 221.00000202655792, 1) 100%);
+background-image: url(./assets/img/logo/pattern_3.png); background-repeat: repeat-x; object-fit: cover;
+">
+  <main class="main d-flex align-items-center">
+    <div class="container" style="width: 950px;">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4 mt-3 mb-3">
+              <div class="card-body">
+                <h2>WhatsApp Business API Account Submission</h2>
+                <h4>Please provide information about the company and phone number that you would like to connect to the
+                  WhatsApp Business API. Please make sure that your company follows Facebook's <a href="https://www.whatsapp.com/legal/commerce-policy" target="_blank">compliance policy.</a></h4>
+                  <form [formGroup]="ngForm" (ngSubmit)="save()">
+                  <label for="">PERSONAL INFORMATION</label>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>Email</p><i
+                        matTooltip="Email will be used for communication purposes and alerts about the WhatsApp Business API"
+                        matTooltipClass="mat-tooltip-panel-right" class="mt-1 ml-1 far fa-question-circle"></i>
+                    </div>
+                    <input type="text" class="form-control input" name="email" id="email" formControlName="email"
+                      [ngClass]="{'input-red':(this.ngForm.get('email')?.touched||this.ngForm.get('email')?.dirty)&&this.ngForm.get('email')?.errors}">
+                  </div>
+                  <div
+                    *ngIf="(this.ngForm.get('email')?.touched||this.ngForm.get('email')?.dirty)&&this.ngForm.get('email').errors?.required"
+                    class="danger"><small>Email Required</small></div>
+
+                  <div
+                    *ngIf="(this.ngForm.get('email')?.touched||this.ngForm.get('email')?.dirty)&&this.ngForm.get('email').errors?.email"
+                    class="danger"><small> Invalid Email Format</small></div>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>Full Name</p>
+                    </div>
+                    <input type="text" class="form-control input" name="fullName" formControlName="fullName"
+                      [ngClass]="{'input-red':(this.ngForm.get('fullName')?.touched||this.ngForm.get('fullName')?.dirty)&&this.ngForm.get('fullName')?.errors}">
+                  </div>
+                  <div
+                    *ngIf="(this.ngForm.get('fullName')?.touched||this.ngForm.get('fullName')?.dirty)&&this.ngForm.get('fullName')?.errors"
+                    class="danger"><small>Full Name Required</small></div>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>Password</p>
+                    </div>
+                    <input type="text" class="form-control input" name="password" formControlName="password"
+                      [ngClass]="{'input-red':(this.ngForm.get('password')?.touched||this.ngForm.get('password')?.dirty)&&this.ngForm.get('password')?.errors}">
+                  </div>
+                  <div
+                    *ngIf="(this.ngForm.get('password')?.touched||this.ngForm.get('password')?.dirty)&&this.ngForm.get('password')?.errors"
+                    class="danger"><small>Password Required</small></div>
+                  <label for="">BUSINESS DETAILS</label>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>Legal Company Name</p>
+                    </div>
+                    <input type="text" class="form-control input" name="legalCompanyName"
+                      formControlName="legalCompanyName"
+                      [ngClass]="{'input-red':(this.ngForm.get('legalCompanyName')?.touched||this.ngForm.get('legalCompanyName')?.dirty)&&this.ngForm.get('legalCompanyName')?.errors}">
+                  </div>
+                  <div
+                    *ngIf="(this.ngForm.get('legalCompanyName')?.touched||this.ngForm.get('legalCompanyName')?.dirty)&&this.ngForm.get('legalCompanyName')?.errors"
+                    class="danger"><small>Legal Company Name Required</small></div>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>
+                        Facebook Business Manager ID</p><i matTooltip="Find your business ID in Business Manager. "
+                        class="mt-1 ml-1 far fa-question-circle"></i>
+                    </div>
+                    <input type="text" class="form-control input" name="facebookId" formControlName="facebookId"
+                      [ngClass]="{'input-red':(this.ngForm.get('facebookId')?.touched||this.ngForm.get('facebookId')?.dirty)&&this.ngForm.get('facebookId')?.errors}">
+                  </div>
+                  <div
+                    *ngIf="(this.ngForm.get('facebookId')?.touched||this.ngForm.get('facebookId')?.dirty)&&this.ngForm.get('facebookId')?.errors"
+                    class="danger"><small>Facebook Managaer ID Required</small></div>
+
+                  <label for="">MESSAGING</label>
+                  <div class="textOnInput mt-3">
+                    <div class="tool">
+                      <p class="danger">*</p>
+                      <p>
+                        WhatsApp Phone Number</p><i
+                        matTooltip="Number to be used for the WhatsApp Business API Account."
+                        class="mt-1 ml-1 far fa-question-circle"></i>
+                    </div>
+                    <!-- <input type="text" class="form-control input" name="whatsapp" formControlName="whatsapp" [ngClass]="{'input-red':(this.ngForm.get('whatsapp')?.touched||this.ngForm.get('whatsapp')?.dirty)&&this.ngForm.get('facebookId')?.errors}"> -->
+
+                    <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                      [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+                          SearchCountryField.Iso2,
+                          SearchCountryField.Name
+                        ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India"
+                      [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                      [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
+                    </ngx-intl-tel-input>
+
+                  </div>
+                  <div class="row">
+
+                  </div>
+                  <div *ngIf="this.ngForm.get('phone')?.touched && this.ngForm.get('phone')?.errors"
+                    class="danger"><small>WhatsApp Number Required</small></div>
+                  <div class="textOnInput">
+                    <div class="tool">
+                      <p>Timezone</p>
+                    </div>
+                    <select class="form-control input" formControlName="timezone" data-live-search="true">
+                      <option value="" disabled selected>Choose your timezone</option>
+                      <option *ngFor="let time of timezone">{{time.value}} {{time.text}}</option>
+                    </select>
+                  </div>
+                  <div class="card attention">
+                    <p><b>Attention</b> If you are a Governmental Agency, you must not submit an account using this
+                      submission
+                      form. First, you require the pre-approval of your local Facebook Public Policy Manager. If you do
+                      not know who your Facebook Public Policy Manager is, or whether you are a governmental case,
+                      please send us an email to <a>government@360dialog.com</a> and we will assist you.</p>
+                  </div>
+                  <label for=""> TERMS</label>
+                  <div class="flex mt-2" >
+                    <input class="mt-1" type="checkbox" name="" name="termsOne" formControlName="termsOne">
+                    <p class="ml-2">I agree to the <a href="https://hub.360dialog.com/lp/consent/360dialog-terms-of-service?partnerId=4NY7sTPA&number=494545 " target="_blank">360dialog Terms of Service</a> and to <a>Exibit 1 - 360dialog Terms of Use.</a>
+                    </p>
+                  </div>
+                  <div class="flex">
+                    <input class="mt-1" type="checkbox" name="" name="termstwo" formControlName="termsTwo">
+                    <p class="ml-2">I have acknowledged and agree to <a href="https://hub.360dialog.com/lp/consent/360dialog-terms-of-service?partnerId=4NY7sTPA&number=494545 " target="_blank">Exhibit 2 - Facebook Client Terms for WhatsApp.</a></p>
+                  </div>
+                  <div class="mt-4"><button type="submit" class="btn btn-primary">Register</button></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

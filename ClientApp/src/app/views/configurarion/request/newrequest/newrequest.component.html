@@ -1,0 +1,92 @@
+<mat-card>
+  <mat-card-header>
+    <div style="display: flex; align-items: center;width:100%;">
+      <div style="flex-grow: 1;">
+        <h2 mat-dialog-title style="margin: 0;font-size:16px;">Create New Request</h2>
+      </div>
+      <button mat-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+
+  <mat-card-actions style="margin-top:20px;">
+    <div style="display:flex">
+      <div>
+        <mat-form-field style="padding-left:10px;">
+          <mat-label>Cutomer Name</mat-label>
+          <input matInput placeholder="name" maxlength="35" [(ngModel)]="customer_name">
+
+        </mat-form-field>
+        <mat-error *ngIf="is_show_customer_name_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Customer name is required</div></mat-error>
+      </div>
+     <div>
+       <div>
+         <mat-form-field style="padding-left:10px;">
+
+           <mat-select [(ngModel)]="plan_">
+             <!--[(ngModel)]="apicallobj.properties.apiAuthConfig.Type" #flowtypeId="ngModel" (click)="clear()"-->
+             <mat-option value="">--Select--</mat-option>
+             <mat-option *ngFor="let type of planlist" [value]="type.value">
+               {{ type.text }}
+             </mat-option>
+
+           </mat-select>
+           <mat-label>
+             <mat-label>Plan</mat-label>
+           </mat-label>
+         </mat-form-field>
+       </div>
+     </div>
+      
+
+    </div>
+    
+
+ 
+    <div style="padding-top:20px;">
+    
+        <div style="display:flex">
+          <div>
+            <mat-form-field style="padding-left: 10px;">
+              <mat-select [(ngModel)]="services_">
+
+                <mat-option hidden *ngFor="let type of servicelist" [value]="type.value">
+                  {{ type.text }}
+                </mat-option>
+              </mat-select>
+              <mat-label>Services</mat-label>
+            </mat-form-field>
+          </div>
+        <div><mat-form-field style="padding-left:10px;">
+  <mat-select [(ngModel)]="platform_">
+    <!--[(ngModel)]="apicallobj.properties.apiAuthConfig.Type" #flowtypeId="ngModel" (click)="clear()"-->
+
+    <mat-option hidden *ngFor="let type of platformlist" [value]="type.value">
+      {{ type.text }}
+    </mat-option>
+
+  </mat-select>
+  <mat-label>
+    <mat-label>Platform</mat-label>
+  </mat-label>
+</mat-form-field></div>
+          <div> <button style="padding-left:35px;color:green;" mat-button matSuffix (click)="newrequest();">
+           ADD
+          </button></div>
+          
+
+         
+
+        </div>
+       
+    
+
+    </div>
+
+
+
+
+  </mat-card-actions>
+</mat-card>

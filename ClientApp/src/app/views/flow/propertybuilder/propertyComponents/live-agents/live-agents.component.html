@@ -1,0 +1,223 @@
+<div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="property">
+      <div class="d-flex">
+        <div class="question-head">Name <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the Name of an Object in the flow"></i>
+        </div>
+      </div>
+      <input type="text" #initialCurser class="form-control inputFull" maxlength="18" name="uniqueName"
+        [(ngModel)]="liveAgents.uniqueName" #uniqueName="ngModel" required placeholder="Enter Name *"
+        (keyup)="checkUniqueName(liveAgents.uniqueName)" (paste)="checkUniqueName(liveAgents.uniqueName)"
+        autocomplete="off" />
+      <div *ngIf="uniqueName.errors && (uniqueName.touched || form.submitted)">
+        <small class="text-danger">Name Required</small>
+      </div>
+      <div *ngIf="duplicateUniquecheckFlag">
+        <small class="text-danger">Duplicate Unique name not allowed</small>
+      </div>
+      <div *ngIf="liveAgents.uniqueName.trim().length == 0">
+        <small class="text-danger">Space or Empty name not allowed</small>
+      </div>
+
+
+
+      <div class="d-flex">
+        <div class="question-head">Keyword</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue " matTooltip="This property will help the user to define the Key words to define
+            the beginning of a flow.
+            With Single number user can manage different routes"></i>
+        </div>
+      </div>
+      <input autocomplete="off" type="text" class="form-control inputFull" maxlength="18" name="keyword"
+        [(ngModel)]="liveAgents.keyword" #keyword="ngModel" placeholder="Enter Keyword"
+        (keyup)="checkKeyword(liveAgents.keyword)" (paste)="$event.preventDefault()" />
+      <div *ngIf="duplicatekeywordcheckFlag">
+        <small class="text-danger">Duplicate Keyword not allowed</small>
+      </div>
+      <!-- <div *ngIf="keyword.errors && (keyword.touched || form.submitted)">
+        <small class="text-danger">Keyword Required</small>
+      </div>
+      <div *ngIf="liveAgents.keyword.trim().length == 0 && (keyword.touched || form.submitted)">
+        <small class="text-danger">Space or Empty name not allowed</small>
+      </div> -->
+
+
+
+      <div class="d-flex">
+        <div class="question-head">Transfer Logic <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define how the next live agent should be connected"></i>
+        </div>
+      </div>
+      <select type="text" class="form-control inputFull" name="transferLogic" [(ngModel)]="liveAgents.transferLogic"
+        #transferLogic="ngModel" [required]="true">
+        <option value="-1">Select</option>
+        <option value="1">Sequential</option>
+        <option value="2">Round Robin</option>
+      </select>
+      <div *ngIf="liveAgents.transferLogic.errors && (liveAgents.transferLogic.touched || form.submitted)">
+        <small class="text-danger">Transfer Logic Required</small>
+      </div>
+
+
+      <!-- <div class="d-flex">
+                <div class="question-head">Agent Customer Ratio</div>
+                <div class=" ml-auto question-head">
+                    <i class="bi bi-question-circle tooltipBlue "
+                        matTooltip="This helps to define the Name of an Object in the flow"></i>
+                </div>
+            </div>
+            <input type="text"  class="form-control inputFull" maxlength="18" name="customerRatio"
+                [(ngModel)]="liveAgents.customerRatio" #customerRatio="ngModel" required
+                placeholder="Enter Agent Customer Ratio" />
+            <div *ngIf="liveAgents.customerRatio.errors && (liveAgents.transferLogic.touched || form.submitted)">
+                <small class="text-danger">Agent Customer Ratio Required</small>
+            </div> -->
+
+
+
+      <div class="d-flex">
+        <div class="question-head">Select Agents <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue " matTooltip="This helps to select the corresponding Agents
+            NB:'Select atleast one Agent or Group'"></i>
+        </div>
+      </div>
+      <mat-select class="form-control inputFull" [(ngModel)]="liveAgents.agentList" #agentList="ngModel"
+        name="agentList" multiple>
+        <mat-option *ngFor="let list of agents" [value]="list.id">{{list.name}}</mat-option>
+      </mat-select>
+      <!-- <ul>
+        <li *ngFor="let item of agentList">{{item.id}}</li>
+      </ul> -->
+
+      <div class="d-flex">
+        <div class="question-head">Select Groups <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue " matTooltip="This helps to select the corresponding Agent Groups
+            NB:'Select atleast one Agent or Group'"></i>
+        </div>
+      </div>
+      <mat-select class="form-control inputFull" [(ngModel)]="liveAgents.groupList" #groupList="ngModel"
+        name="groupList" multiple>
+        <mat-option *ngFor="let list of groups" [value]="list.id">{{list.name}}</mat-option>
+      </mat-select>
+
+      <div class="d-flex">
+        <div class="question-head">Initial Message<span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This help to define the initial message send to customer"></i>
+        </div>
+      </div>
+      <textarea class="form-control" name="initialMessage" placeHolder="Enter initail message" #initialMessage="ngModel"  [(ngModel)]="liveAgents.initialMessage" required maxlength="4000" style="padding: 5px; font-size: 12px; min-height: 100px;"></textarea>
+      <div *ngIf="initialMessage.errors && (initialMessage.touched || form.submitted)">
+        <small class="text-danger">Initail Message Required</small>
+      </div>
+      <!-- <custom-textarea placeHolder="Enter initail message" [model]="modelToPass" minHeight=100
+        classOverride={{tempModel}} (messageData)="getMessage($event)" maxLen=4000>
+      </custom-textarea> -->
+
+      <div class="d-flex">
+        <div class="question-head">Sticky Agent</div>
+        <input class="ml-auto arrange-checkbox" type="checkbox" style="position: relative;top: 8px;"
+          [checked]="stickyAgent" (change)="stickyAgent = !stickyAgent" />
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This help to define the agent to connect to a customer with whom they've already spoken"></i>
+        </div>
+      </div>
+
+      <!-- <div class="d-flex">
+        <div class="question-head">Mask Number</div>
+        <input class="ml-auto arrange-checkbox" type="checkbox"
+          style="position: relative;top: 8px;left: 41px !important;" [checked]="maskNumber"
+          (change)="maskNumber = !maskNumber" />
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This help to define the customer number to be masked or not in the agent chat Window"></i>
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <div class="question-head">Show Customer Name</div>
+        <input class="ml-auto arrange-checkbox" type="checkbox"
+          style="position: relative;top: 8px;left: 16px !important;" [checked]="showName"
+          (change)="showName = !showName" />
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This help to define the customer Name to be show or not in the agent chat Window"></i>
+        </div>
+      </div> -->
+
+      <div class="row mt-2">
+        <div class="col-7 col pTop">
+          <div style="font-size: 10px !important;">Agent Timeout(sec)</div>
+        </div>
+        <div class="col-5 col">
+          <input #timeout="ngModel" type="text" class="form-control formhaif" name="agentReplyWaitTime"
+            [(ngModel)]="liveAgents.agentReplyWaitTime" placeholder="0" [value]="liveAgents.agentReplyWaitTime"
+            maxlength="8" (keydown)="checkingNumber($event)" (keyup)="compareWaitTime()" (paste)="compareWaitTime()"
+            matTooltip="Maximum time allowed to an agent to answer the chat, if it exceeds chat will get allocated to next available agent">
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-7 col pTop">
+          <div  style="font-size: 10px !important;">User Timeout(sec)</div>
+        </div>
+        <div class="col-5 col">
+          <input #timeout="ngModel" type="text" class="form-control formhaif" name="customerWaitTime"
+            [(ngModel)]="liveAgents.customerTotalWaitTime" placeholder="0" maxlength="8"
+            [value]="liveAgents.customerTotalWaitTime" (keydown)="checkingNumber($event)" (keyup)="compareWaitTime()"
+            (paste)="compareWaitTime()" matTooltip="Maximum time allowed to an end user  to get reply from initiated chat, if it exceeds the defined time,  System will allocate to bot with agents unavailable object.
+            NB:'Total Customer wait time should be greater than Agent reply wait Time'">
+        </div>
+      </div>
+      <small *ngIf="waitTimeComparisonFlag == false" class="text-danger">Customer Wait Time must be greater than Agent
+        reply Wait Time</small>
+      <div class="d-flex">
+        <div class="question-head">Agent Unavailable</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the next Object if No agents Available"></i>
+        </div>
+      </div>
+      <next-object [index]={sec:0,index:0} [arrayNode]=selectedNode [nodeId]=nodeId
+        (childValue)="childValue($event,1,0)">
+      </next-object>
+
+      <div class="d-flex">
+        <div class="question-head">Communication End</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the Next Object if the communication with the agent Ends"></i>
+        </div>
+      </div>
+      <next-object [index]={sec:0,index:1} [arrayNode]=selectedNode [nodeId]=nodeId
+        (childValue)="childValue($event,1,1)">
+      </next-object>
+
+    </div>
+
+    <div class="fixedSave">
+      <div class="col-12 d-flex justify-content-center ">
+        <button type="submit" class="mt-2 mb-2 savebtn " [disabled]="!form.valid ||
+        liveAgents.transferLogic == -1 ||
+        duplicatekeywordcheckFlag == true||
+        duplicateUniquecheckFlag == true||
+        liveAgents.uniqueName.trim().length == 0||
+        disabledForView == true||
+        waitTimeComparisonFlag == false
+        ">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

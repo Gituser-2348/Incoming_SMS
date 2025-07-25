@@ -1,0 +1,48 @@
+<!-- <select-language></select-language> -->
+<div class="d-flex" id="mainDiv">
+  <div id={{classOverride}} class=""
+  [ngClass]="maxHeightFlag == true ?'chatTextArea Maxheight':'textarea'"
+   #contentEditobleDiv [ngStyle]="{'min-height.px':minHeight}"
+    [innerHTML]="model" contenteditable="true" (keydown)="addText($event)" (keyup)="keyUp()" (click)="clicked()"
+    (paste)="contentCheckOnPaste($event)" >
+  </div>
+  <span #placeholder class="placeHolder" *ngIf="lengthShow == 0 && tempVar.length ==0"
+    (click)="focusToInital()">{{placeHolder}}</span>
+</div>
+<!-- <div class="d-flex">
+</div> -->
+<div [ngClass]="arrangeButtonDiv == true ?'buttonChatDiv':'button-div'"    #buttonDiv>
+  <div class="icon" *ngIf="showVariable" (click)="input(classOverride)" matTooltip="Variable Pop-Up.Used to select  userdefined and system variable">{{icon}}</div>
+  <button  class="button" (click)="toggleKeyboard(classOverride); $event.preventDefault()" matTooltip="On-screen Keyboard">
+    <i class='far fa-keyboard'></i>
+  </button>
+  <button class="button" [ngClass]="{'button-active': boldFlag === true}" id="boldBtn"
+    (click)="selectFunction('bold',false,null); boldFlag=!boldFlag;$event.preventDefault()" matTooltip="Bold">
+    <b>B</b>
+  </button>
+  <button class="button" [ngClass]="{'button-active': italicFlag === true}" id="italicBtn"
+    (click)="selectFunction('italic',false,null); italicFlag=!italicFlag;$event.preventDefault()" matTooltip="Italics">
+    <i>I</i>
+  </button>
+  <!-- <button class="button" [ngClass]="{'button-active': underlineFlag === true}"
+    (click)="selectFunction('underline',false,null); underlineFlag=!underlineFlag;$event.preventDefault()">
+    <u>U</u>
+  </button> -->
+  <button class="button" [ngClass]="{'button-active': strikeFlag === true}" id="strikeBtn"
+    (click)="selectFunction('strikeThrough',false,null); strikeFlag=!strikeFlag;$event.preventDefault()" matTooltip="StrikeThrough">
+    <s>S</s>
+  </button>
+
+  <div (click)="toggleEmojiPicker()" class="emoji-button" #emojiBlock matTooltip="Open Emoji"> 😀</div>
+  <span class="text-limit">{{lengthShow}}/{{maxLen}}</span>
+  <emoji-mart id="emoji-component" [ngClass]="emojiFlag == true ?'emoji-mart chatEmoji':'emoji-mart textAreaEmjoi'" set="twitter" *ngIf="showEmojiPicker"
+    (emojiSelect)="addEmoji($event)" [enableSearch]="true" [emojiTooltip]="false" [showPreview]="false" [sheetSize]="16"
+    [emojiSize]="20" [darkMode]="true" [perLine]="6" [totalFrequentLines]="1"
+
+    >
+  </emoji-mart>
+
+  <app-variable-pop (childToParent)="childToParent($event)"></app-variable-pop>
+
+
+  <!-- [style]="{width:'220px',position :'relative',top:'-37px',right:'50px','z-index':'100'}" -->

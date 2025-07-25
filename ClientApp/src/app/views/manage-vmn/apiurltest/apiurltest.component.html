@@ -1,0 +1,189 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Sending ...</p>
+</ngx-spinner>
+<div style="display:flex">
+  <div style="flex-grow:1;"><h2 style="font-size:16px;">API Test</h2></div><div>
+    <button (click)="closeDialog()" mat-button mat-dialog-close>
+
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="card-body ">
+
+
+  <div class="style1">
+    <div class="style2"><label>{{method_}}</label></div>
+    <div class="style3"><label>{{url_}}</label></div>
+    <div style="height: 5px;">  <button class="btn_btn_bcl" style="padding-left:20px;" mat-button color="primary" (click)="send_()">SEND</button></div>
+  </div>
+
+  <div style="display:flex">
+
+    <div style="margin-left:35px;">
+      <!--flex 2-->
+      <div style="height:23vw;">
+        <mat-error style="margin-top: 1vw; color: #d7e015" class="d-flex"><mat-icon>warning</mat-icon> <div> Please add parameter values</div></mat-error>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" style="margin-top:3%;">
+          <mat-tab label="URL Details">
+
+            <div class="modal-body cardbody " style=" margin-top: 10px; ">
+              <div class="container" style="padding:10%;">
+
+
+                <div class="row" style="display:flex">
+                  <div class="bld col-md-3">Content Type</div>
+                  <div class="bld col-md-6">{{content_type}}</div>
+                </div>
+                <div class="row">
+                  <div class="bld col-md-3 ">Proxy</div>
+                  <div class="bld col-md-9">{{proxy_}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3 bld">Timeout</div>
+                  <div class="col-md-9 bld">{{timeout}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3 bld">Retry Count</div>
+                  <div class="col-md-9 bld">{{retry_count}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 bld">Authentication</div>
+                  <div class="col-md-9 bld">{{authentication_}}</div>
+                </div>
+                <!--<div *ngIf="is_show_date" class="row">
+                  <div class="col-md-3 bld">Date Format</div>
+                  <div class="col-md-9 bld">{{date_format}}</div>
+                </div>-->
+
+              </div>
+            </div>
+
+          </mat-tab>
+          <mat-tab label="Parameters">
+            <div class=" scrollable-content" style="padding-left:10px;overflow-y: auto;height:18vw">
+
+              <table style="background-color: #e5e6e8;width:90%">
+                <tr>
+                  <th>Parameter</th>
+                  <th>Value</th>
+                </tr>
+
+                <tr *ngFor="let item of parameter_final_arr; let i=index">
+                  <td><input readonly class="in_box1" type="text" [(ngModel)]="item.parameter_key"></td>
+                  <td class="d-flex" style="padding-left:20px;">
+                    <span>
+                      <input maxlength="30" class="in_box1" [(ngModel)]="item.parameter_value" />
+                    </span>
+
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="Authorization">
+            <div style="display:flex;">
+
+
+              <div style="margin-top:10px;">
+                <mat-form-field>
+                  <mat-select [(ngModel)]="authentication_">
+
+                    <mat-option [value]="authentication_">{{authentication_}}</mat-option>
+
+
+                  </mat-select>
+                  <mat-label>
+                    <mat-label>Authentication</mat-label>
+                  </mat-label>
+                </mat-form-field>
+              </div>
+
+
+
+
+              <div *ngIf="authentication_ === 'Bearer Token'" style="margin-left:25px;">
+
+
+                <div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Token</mat-label>
+                    <textarea readonly matInput id="token" name="Token" required>{{Bearer_token}}</textarea>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div *ngIf="authentication_ === 'Basic Auth'" style="margin-left:25px;">
+
+
+                <div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Basic</mat-label>
+                    <textarea matInput readonly id="basic" name="Basic" required>{{Basic_auth}}</textarea>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+
+
+          </mat-tab>
+          <mat-tab label="Headers">
+            <div class=" scrollable-content" style="padding-left:10px;overflow-y: auto;height:18vw">
+              <table style="border: 1px thin; background-color: #e5e6e8;width:70%;">
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                </tr>
+
+                <tr *ngFor="let item of header_arr; let i=index">
+                  <td><input readonly class="in_box1" type="text" [(ngModel)]="item.key"></td>
+                  <td style="padding-left:20px;"><input readonly class="in_box1" type="text" [(ngModel)]="item.value"></td>
+                </tr>
+
+              </table>
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+
+      <div style="display: flex; height: 7vw; border: 1px solid lightgray; padding: 5px;width:50vw;">
+    <div style="border-right:1px dotted grey;padding-right:5%">
+      <div class="d-flex">
+        <span><mat-icon style="color:lightgray" class="fade-dim">language</mat-icon></span>
+        <label style="padding-left:4%;" *ngIf="is_show_status" class="fade-dim">Status </label>
+        <span style="padding-left:4%; font-weight:bold;">{{url_status}}</span>
+      </div>
+
+    </div>
+    <div class="scrollable-content" style="padding-left:5%;width:50vw; overflow-x:auto;">
+
+      <label *ngIf="is_show_status" class="fade-dim">Response </label>
+
+      <span style="padding-left:1%; font-weight:bold;">{{url_response}}</span>
+    </div>
+
+  </div>
+
+   
+
+
+
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+</div>

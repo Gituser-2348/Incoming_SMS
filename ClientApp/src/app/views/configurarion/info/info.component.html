@@ -1,0 +1,71 @@
+
+<div class="row" >
+  <div class="col-lg-12">
+  
+    <div class="card-header">
+      <div class="card shadow-lg">
+        <div class="d-flex">
+          <h2 style="font-size:16px" class="card-title">Request details</h2>
+
+          <h4 *ngIf="is_show_req_id" class="card-title" style="padding-left:186px;">Request ID: {{Request_ID}}</h4>
+
+          <!--<mat-form-field *ngIf="is_show_err_no_data" class="reqin" style="margin-left:70%">
+
+            <input maxlength="4" matInput type="number" placeholder="-Request ID-"
+                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                   [(ngModel)]="ReqID" id="ReqId" >
+            <button mat-button matSuffix class="bi-search btnreq" (click)="req_search();">
+            </button>
+          </mat-form-field>
+          <mat-form-field *ngIf="is_show_req_id" class="reqin">
+
+            <input maxlength="4" matInput type="number" placeholder="-Request ID-"
+                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                   [(ngModel)]="ReqID" id="ReqId">
+            <button mat-button matSuffix class="bi-search btnreq" (click)="req_search();">
+            </button>
+          </mat-form-field>-->
+        </div>
+      </div>
+      
+      <div *ngIf="is_show_err_no_data" style="color: red; height: 28vw;">
+        <div class="d-flex" style="margin-left:23vw;margin-top:5vw" ><mat-icon>warning</mat-icon> <div>Invalid request ID found. please select a request to configure</div></div>
+      </div>
+      <div *ngIf="is_show_info" ><div class="card-body scrollable-content" style="margin-top: 2px; overflow-y: auto; height: calc(100vh - 120px); height: 29vw; ">
+  <!-- <div class="mainDiv p-2"> -->
+                                   <div class="card-body" style="overflow:auto;">
+                                     <div>
+                                       <p class="info_label">Circle :<span class="binlabe">{{Circle_Name}}</span></p>
+                                       <p class="info_label">Customer :<span class="binlabe">{{Customer_Name}}</span></p>
+                                       <p class="info_label">Plan Type :<span class="binlabe">{{Plan_Type}}</span></p>
+                                       <p class="info_label">Plan Name :<span class="binlabe">{{Plan_Name}}</span></p>
+
+                                     </div>
+                                     <div class="card-title bc"><p style="margin-left:10px;">Features</p></div>
+                                     <p style="text-decoration: underline;font-weight: bold;">SMS Service</p>
+                                     <p style="text-decoration: underline;margin-left: 22px;">Incoming SMS Services</p>
+                                     <p style="margin-left: 25px;">Reporting Mode :</p>
+                                     <p style="margin-left: 25px;">Incoming SMS :</p>
+                                     <p style="margin-left: 25px;">Suggested Platform :<span class="binlabe">{{Suggested_Platform}}</span></p>
+                                     <div style="display:flex">
+                                       <div  style="flex-grow:1">  <button class="btn" (click)="pre_back();" style="color:grey;"> << Back</button></div>
+                                     
+                                       <button (click)="save_();" class="btnsave">Next</button>
+                                     </div>
+                                     
+                                     <!--</div>-->
+                                     <!--<p style="text-decoration: underline;margin-left:22px;">Outgoing SMS Services </p>-->
+                                     <!--<div class="card-title bc"><p style="margin-left:10px;">SPOC Details</p></div>
+  <br>
+  <div class="card-title bc"><p style="margin-left:10px;">Additional Information's &Supporting Documents</p></div>
+  <p>RFI Document :</p>
+  <p>API Document :</p>-->
+
+                                   </div>
+</div></div>
+      
+    </div>
+  </div>
+</div>
+
+

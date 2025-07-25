@@ -1,0 +1,136 @@
+<div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="property">
+
+      <div class="d-flex">
+        <div class="question-head">Name</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the Name of an Object in the flow"></i>
+        </div>
+      </div>
+
+      <input type="text" #initialCurser class="form-control inputFull" maxlength="18" name="uniqueName"
+        [(ngModel)]="conditions.uniqueName" #uniqueName="ngModel" required placeholder="Enter Name"  (keyup)="checkUniqueName(conditions.uniqueName)" (paste)="checkUniqueName(conditions.uniqueName)" />
+      <div *ngIf="uniqueName.errors && (uniqueName.touched || form.submitted)">
+        <small class="text-danger">Name Required</small>
+      </div>
+      <div *ngIf="duplicateUniquecheckFlag">
+        <small class="text-danger">Duplicate Unique name not allowed</small>
+      </div>
+      <div *ngIf="conditions.uniqueName.trim().length == 0">
+        <small class="text-danger">Space or Empty name not allowed</small>
+      </div>
+      <app-variable-pop (childToParent)="childToParent($event)"></app-variable-pop>
+      <div class="d-flex mt-1">
+        <div class="question-head">Conditions</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the Condition of an Object in the flow"></i>
+        </div>
+      </div>
+
+      <div class="array" *ngFor="let variable of variableOptions; let i = index" [ngModelGroup]="i">
+        <div class="box">
+          <div class="d-flex flex-row-reverse">
+            <a class="delete"  (click)="delete(i)">X</a>
+          </div>
+          <div class="row">
+            <div class="col-4 mt-1">If</div>
+            <div class="col-8 input-icons">
+              <a class="icon" (click)="input(i,'vOne')">{{icon}}</a>
+              <input type="text" class="form-control formhaif pr-4" name="vOne" [(ngModel)]="variable.vOne" required
+                #vOne="ngModel" (keydown)="$event.preventDefault()" (keyup)="$event.preventDefault()">
+              <div *ngIf="vOne.errors && (vOne.touched || form.submitted)">
+                <small class="text-danger">Required</small>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row mt-1">
+            <div class="col-4 mt-1">Condition</div>
+            <div class="col-8"><select class="form-control condition" name="vCondition"
+                [(ngModel)]="variable.vCondition" (change)="clearModel(i)" #vCondition="ngModel" required>
+                <option value="1">Equal to</option>
+                <option value="2">Does not Equal to</option>
+                <option value="3">Greater than</option>
+                <option value="4">Greater than or Equal to</option>
+                <option value="5">Less than</option>
+                <option value="6">Less than or Equal to</option>
+                <option value="7">Begins with</option>
+                <option value="8">Does not Begins with</option>
+              </select>
+              <div *ngIf="vCondition.errors && (vCondition.touched || form.submitted)">
+                <small class="text-danger">Required</small>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- (keydown)="preventSqrBracket($event)" (keyup)="preventSqrBracket($event)" -->
+          <div class="row mt-1">
+            <div class="col-4 mt-1">Reference</div>
+            <div class="col-8 input-icons">
+              <a class="icon" (click)="input(i,'vTwo')">{{icon}}</a>
+              <input type="text" class="form-control formhaif pr-4" name="vTwo" [(ngModel)]="variable.vTwo" required
+                #vTwo="ngModel" (keydown)="preventSqrBracket($event,variableOptions[i]) " (paste)="preventPaste($event)"
+                matTooltip="if the Reference value is Date then it should be in DD/MM/YYYY"
+                >
+              <div *ngIf="vTwo.errors && (vTwo.touched || form.submitted)">
+                <small class="text-danger">Required</small>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 mt-1" style="top: -7px">Redirection Object</div>
+            <next-object [arrayNode]=outputNode [index]={sec:0,index:i} [nodeId]=nodeId
+              (childValue)="childValue($event,0,i)" style="width: 115px;
+              margin-left: 15px;"></next-object>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <i type="button" class="mt-2 bi bi-plus-circle-fill addBtn" (click)="addOption()">
+          </i>
+        </div>
+      </div>
+
+      <!-- <div class="yes mt-2">
+                <div class="d-flex">
+                    <div class="list">True</div>
+                    <div class=" ml-auto">
+                        <i class="bi bi-question-circle tooltipBlue "
+                            matTooltip="This helps to define the Next of an Object in the flow"></i>
+                    </div>
+                </div>
+                <next-object [index]={sec:0,index:0} [arrayNode]=selectedNode  [nodeId]=nodeId (childValue)="childValue($event,'yes',0)">
+                </next-object>
+            </div> -->
+      <div class="yes mt-2 ">
+        <div class="d-flex">
+          <div class="list">False</div>
+          <div class=" ml-auto">
+            <i class="bi bi-question-circle tooltipBlue "
+              matTooltip="This helps to define the Next of an Object in the flow"></i>
+          </div>
+        </div>
+        <next-object [index]={sec:1,index:0} [arrayNode]=outputNode [nodeId]=nodeId
+          (childValue)="childValue($event,1,0)">
+        </next-object>
+      </div>
+    </div>
+
+    <div class="fixedSave">
+      <div class="col-12 d-flex justify-content-center ">
+        <button type="submit" class="mt-2 mb-2 savebtn "
+        [disabled]="conditions.uniqueName.trim().length == 0 || !form.valid ||  disabledForView == true|| duplicateUniquecheckFlag == true">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+

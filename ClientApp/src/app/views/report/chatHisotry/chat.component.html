@@ -1,0 +1,168 @@
+<div class="outerContainer mr-1">
+  <div class="notificationBar d-flex">
+    <!-- <div class="notifications pl-2 pr-2">
+      <i class="bi bi-alarm text-white pl-1"></i>
+      <i class="bi bi-messenger text-primary pl-1"></i>
+      <i class="bi bi-facebook  text-primary pl-1"></i>
+      <i class="bi bi-instagram text-danger pl-1"></i>
+    </div> -->
+    <!-- <div class="signals ml-auto">
+      <i class="bi bi-bell-slash pl-1 text-white"></i>
+      <i class="bi bi-reception-4 pl-1 text-white"></i>
+      <i class="bi bi-wifi pl-1 text-white"></i>
+      <i class="bi bi-battery-full pl-1 pr-2 text-white"></i>
+    </div> -->
+  </div>
+  <div class="d-flex header pt-2 pl-2 pr-2">
+    <div class="headerback">
+      <i class="bi bi-arrow-left" (click)="hideChat()"></i>
+    </div>
+    <div class="HeaderImage ">
+      <i class="bi bi-person"></i>
+    </div>
+    <div class="HeaderName w-50 ml-2">
+      <div class="name font-weight-bold">{{userName}}</div>
+      <small class="status">online</small>
+    </div>
+    <div class="HeaderVideo ml-auto">
+      <i class="bi bi-camera-video-fill"></i>
+    </div>
+    <div class="HeaderPhone ml-auto">
+      <i class="bi bi-telephone-fill"></i>
+    </div>
+    <div class="HeaderMore ml-auto">
+      <i class="bi bi-three-dots-vertical"></i>
+    </div>
+  </div>
+
+  <div class="chat" id="chat">
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size="default" color="#fff" [fullScreen]="false" type="ball-spin-clockwise"><p style="color: white" > Loading... </p></ngx-spinner>
+    <div *ngxtFor="let node of chatList;itemsAtOnce: 500;
+      intervalLength: 20">
+        <div class="d-flex" *ngIf="node['msg_type']=='msg_date'">
+          <div class="date ml-auto mr-auto pl-1 pr-1">{{node['msg_data']}}</div>
+        </div>
+        <!-- <div *ngIf="node['msg_type']=='msg_in'" class="message received">
+          {{node['msg_data']}}
+        </div> -->
+        <div *ngIf="node['msg_type']=='msg_in' && node['msg_for']=='msg'"  class="message received"   [innerHTML]="node['msg_data']">
+
+        </div>
+        <div *ngIf="node['msg_type']=='msg_in' && node['msg_for']=='doc'"  class="message messageImage received"   [innerHTML]="node['msg_data']">
+
+        </div>
+
+        <div *ngIf="node['node_type']=='message'">
+          <div *ngIf="node['msg_type']=='msg_out'" [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="message  sent"
+            [innerHTML]="node['msg_data']">
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='image'" class="message sent">
+          <img [src]="node['msg_data']" alt="image"  class="chatImage">
+          <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+            class="chatCaption" [innerHTML]="node['msg_caption']"></div>
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='audio'" class="message sent">
+            <audio controls style="max-width: 210px;height: 30px;">
+              <source [src]="node['msg_data']">
+            </audio>
+            <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+              class="chatCaption" [innerHTML]="node['msg_caption']">
+            </div>
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='video'" class="message sent">
+            <video controls style="height: 118px;">
+              <source [src]="node['msg_data']">
+            </video>
+            <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+              class="chatCaption" [innerHTML]="node['msg_caption']">
+            </div>
+          </div>
+
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='doc'" class="message sent">
+            <!-- <iframe [src]="node['msg_data']" height="115" [title]="node['name']"></iframe> -->
+            <object [data]="node['msg_data']" height="115" [title]="node['name']"></object>
+            <!-- <object data="https://www.africau.edu/images/default/sample.pdf" height="115" [title]="node['name']"></object> -->
+            <!-- <embed [src]="node['msg_data']|safe:'url'" height="115" /> -->'
+            <div  style="max-height: 115px;width: 210px;overflow-y: scroll"><a [href]="node['msg_data']" target="_blank">{{node['msg_data']}}</a>
+              <span>Document Please Download it from Above Link</span>
+            </div>
+            <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+              class="chatCaption" [innerHTML]="node['msg_caption']"></div>
+          </div>
+        </div>
+        <div *ngIf="node['node_type']=='list'">
+          <div *ngIf="node['msg_type']=='msg_out'" [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg' && node['header']!=''&& node['header']!=undefined"
+            class="message sent headerMessage" [innerHTML]="node['header']">
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="message message_list sent"
+          [innerHTML]="node['msg_data']"></div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['footer']!=undefined && node['footer']!=''" class="message sentD footerMessage footerMessageList" [innerHTML]="node['footer']"></div>
+          <div  class="message sentButton message_list listOptionsDiv">
+            <div *ngFor="let sections of node['optionArray'] index as i">
+              <div class="list-SectionName">{{node['sectionNameList'][i]}}</div>
+              <div *ngFor="let options of sections['sectionOptions']">
+                <div class="d-flex">
+                  <div>{{options["optionName"]}}</div>
+                  <div class="ml-auto"><i class="bi bi-circle"></i></div>
+                </div>
+                <div  class="list-description" *ngIf="options['description']!= ''&& options['description']!= undefined">{{options["description"]}}</div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div *ngIf="node['node_type']=='button'">
+          <div *ngIf="node['msg_type']=='msg_out'" [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+          </div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg' && node['header']!=''&& node['header']!=undefined" class="message sent headerMessage" [innerHTML]="node['header']"></div>
+          <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="buttonMessage sent"
+            [innerHTML]="node['msg_data']">
+          </div>
+        <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='image'" class="message sent">
+          <img [src]="node['msg_data']" alt="image" class="chatImage">
+          <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+            class="chatCaption" [innerHTML]="node['msg_caption']"></div>
+        </div>
+        <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='audio'" class="message sent">
+          <audio controls>
+            <source [src]="node['msg_data']">
+          </audio>
+          <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+            class="chatCaption" [innerHTML]="node['msg_caption']">
+          </div>
+        </div>
+        <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='video'" class="message sent">
+          <video controls style="height: 118px;" >
+            <source [src]="node['msg_data']">
+          </video>
+          <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+            class="chatCaption" [innerHTML]="node['msg_caption']">
+          </div>
+        </div>
+        <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='doc'" class="message sent">
+          <!-- <iframe [src]="node['msg_data']" height="115" [title]="node['name']"></iframe> -->
+          <object [data]="node['msg_data']" height="115" [title]="node['name']"></object>
+          <!-- <object data="https://www.africau.edu/images/default/sample.pdf" height="115" [title]="node['name']"></object> -->
+          <!-- <embed [src]="node['msg_data']|safe:'url'" height="115" /> -->
+          <div  style="max-height: 115px;width: 210px;overflow-y: scroll"><a [href]="node['msg_data']" target="_blank">{{node['msg_data']}}</a>
+            <span>Document Please Download it from Above Link</span>
+          </div>
+          <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''"
+            class="chatCaption" [innerHTML]="node['msg_caption']"></div>
+        </div>
+        <div  *ngIf="node['msg_type']=='msg_out' && node['footer']!=undefined && node['footer']!=''" class="message sentD footerMessage -mt-1" [innerHTML]="node['footer']"></div>
+        <div *ngFor="let options of node['optionArray']" class="">
+          <div class="message sentButton  messageButton">{{options['optionName']}}</div>
+        </div>
+        </div>
+      </div>
+  </div>
+  <div class="chat_end"></div>
+</div>
+
+

@@ -1,0 +1,292 @@
+<div class="modal" tabindex="-1" #menu role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" cdkDrag>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Response Validator</h5>
+        <!-- {{validationJson|json}} -->
+        <i class="bi bi-x-lg ml-auto header-icon" (click)="onCloseHandled()"></i>
+      </div>
+      <div id="validationModel" class="modal-body" style="height: 75px;">
+
+        <div class="box">
+          <div class="row">
+          </div>
+          <div class="d-flex">
+            <div class="question-head">Data Type</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="Different type of validations to the user input"></i>
+            </div>
+          </div>
+
+          <div style=" display: flex; width :100%; margin-top: 3px;">
+            <select class="form-control " name="selectFieldValue" [(ngModel)]="validationJson.typeId"
+              style="height: 30px;" (change)="onTypeChange(validationJson.typeId)">
+              <option value="0">No Validation Required</option>
+              <option value="1">Number</option>
+              <option value="2">Text</option>
+              <option value="3">DateTime</option>
+              <option value="4">Email</option>
+              <option value="5">WebUrl</option>
+            </select>
+          </div>
+
+          <div *ngIf="validationJson.typeId == '1'">
+
+            <div class="d-flex">
+              <div class="question-head">Range</div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define the range of value that accepts the user input"></i>
+              </div>
+            </div>
+            <div style=" display: flex; width :100%; margin-top: 3px;">
+              <div style="flex-basis: 48%;">
+                <input type="number" placeholder="from" [(ngModel)]="validationJson.number.fromRange" class="form-control"
+                  style="width: 100%;" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)" >
+              </div>
+              <div style="flex-basis: 48%; ">
+                <input type="number" placeholder="to" [(ngModel)]="validationJson.number.toRange" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)" class="form-control">
+              </div>
+            </div>
+
+
+            <div class="d-flex">
+              <div class="question-head">Length</div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Helps to define the minimum length and maximum length to the user input"></i>
+              </div>
+            </div>
+            <div style=" display: flex; width :100%; margin-top: 3px;">
+              <div style="flex-basis: 48%;">
+                <input type="number" placeholder="min" [(ngModel)]="validationJson.number.fromLength" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)" class="form-control"
+                  style="width: 100%;">
+              </div>
+              <div style="flex-basis: 48%; ">
+                <input type="number" placeholder="max" [(ngModel)]="validationJson.number.toLength" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)" class="form-control">
+              </div>
+            </div>
+
+
+            <div class="d-flex" style=" padding-bottom: 10px;">
+              <div class="question-head">Exact Match Values <i class="bi bi-plus-circle-fill tooltipBlue"
+                  (click)="addOption(0)" matTooltip="Add new Value to exact match"></i></div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="list of numbers that check exact match with the user input"></i>
+              </div>
+            </div>
+            <div style="max-height: 100px; overflow-y: auto;">
+              <div style=" display: flex; width :100%; margin-top: 3px;"
+                *ngFor="let val of validationJson.number.exactValue; let i = index">
+                <div style="flex-basis: 95%; ">
+                  <input type="number" id="hval{{i}}" name="hval{{i}}" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)"
+                    [(ngModel)]="validationJson.number.exactValue[i].value" placeholder="Value" class="form-control">
+                </div>
+                <div style="flex-basis: 5%; padding-top: 8px;" (click)="deleteOption(0,i,f)">
+                  <i class="bi bi-dash-circle-fill tooltipBlue" matTooltip="delete an existing value"></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="validationJson.typeId == '2'">
+            <div class="d-flex">
+              <div class="question-head">Text can be</div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define different type of text validations"></i>
+              </div>
+            </div>
+            <div style=" display: flex; width :100%; margin-top: 3px;">
+              <select class="form-control" name="selectTextType" style="height: 30px;" [(ngModel)]="validationJson.text.selectedTypeId">
+                <option value="1">Alphabets Only</option>
+                <option value="2">Alpha Numeric</option>
+                <option value="3">With Special Characters</option>
+              </select>
+            </div>
+
+            <div class="d-flex">
+              <div class="question-head">Length</div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define the minimum and maximum length that accpets the user input"></i>
+              </div>
+            </div>
+            <div style=" display: flex; width :100%; margin-top: 3px;">
+              <div style="flex-basis: 48%;">
+                <input type="number" placeholder="min" class="form-control" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)"
+                [(ngModel)]="validationJson.text.fromLength">
+              </div>
+              <div style="flex-basis: 48%; ">
+                <input type="number" placeholder="max" class="form-control" (keydown)="preventEinNumber($event)" (keyup)="preventEinNumber($event)"
+                [(ngModel)]="validationJson.text.toLength">
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="question-head">Case sensitive
+                <input class="" style="margin-top: 3px;" type="checkbox"
+                [(ngModel)]="validationJson.text.caseSensitive">
+              </div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define whether Exact matches are case sensitive or not"></i>
+              </div>
+            </div>
+
+            <div class="d-flex" style=" padding-bottom: 10px;">
+              <div class="question-head">Criteria <i class="bi bi-plus-circle-fill tooltipBlue"
+                  (click)="addOption(1)" matTooltip="Add a new value to criteriaList"></i></div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define different Criterias"></i>
+              </div>
+            </div>
+
+            <div style="max-height: 73px; overflow-y: auto;">
+              <div style=" display: flex; width :100%; margin-top: 3px;"
+                *ngFor="let val of validationJson.text.criteriaList; let i = index">
+                <div style="flex-basis: 48%;">
+                  <select [(ngModel)]="validationJson.text.criteriaList[i].selectedId" class="form-control"
+                    style="font-size: 10px; padding-top: 3px; ">
+                    <option *ngFor="let c of textCriteria" [ngValue]="c.id">{{c.name}} </option>
+                  </select>
+                </div>
+                <div style="flex-basis: 48%; ">
+                  <input type="text" id="hval{{i}}" name="hval{{i}}"
+                    [(ngModel)]="validationJson.text.criteriaList[i].value"
+                    placeholder="Value" class="form-control">
+                </div>
+                <div style="flex-basis: 4%; padding-top: 8px;" (click)="deleteOption(1,i,f)">
+                  <i class="bi bi-dash-circle-fill tooltipBlue" matTooltip="Delete an Existing criteria from CriteriaList"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex" style=" padding-bottom: 10px;">
+              <div class="question-head">Exact Match Values <i class="bi bi-plus-circle-fill tooltipBlue"
+                  (click)="addOption(0)"  matTooltip="Add new Value to exact match"></i></div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="list of text that check exact match with the user input"></i>
+              </div>
+            </div>
+
+            <div style="max-height: 88px; overflow-y: auto;">
+              <div style=" display: flex; width :100%; margin-top: 3px;"
+                *ngFor="let val of validationJson.text.exactValue; let i = index">
+                <div style="flex-basis: 95%; ">
+                  <input type="text" id="hval{{i}}" name="hval{{i}}"
+                    [(ngModel)]="validationJson.text.exactValue[i].value" placeholder="Value" class="form-control">
+                </div>
+                <div style="flex-basis: 5%; padding-top: 8px;" (click)="deleteOption(0,i,f)">
+                  <i class="bi bi-dash-circle-fill tooltipBlue" matTooltip="delete an existing exact value" ></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="validationJson.typeId == '3'">
+
+            <div class="d-flex">
+              <div class="question-head">Date Format</div>
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="Used to define different formate of date and time"></i>
+              </div>
+            </div>
+
+            <div style=" display: flex; width :100%; margin-top: 3px;">
+              <select [(ngModel)]="validationJson.dateTime.formatId" (change)="switchDateFormate()" class="form-control"
+                style="font-size: 10px; padding-top: 3px; ">
+                <option *ngFor="let c of dateFormatList" [ngValue]="c.formatId">{{c.name}} </option>
+              </select>
+            </div>
+
+
+            <div class="d-flex">
+              <div class="question-head d-flex">Date Range
+                <div>
+                  <mat-checkbox [checked]="validationJson.dateTime.showDatePicker" class="example-margin ml-2" color="primary"
+                  (change)="switchDateShow()"></mat-checkbox>
+                </div>
+              </div>
+
+              <div class=" ml-auto question-head">
+                <i class="bi bi-question-circle tooltipBlue "
+                  matTooltip="This helps to define the rang between start dateTime and end dateTime"></i>
+              </div>
+            </div>
+
+           <div *ngIf="validationJson.dateTime.showDatePicker">
+            <div *ngIf="validationJson.dateTime.formatId=='3'" style=" display: flex; width :100%; margin-top: 5px;">
+              <div style="flex-basis: 48%;">
+                <mat-form-field>
+                  <input (keydown)="$event.preventDefault()" (keyup)="$event.preventDefault()" matInput type="datetime-local"
+                    [(ngModel)]="validationJson.dateTime.fromDate"  placeholder="Start date">
+                </mat-form-field>
+              </div>
+              <div style="flex-basis: 48%; ">
+                <mat-form-field>
+                  <input (keydown)="$event.preventDefault()" (keyup)="$event.preventDefault()" matInput type="datetime-local"
+                    [(ngModel)]="validationJson.dateTime.toDate" placeholder="End date">
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="validationJson.dateTime.formatId!=='3'" style=" display: flex; width :100%; margin-top: 5px;">
+              <div style="flex-basis: 50%;">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Start date</mat-label>
+                    <input (keydown)="$event.preventDefault()" (keyup)="$event.preventDefault()"
+                    matInput
+                    [matDatepicker]="from"
+                    [(ngModel)]="validationJson.dateTime.fromDate"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                  <mat-datepicker #from></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div style="flex-basis: 50%; ">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>End date</mat-label>
+                  <input (keydown)="$event.preventDefault()" (keyup)="$event.preventDefault()"
+                    matInput
+                    [matDatepicker]="picker"
+                    [(ngModel)]="validationJson.dateTime.toDate"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+           </div>
+
+          </div>
+
+          <div class="row" *ngIf="validationJson.typeId == '99'">
+            <div class="col-4 col ">Protocol</div>
+            <div class="col-8 col">
+              <select class="form-control formhaif" name="selectHttpType" style="height: 30px;">
+                <option value="1">HTTP Only</option>
+                <option value="2">HTTPS Only</option>
+                <option value="3">Both HTTP & HTTPS</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="d-flex">
+        <button class="savebtn mt-2 ml-auto mr-auto mb-2" (click)="onClick($event)">Set</button>
+      </div>
+      <!-- <div class="footer">
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,303 @@
+<div class="d-flex">
+    <div class="select prevent-select" id="detail" (click)="selectType('detail')">
+        <div class="detRep" id="detRep">Detailed Report Configuration</div>
+    </div>
+    <div class="select1 prevent-select" id="summary" (click)="selectType('summary')">
+        <div class="sumRep" id="sumRep">Summary Report Configuration</div>
+    </div>
+</div>
+
+<div class="configDiv ">
+    <div class="row insideDiv" *ngIf="this.accountID<0">
+        <div class="col-md-3 pl-4">
+            <i class="material-icons primary tbl-button">info</i>
+        </div>
+        <div *ngIf="this.accountID<=0" class="accId">
+            <h4> Select Account</h4>
+        </div>
+    </div>
+
+    <div *ngIf="this.accountID>0">
+        <div class="row">
+            <div class="col-3 d-flex">
+                <select name="" id="" class="form-control formcss" (change)="selectFlow($event)" [(ngModel)]="flowId">
+                    <option  value="0">Select Flow</option>
+                    <option *ngFor="let flow of flowDetails" [value]=flow.id>{{flow.Name}}</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select name="" id="" class="form-control formcss" (change)="selectReport($event)" [(ngModel)]="report"
+                    [disabled]="!flowId">
+                    <option value="0">Select Report</option>
+                    <option value="New Report">New Report</option>
+                    <option *ngFor="let report of reportNames" [value]=report.Value>{{report.Text}}</option>
+                </select>
+            </div>
+
+            <div class="pt" *ngIf="this.report!='New Report'&& this.report!='0' &&this.report &&this.showHeader"><i
+                    class="bi bi-trash3-fill" (click)="deleteReport()"></i></div>
+
+            <div class="col-3" *ngIf="this.report=='New Report'">
+                <input [(ngModel)]="ReportName" name="ReportName" type="text" placeholder="New Report Name"
+                    maxlength="30" class="formcss form-control">
+            </div>
+            <div class="col-3 d-flex" *ngIf="this.report=='New Report'">
+                <button class="ml-auto btn btn-primary btn-sm" (click)="saveName()">Save</button>
+            </div>
+        </div>
+
+
+        <div class="row size35" *ngIf="this.report!='New Report'&& this.report!='0' &&this.report &&this.showHeader">
+            <div class="col-1 d-flex align-items-center">
+                <h5 class="head mt-2 preview">Preview:</h5>
+            </div>
+            <div class="width80 d-flex align-items-center">
+                <div cdkDropList cdkDropListOrientation="horizontal" class="scroll example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="headerList" *ngFor="let header of selectedHeader;let i = index" cdkDrag>
+                        {{header.name}}
+                        <i class="bi bi-x" (click)="deleteHeader(header.type,i,header.name)"></i>
+                        <i *ngIf="this.selectedHeader[i].type==1" class="bi bi-list"
+                            (click)="showDetails(i)"></i>
+
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <i class="bi bi-plus-circle-fill" (click)="openBox()"></i>
+            </div>
+            <!-- <div class="col-1 d-flex align-items-center">
+                <button class="btn btn-primary btn-sm ml-auto">Save</button>
+            </div> -->
+        </div>
+
+        <div class="config p-2"
+            *ngIf="this.report!='0'&& this.report!='New Report'&&this.report&&this.showHeader&&this.selectedType=='detail'">
+            <h5 class="head col-12">Default Header</h5>
+            <div class="d-flex">
+                <div class="d-flex col-11 secDiv">
+                    <section class="example-section" *ngFor="let header of defaultHeader;let i = index">
+                        <mat-checkbox [checked]="header.checked" class="example-margin ml-2"
+                            (change)="valueChange(header,i,$event)">{{header.name}}</mat-checkbox>
+                    </section>
+                </div>
+                <div class="col-1 btnDiv">
+                    <button (click)="saveDefaultHeader()" class="btn btn-primary btn-sm ml-auto">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="config1" *ngIf="this.openWindow==true&&this.report!='New Report'">
+            <h5 class="head">Header Configuration</h5>
+            <div *ngIf="this.showData">
+                <!-- <div class="heading pl-2">{{selectedHeading.name}}</div> -->
+                <div class="d-flex">
+                    <div class="details">
+                        <div class="d-flex">
+                            <div class="detail30">
+                                <h5 class="mtop">Rename Heading</h5>
+                            </div>
+                            <div class="detail">
+                                <input type="text" class="form-control formcss" [(ngModel)]=selectedHeading.name
+                                    maxlength="30" (keyup)="duplicateName($event)">
+                                    <div *ngIf="nameDuplicate" class="text-danger">Duplicate Name</div>
+                            </div>
+                        </div>
+                        <!-- <p class="mt-2"><u>Report will Show the answer for the below object response</u></p> -->
+                        <div class="d-flex">
+                            <div class="detail30">
+                                <h5 class="mtop">Selected Object</h5>
+                            </div>
+                            <div class="detail">
+                                <input type="text" class="form-control formcss" [value]=this.nodeName disabled>
+                            </div>
+                        </div>
+
+                        <div class="mt-1" style="width: 81%;">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            View Question from selected Object
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div [innerHtml]="popUpData"></div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <!-- <div class="d-flex">
+                            <div class="detail30">
+                                <p><u>Rename Expected Answers</u></p>
+                            </div>
+                            <div class="detail">
+                            </div>
+                        </div> -->
+                        <div class="d-flex" style="position: absolute;
+                        margin-top: -24px;">
+                            <p style="font-family: Poppins;
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 13px;
+                            line-height: 18px;
+                            color: #252733;
+                            margin-left: 8px;
+                            margin-top: -4px;">Rename Answer</p>
+                            <!-- <p style="margin-left: 100px;">Data Required in Report</p> -->
+                        </div>
+
+                        <div class="d-flex" *ngFor="let answer of answers">
+                            <div class="detail30 mb-1">
+                                <input class="form-control formcss1" type="text" name="" id="" value={{answer.option}}
+                                    disabled>
+                            </div>
+                            <div class="detail pl-1">
+                                <input class="form-control formcss1" type="text" [value]=answer.rename
+                                    [(ngModel)]="answer.rename" maxlength="30">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm ml" (click)="rename()" [disabled]="nameDuplicate">Save</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div *ngIf="!this.showData&&this.report!='New Report'">
+                <!-- <div class="heading pl-2">Add new header</div> -->
+                <div class="d-flex">
+                    <div class="details">
+                        <div class="d-flex" *ngIf="type==1&&selectedKeyword!='Select Object'">
+                            <div class="detail30">
+                                <h5 class="mtop">Rename Heading</h5>
+                            </div>
+                            <div class="detail">
+                                <input type="text" class="form-control formcss" [(ngModel)]="renameKeyword"
+                                    maxlength="30" (keyup)="duplicateName($event)">
+                                    <div *ngIf="nameDuplicate" class="text-danger">Duplicate Name</div>
+                            </div>
+                        </div>
+                        <!-- <p class="mt-2"><u>Report will Show the answer for the below object response</u></p> -->
+                        <div class="d-flex">
+                            <div class="detail30">
+                                <h5 class="mtop">Select Object</h5>
+                            </div>
+                            <div class="detail">
+                                <select class="form-control formcss" id="selectedKeyword" name="selectedKeyword" (change)="keywordChanged($event)"
+                                    [(ngModel)]="selectedKeyword">
+                                    <option value="Select Object">Select Object</option>
+                                    <option *ngFor="let data of showKeywords" [value]=data.id>{{data.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-1" style="width: 81%;" *ngIf="renameKeyword&&type==1">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            View Question from selected Object
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div [innerHtml]="popUpData"></div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <!-- <div class="d-flex">
+                            <div class="detail30">
+                                <p><u>Rename Expected Answers</u></p>
+                            </div>
+                            <div class="detail">
+                            </div>
+                        </div> -->
+                        <div class="d-flex" *ngIf="renameKeyword&&type==1" style="position: absolute;
+                        margin-top: -24px;">
+                            <p style="font-family: Poppins;
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 13px;
+                            line-height: 18px;
+                            color: #252733;
+                            margin-left: 8px;
+                            margin-top: -4px;">Rename Answer</p>
+                            <!-- <p style="margin-left: 100px;">Data Required in Report</p> -->
+                        </div>
+                        <div *ngIf="type==1" >
+
+                            <div class="d-flex" *ngFor="let answer of answers; let i = index" >
+                                <div class="detail30 mr-2 mb-1">
+                                    <input class="form-control formcss1" type="text" name="" id="" value={{answer.option}}
+                                        disabled>
+                                </div>
+                                <div class="detail mb-1">
+                                    <input class="form-control formcss1" type="text" name="rename_{{i}}"
+                                        [(ngModel)]="answers[i].rename" maxlength="30">
+                                </div>
+                            </div>
+                        </div>
+                        <button *ngIf="renameKeyword" class="btn btn-primary btn-sm ml" (click)="saveHeaders()"
+                            [disabled]="nameDuplicate||this.selectedKeyword=='Select Object'">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':confirmBox}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 250px; border-radius: 35px;">
+
+            <div class="modal-body">
+                <div class="col-12">
+                    <p style="
+                    margin: 0px;
+                 text-align: center;font-size: 16px;
+                    color: black;">Delete {{headerName}}</p>
+                </div>
+
+                <div class="col-12 mt-2 d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="deleteNow()">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger ml-1" style="width:46px"
+                        (click)="closeConfirm()">
+                        No
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':deleteBox}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 250px; border-radius: 35px;">
+
+            <div class="modal-body">
+                <div class="col-12">
+                    <p style="
+                    margin: 0px;
+                 text-align: center;font-size: 16px;
+                    color: black;">Delete Report</p>
+                </div>
+
+                <div class="col-12 mt-2 d-flex justify-content-center">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="deleteReportNow()">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger ml-1" style="width:46px"
+                        (click)="closeDeleteConfirm()">
+                        No
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

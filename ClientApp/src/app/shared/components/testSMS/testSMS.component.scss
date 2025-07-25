@@ -1,0 +1,194 @@
+.card-title {
+  font-size: 14px !important;
+}
+.t-n-10 {
+  // top: -10px !important;
+  top: -6px !important;
+}
+.textarea {
+  font-size: 10px;
+  max-height: 100px !important;
+  min-height: 100px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.smsCount {
+  position: relative;
+  top: -18px;
+  margin-left: auto;
+  right: 202px;
+  font-size: 9px;
+}
+
+.refreshTemp {
+  font-size: 25px;
+  color: var(--main-color);
+}
+
+.modal-dialog {
+  min-width: 950px !important;
+  max-width: 950px !important;
+  top: -45px !important;
+  // max-width: 400px !important;
+  // min-width: 400px !important;
+  // top: calc(100vh - 380px) !important;
+}
+
+.modal-content {
+  top: -60px !important;
+  max-height: 500px !important;
+}
+
+.fs-18px {
+  font-size: 18px !important;
+}
+
+.h-255 {
+  height: 255px !important;
+}
+
+.mt-5px {
+  margin-top: 5px !important;
+}
+.tableClass {
+  overflow-y: auto;
+  // overflow-x: hidden;
+}
+table {
+  width: 100%;
+}
+.tableResponsive {
+  height: 330px;
+  max-width: 100%;
+  overflow: auto;
+  margin: 5px;
+  padding-top: 10px;
+}
+
+.paginator-new {
+  position: fixed;
+  right: 210px;
+  bottom: 123px;
+  height: 0px;
+}
+
+.tableResponsive::-webkit-scrollbar {
+  width: 10px;
+}
+.tableResponsive::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 15px;
+}
+
+.tableResponsive::-webkit-scrollbar-thumb {
+  background: #aaaaaa;
+  border-radius: 10px;
+}
+.tableResponsive::-webkit-scrollbar-button {
+  height: 10px;
+}
+
+.text-blue {
+  color: #29a8df;
+}
+
+.testMsgDiv {
+  max-height: 400px !important;
+}
+
+.overFlow {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.smsCount {
+  position: relative;
+  top: -18px !important;
+  margin-left: auto;
+  right: 202px !important;
+  font-size: 9px;
+}
+
+.msgTypeNoti {
+  font-size: 10px !important;
+  position: relative;
+  top: -175px;
+  left: 460px;
+  line-height: 12px;
+}
+
+.dateRange {
+  width: 180px !important;
+  height: 30px !important;
+}
+
+.dateToggler {
+  top: -27px;
+  right: -17px;
+}
+
+.wid-250 {
+  width: 250px !important;
+}
+
+.timeWindowIcon {
+  font-size: 16px;
+  color: var(--main-color);
+  top: 5px;
+  position: relative;
+}
+
+.smsCount {
+  top: -20px !important;
+  right: 285px !important;
+}
+
+.modal-body {
+  overflow-y: auto;
+}
+
+.arrangehead {
+  font-weight: bold;
+  margin-top: 3px;
+  color: #000000;
+}
+
+// .overflow-x{
+//   overflow-x: auto;
+// }
+
+.overflow-y{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.composed {
+  top: -115px !important;
+  right: 0px !important;
+}
+
+.line {
+  border: 1px solid #b7b3b3;
+  height: 1px;
+  margin-top: 10px;
+  width: 85%;
+  margin-right: 5px;
+}
+
+
+
+.modal1-dialog {
+  // min-width: 950px !important;
+  // max-width: 950px !important;
+  // top: -45px !important;
+  max-width: 400px !important;
+  min-width: 400px !important;
+  top: calc(100vh - 380px) !important;
+}
+
+.modal1-content {
+  // top: -60px !important;
+  top: -90px !important;
+  width: 400px !important;
+  max-height: 500px !important;
+}

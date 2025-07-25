@@ -1,0 +1,200 @@
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class='card '>
+      <div class="card-header">
+        <div style="display:flex">
+          <div style="flex-grow:1;"><h2 class="card-title" style="font-size: 16px;">Manage VMN</h2></div>
+          <div>
+            <div class="form-group row">
+              <div>
+                <mat-form-field style="width:95%">
+                  <mat-select [(ngModel)]="vmn_" placeholder="Select VMN" (ngModelChange)="vmnsearch()" >
+                    <mat-option value="0">-All-</mat-option>
+                    <mat-option *ngFor="let item of vmnlist" [value]="item.value">
+                      {{ item.text }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!--<button mat-icon-button (click)="vmnsearch()" class="search-button">
+                  <mat-icon>search</mat-icon>
+                </button>-->
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+        <div class="card-body" style="margin-top: 10px; ">
+          <!-- <div class="mainDiv p-2"> -->
+          <div class="card-body scrollable-content" style="overflow-y: auto; height: 29vw;">
+
+
+            <div *ngIf="dataSource?.data.length > 0">
+              <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                </mat-form-field>
+              </div>
+
+              <div mat-elevation-z8>
+                <!--<mat-table [dataSource]="dataSource" matSort>-->
+
+
+
+
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;" matSort>
+
+
+                  <ng-container matColumnDef="Longcode_No">
+                    <th mat-header-cell *matHeaderCellDef> VMN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Longcode_No}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="IMSI">
+                    <th mat-header-cell *matHeaderCellDef> IMSI </th>
+                    <td mat-cell *matCellDef="let element"> {{element.IMSI}} </td>
+                  </ng-container>
+
+
+
+
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Proxy">
+                    <th mat-header-cell *matHeaderCellDef> Proxy </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Proxy}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="StatusRemark">
+                    <th mat-header-cell *matHeaderCellDef> Status Remark </th>
+                    <td (click)="viewsts_remark(element.ID)" class="i_link_clr" mat-cell *matCellDef="let element">
+                      <button mat-icon-button>
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td  class="i_link_clr" mat-cell *matCellDef="let element">
+                      <button (click)="action(element.ID)" *ngIf="(element.Status === 'Active' || element.Status === 'Inactive') && element.Status !== 'Terminated'" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+
+                </table>
+                <mat-paginator #paginator
+                               [pageSize]="10"
+                               [pageSizeOptions]="[10, 100, 1000]"
+                               [showFirstLastButtons]="true">
+                </mat-paginator>
+
+              </div>
+            </div>
+            <div *ngIf="dataSource?.data.length === 0">
+              <p style="text-align:center;">No data available.</p>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+
+
+        <!--<mat-card>-->
+        <!---->
+        <!--<div class="card-body scrollable-content" style="overflow-y: auto;  height:29vw" *ngIf="dataSource && dataSource.data.length > 0">
+              <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                </mat-form-field>
+              </div>
+              <div mat-elevation-z8>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;" matSort>
+
+
+
+
+
+
+                  <ng-container matColumnDef="Longcode_No">
+                    <th mat-header-cell *matHeaderCellDef> Longcode NO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Longcode_No}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="IMSI">
+                    <th mat-header-cell *matHeaderCellDef> IMSI </th>
+                    <td mat-cell *matCellDef="let element"> {{element.IMSI}} </td>
+                  </ng-container>
+
+
+
+
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Proxy">
+                    <th mat-header-cell *matHeaderCellDef> Proxy </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Proxy}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="StatusRemark">
+                    <th mat-header-cell *matHeaderCellDef> Status Remark </th>
+                    <td (click)="viewsts_remark(element.ID)" class="i_link_clr" mat-cell *matCellDef="let element">
+                      <button mat-icon-button>
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td (click)="action(element.ID)" class="i_link_clr" mat-cell *matCellDef="let element">
+                      <button *ngIf="(element.Status === 'Active' || element.Status === 'Inactive') && element.Status !== 'Terminated'" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+
+
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+                <mat-paginator #paginator
+                               [pageSize]="5"
+                               [pageSizeOptions]="[5, 10, 20]"
+                               [showFirstLastButtons]="true">
+                </mat-paginator>
+                </div>
+              </div>
+              <div *ngIf="dataSource && dataSource.data.length === 0">
+                <p style="text-align:center;">No data available.</p>
+              </div>
+
+  </mat-card>-->
+
+     
+</div>
+</div>
+</div>

@@ -1,0 +1,91 @@
+<div class="modal-new" id="modal-new" tabindex="-1" #menu role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="mod-hed">
+        <h5 class="modal-title question-head" id="ModalLabel">Test Api</h5>
+        <i class="bi bi-x-lg ml-auto header-icon cursor-pointer" (click)="onCloseHandled()"></i>
+      </div>
+      <div class="modal-body">
+        <ngx-spinner [fullScreen]="false" type="timer" size="default">
+      </ngx-spinner>
+        <div class="d-flex">
+          <div class="w-25">
+            <!-- <select class="form-control formhaif" name="selectFieldValue"
+            [(ngModel)]="dropdownMethod" #selectFieldValue="ngModel" [disabled]="true">
+              <option value="1">GET</option>
+              <option value="2">POST</option>
+            </select> -->
+            <input type="text" class="form-control inputFull" name="selectFieldValue" [(ngModel)]="dropdownMethod" #selectFieldValue="ngModel"
+            [disabled]="true" />
+          </div>
+          <div class="w-75">
+            <input type="text" class="form-control ml-1 inputFull" name="url" [(ngModel)]="url" #api="ngModel"
+      [disabled]="true" />
+          </div>
+        </div>
+
+        <div class="headerBody">
+          <div class="d-flex cursor-pointer">
+            <div  [ngClass]="{'header head':showContent == 1,'header' :isCollapsed !=1}"
+            (click)="handleClick(1)">Header</div>
+            <div  [ngClass]="{'header head':showContent == 2,'header' :isCollapsed !=2}"
+            (click)="handleClick(2)" >Request</div>
+            <div class="ml-2 header" (click)="handleClick(0)" class="dropdownType">
+              <!-- <select class="form-control formhaif" name="selectFieldValue"
+            [(ngModel)]="dropdownType" #selectFieldValue="ngModel" [disabled]="true">
+               <option value="1">Application/JSON</option>
+               <option value="2">Plain/Text</option>
+              </select> -->
+              <input type="text" class="form-control inputFull" name="selectFieldValue" [(ngModel)]="dropdownType" #selectFieldValue="ngModel"
+            [disabled]="true" />
+            </div>
+          </div>
+
+          <div *ngIf="showContent == 1" class="header-section" style="overflow-y:auto ;height: 120px;">
+            <table class="table table-bordered table-responsive">
+              <thead>
+                <tr class="tr">
+                  <th class="th1 cursor-default">Key</th>
+                  <th class="th2 cursor-default">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let object of header">
+                  <td class="cursor-default">{{object.param}}</td>
+                  <td class="cursor-default">{{object.variable}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="showContent == 2" class="header-section" style="overflow-y:auto ;height: 120px;">
+            <div class="">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                  <tr class="tr">
+                    <th class="th1 cursor-default">Key</th>
+                    <th class="th2">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let object of parameter">
+                    <td class="paramTd cursor-default">{{object.param}}</td>
+                    <td class="paramTd"><input type="text" maxlength="200"name="api" class="inputFull parameterInput" [(ngModel)]="object.variable"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex">
+        <button class="savebtn mt-2 ml-auto mb-2" style="margin-right:15px ;" (click)="callAPI($event)">Test</button>
+      </div>
+      <div class="mt-1">
+        <!-- <div class="response" [innerHTML]="response">
+        </div> -->
+        <div class="question-head" style="margin-left: 20px;">Response</div>
+        <textarea name="response" id="" cols="80" rows="4" class="response" [disabled]="true" [(ngModel)]="response"></textarea>
+      </div>
+    </div>
+  </div>
+</div>

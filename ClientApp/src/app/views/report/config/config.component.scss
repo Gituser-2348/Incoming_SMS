@@ -1,0 +1,437 @@
+.select {
+    box-shadow: -36px 22px 60px rgb(37 52 124 / 10%);
+    border-top-left-radius: 15px;
+    margin-top: -13px;
+    font-size: 12px;
+    width: 50%;
+    height: 37px;
+    position: absolute;
+    border-bottom: none;
+    cursor: pointer;
+    border-bottom: 60px solid white;
+    border-right: 47px solid transparent;
+    z-index: 50;
+}
+
+.text-danger{
+    font-size: 10px;
+    margin-left: 7px;
+}
+
+.selectColor {
+    border-bottom: 60px solid #ACCEDE !important;
+}
+
+.select1Color {
+    box-shadow: 36px 22px 60px rgb(37 52 124 / 10%);
+    border-bottom: 60px solid white !important;
+
+}
+.mat-expansion-panel-header-title{
+    width: 215px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--main-color);
+    padding-top: 3px;
+}
+::ng-deep .mat-accordion{
+    border-radius: 20px !important;
+}
+
+::ng-deep .displayNone {
+    display: none;
+}
+
+::ng-deep .mat-expansion-panel-content {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 0px 15px 5px 15px !important;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+
+ .scroll::-webkit-scrollbar {
+    height: 10px;
+ }
+ 
+ .scroll::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.26); 
+     border-radius: 5px;
+ }
+ .width80{
+    width: 87%;
+ }
+ .scroll::-webkit-scrollbar-thumb {
+     border-radius: 5px;
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.151); 
+ }
+
+
+ 
+ .secDiv::-webkit-scrollbar {
+    height: 10px;
+ }
+ 
+ .secDiv::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.26); 
+     border-radius: 5px;
+ }
+ .secDiv::-webkit-scrollbar-thumb {
+     border-radius: 5px;
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.151); 
+ }
+
+
+ ​.modal-dialog {
+    /* justify-content: center; */
+    margin-left: 42% !important;
+    position: absolute !important;
+    width: auto;
+    /* margin: 0.5rem; */
+    pointer-events: none;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 10px 8px 5px !important;
+}
+
+.mat-expansion-panel-header {
+    font-size: 13px !important;
+    font-weight: 400;
+    height: 24px !important;
+}
+
+.mat-accordion .mat-expansion-panel:last-of-type {
+    border-radius: 20px !important;  
+}
+.bi-trash3-fill{
+    color: red;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.pt{
+    padding-top: 4px;
+}
+
+.select1 {
+    display: flex;
+    justify-content: end;
+    border-top-right-radius: 15px;
+    width: 60%;
+    border-bottom: 60px solid var(--main-shadow);
+    border-left: 47px solid transparent;
+    margin-left: 40%;
+    margin-top: -13px;
+    /* position: absolute; */
+    font-size: 12px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.detRep {
+    margin: 18px 23px;
+    width: 271px;
+    height: 27px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    color: #252733;
+}
+
+.sumRep {
+    margin: 18px 23px;
+    height: 27px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    color: #949494;
+}
+
+.optionsDiv {
+    height: 50px;
+    width: 100%;
+    border: 1px gray solid;
+}
+
+.configDiv {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 41px 60px rgb(37 52 124 / 10%);
+    margin-top: -14px !important;
+    position: relative;
+    z-index: 100;
+    border-radius: 15px;
+    background-color: white;
+    padding: 23px;
+}
+
+.btn-primary {
+    width: 46px;
+    height: 29px;
+    align-items: flex-start;
+    padding: 2px 7px;
+    background: var(--main-color);
+    box-shadow: 0px 2.75926px 5.51852px rgb(98 125 138 / 27%);
+    border-radius: 6px;
+}
+
+.formcss {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 18px 26px;
+    gap: 10px;
+    width: 233px;
+    height: 35px;
+    left: 0px;
+    top: 0px;
+    border: 1px solid #EEEEEE;
+    border-radius: 30px;
+}
+
+.w50 {
+    width: 25%;
+}
+
+.flowSelect {
+    padding-top: 4px;
+    font-size: 13px;
+    /* font-weight: bold; */
+    /* text-decoration: underline; */
+    color: #252733;
+    font-family: Poppins;
+}
+
+.size35 {
+    margin-top: 20px;
+    height: 40px !important;
+}
+
+.config {
+    margin-top: 20px;
+    background: #F7F8FC;
+}
+.config1{
+    margin-top: 20px;
+}
+
+.secDiv{
+    overflow: auto; 
+    padding: 0px;
+}
+
+.btnDiv{
+    display: flex;
+    float: right;
+    padding: 0px 7px;
+}
+
+.head {
+    padding: 0px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    color: #252733;
+}
+
+.header {
+    color: #252733;
+    font-family: Poppins;
+    font-weight: bolder;
+}
+
+.example-margin:checked {
+    color: var(--main-color);
+}
+
+.headerList {
+    margin: 2px 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    // gap: 10px;
+    height: 31px;
+    background: #FFFFFF;
+    border: 0.55px solid #EEEEEE;
+    box-shadow: 2px 6px 14px rgb(86 89 146 / 10%);
+    border-radius: 6px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+mat-checkbox {
+    min-width: 80px !important;
+}
+
+::ng-deep mat-checkbox {
+
+    & .mat-checkbox-background,
+    .mat-checkbox-frame {
+        border-radius: 70% !important;
+        border: 0px !important;
+    }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: var(--main-color) !important;
+    border: 2px solid white
+}
+
+::ng-deep .mat-checkbox-inner-container {
+    border-radius: 50%;
+    border: 2px solid var(--main-color);
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: var(--main-color);
+    border: 2px solid white !important;
+}
+
+.bi-list {
+    color: black;
+    cursor: pointer;
+}
+.bi-x{
+    margin-top: 1px;
+    margin-left: 2px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.formcss1{
+    padding: 3px 10px !important;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    left: 0px;
+    top: 0px;
+    border: 1px solid #EEEEEE;
+    border-radius: 30px;
+}
+
+.heading {
+    background-color: #cdcdcd;
+    width: 100%;
+}
+
+.details {
+    width: 50%;
+    background-color: white;
+}
+
+.detailFull {
+    padding: 1%;
+    width: 100%;
+    background-color: white;
+}
+
+.detail {
+    width: 60%;
+}
+
+.detail30 {
+    width: 39%;
+}
+
+.form-control {
+    padding: 3px 5px;
+    height: 29px;
+    font-size: 12px;
+}
+
+.ml {
+    margin-top: 5px;
+    margin-left: 90% !important;
+}
+
+.mtop {
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.example-list {
+    overflow-x: auto;
+    // width: 1000px;
+    // max-width: 100%;
+    // border: solid 1px #ccc;
+    // min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    // background: white;
+    border-radius: 4px;
+    // overflow: hidden;
+}
+
+
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.insideDiv {
+    padding: 50px 40%;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+    border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.bi-list {
+    cursor: pointer;
+}
+
+.bi-plus-circle-fill {
+    margin: 6px 10px;
+    color: var(--main-color);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.preview{
+    color: var(--main-color);
+}

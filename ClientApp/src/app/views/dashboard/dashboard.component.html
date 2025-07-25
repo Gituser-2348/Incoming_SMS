@@ -1,0 +1,122 @@
+
+
+<div class='card shadow-lg mt-neg innerDivScollHeight'>
+  <div class="card-header">
+    <h2 class="card-title">Dashboard</h2>
+  </div>
+  <div class="card-body">
+    <!--<div class="card-header d-flex">-->
+     
+      <!--<app-daterange-picker class="form-control inputPicker ml-auto" (startDate)="dateRange.FromDate = $event"
+        (endDate)="dateRange.ToDate = $event">
+      </app-daterange-picker>-->
+    <!--</div>-->
+    <div class="d-flex mt-2">
+      <div class="card1 cardMain d-flex">
+        <div class="mx-auto my-auto cardHead  text-dark">VMN Details</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead">Total </div>
+        <div class="cardDisc">{{VMNdashboard.Total_vmn}}</div>
+        <!--<mat-icon>dashboard</mat-icon>-->
+
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Configured </div>
+        <div class="cardDisc">{{VMNdashboard.Config_vmn}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Active </div>
+        <div class="cardDisc">{{VMNdashboard.Active_vmn}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Inactive </div>
+        <div class="cardDisc"> {{VMNdashboard.Inactive_vmn}}</div>
+      </div>
+
+      <div class="card1 card">
+        <div class="cardHead"> Terminated </div>
+        <div class="cardDisc">{{VMNdashboard.Terminated_vmn}}</div>
+      </div>
+
+    </div>
+    <div class="d-flex mt-1">
+      <div class="card1  cardMain d-flex">
+        <div class="mx-auto my-auto cardHead text-dark">Transactions Details</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Today</div>
+        <div class="cardDisc">{{TransactionDashboard.today}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Last Day</div>
+        <div class="cardDisc">{{TransactionDashboard.last_day}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> This Week</div>
+        <div class="cardDisc">{{TransactionDashboard.this_week}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead">Last Week</div>
+        <div class="cardDisc"> {{TransactionDashboard.last_week}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> This Month</div>
+        <div class="cardDisc">{{TransactionDashboard.this_month}}</div>
+      </div>
+      <div class="card1 card">
+        <div class="cardHead"> Last Month</div>
+        <div class="cardDisc">{{TransactionDashboard.last_month}}</div>
+      </div>
+
+
+    </div>
+    <!--<div class="card-header d-flex">
+      <h2 class="card-title inner-header">Detailed Analysis</h2>
+      <app-daterange-picker id="customDateRange" class="form-control inputPicker ml-auto" (startDate)="dateRange.FromDate = $event"
+        (endDate)="dateRange.ToDate = $event">
+      </app-daterange-picker>
+    </div>
+
+    <div class="mt-1">
+      <div class="d-flex">
+        <div class="card1 cardMain vertical-div">VMN Details</div>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType"  [colors]="doughnutOutChartColours"
+          [options]="getChartOption('Today')" ></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Yesterday')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Last 7 Days')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Last 30 Days')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Custom')"></canvas>
+
+      </div>
+      <div class="d-flex mt-1">
+        <div class="card1 cardMain vertical-div">Transactions Details</div>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Today')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Yesterday')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Last 7 Days')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Last 30 Days')"></canvas>
+        <canvas baseChart class="chart" [data]="doughnutOutChartData" [labels]="doughnutOutChartLabels"
+          [chartType]="doughnutOutChartType" (chartHover)="chartHovered($event)" [colors]="doughnutOutChartColours"
+          (chartClick)="chartClicked($event)" [options]="getChartOption('Custom')"></canvas>
+      </div>
+    </div>-->
+  </div>
+
+</div>

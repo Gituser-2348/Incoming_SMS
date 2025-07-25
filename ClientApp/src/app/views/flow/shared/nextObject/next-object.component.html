@@ -1,0 +1,3 @@
+ <select  class="form-control inputFull" [(ngModel)]="nodeSelected" id="selectedNode" name="nodeSelected" (change)="onChange()" [disabled]="array.length==0">
+    <option *ngFor="let nodes of uniqueObject | keyvalue" value="{{nodes.value['id']}}">{{nodes.value["name"]}}</option>
+</select>

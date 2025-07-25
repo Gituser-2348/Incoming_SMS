@@ -1,0 +1,88 @@
+<!--summary report-->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class='card '>
+      <div class="card-header">
+        <div style="display:flex">
+          <div style="flex-grow:1;"><h2 class="card-title" style="font-size: 16px;">Summary Report</h2></div>
+         
+
+        </div>
+
+
+      </div>
+      <div style="margin-left:5%;">
+
+        <div class="form-group row" style="margin-top:1%;">
+          <div class=" d-flex">
+
+            <mat-form-field class="wdth_in" style="margin-left:4%;">
+              <mat-select [(ngModel)]="vmn_" placeholder="Select VMN">
+                <mat-option value="0">-All- </mat-option>
+                <mat-option *ngFor="let item of vmnlist" [value]="item.value">
+                  {{ item.text }}
+                </mat-option>
+
+              </mat-select>
+
+            </mat-form-field>
+
+            <mat-form-field class="wdth_in" style="margin-left: 4%;">
+              <input matInput [(ngModel)]="created_date_" [matDatepicker]="picker3"
+                     placeholder=" Date" [max]="maxDate" [disabled]="isDatepickerOpen" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3 (opened)="onDatepickerOpen()" (closed)="onDatepickerClose()"></mat-datepicker>
+            </mat-form-field>
+            <!--<mat-form-field >
+    <input [(ngModel)]="created_date_" matInput [matDatepicker]="picker" placeholder="Created date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>-->
+          </div>
+          <div class="col-md-2" style="margin-left:3%;">
+            <button type="button" class="btn btn-round btn-primary" (click)="GetSummaryReport()">
+              <i class="fa fa-search"></i>
+            </button>
+
+          </div>
+          <div class="card-body" style="margin-top: 10px; width:100vw;">
+            <div class="row" style="    margin: 0px 8px;
+                    padding: 13px;
+                    background-color: #F7F8FC;">
+              <div class="col-3 summery">
+                Summary:
+              </div>
+              <div class="col-2 status">
+                <h2>{{Total_count}}</h2>
+                <p>
+                  Total part
+                </p>
+              </div>
+              <div class="col-2 status">
+                <h2>{{single_part}}</h2>
+                <p>Single Part</p>
+              </div>
+              <div class="col-2 status">
+                <h2>{{multi_part}}</h2>
+                <p>Multi Part</p>
+              </div>
+              <!--<div class="col-2 status">
+                <h2>{{Failure_count}}</h2>
+                <p>Failed</p>
+              </div>-->
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+

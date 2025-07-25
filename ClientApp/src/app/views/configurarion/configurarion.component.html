@@ -1,0 +1,30 @@
+
+<div class='card shadow-lg mt-neg' >
+  <div class="card-body">
+    <!--<ngx-spinner name="mainLoader" [fullScreen]="false" type="timer" size="default">
+    </ngx-spinner>-->
+    <div class="mainDiv p-2">
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" #tabGroup style="margin-top:0px">
+        <mat-tab   label="REQUEST">
+          <app-request></app-request>
+        </mat-tab>
+        <mat-tab [disabled]="true" (click)="info_clicked()" label="INFO">
+          <app-info></app-info>
+        </mat-tab>
+        <mat-tab [disabled]="true" label="NUMBERS"> 
+          <app-numbers></app-numbers>
+        </mat-tab>
+        <mat-tab [disabled]="true" label="URL">
+
+          <app-url (conditionMet)="handleConditionMet()"></app-url>
+        </mat-tab>
+        <mat-tab  label="WEB USER">
+          <app-webuser></app-webuser>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
+
+

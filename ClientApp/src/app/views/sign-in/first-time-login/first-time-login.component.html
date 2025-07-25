@@ -1,0 +1,92 @@
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Changing Password...</p>
+</ngx-spinner>
+<div class="app-body" style=" background-image:linear-gradient(0deg, rgba(84.47757616639137, 136.29560083150864, 184.87500607967377, 1) 0%,rgba(138.73885452747345, 181.19622588157654, 221.00000202655792, 1) 100%);
+background-image: url(./assets/img/logo/pattern_3.png); background-repeat: repeat-x; object-fit: cover;
+">
+  <main class="main d-flex align-items-center">
+    <div class="container" style="width: 770px;">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form #firsttimeForm="ngForm" class="form-horizontal" style="color:#25347C;
+                    font-family: Verdana;">
+
+                  <h2 class="text-center"><b>First Time Login</b></h2>
+                  <p class="text-muted">Fill the details below</p>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-question-circle"></i></span>
+                    </div>
+                    <select id="select4" name="SecurityQuestion" [(ngModel)]="firstTimemodel.SecurityQuestion"
+                      class="form-control">
+                      <option value="undefined">--Select--</option>
+                      <option *ngFor="let type of SecQuestion" value={{type.Value}}>
+                        {{type.Text}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-reply"></i></span>
+                    </div>
+                    <input type="text" autocomplete="off" id="text-input" name="Answer" class="form-control"
+                      placeholder="Answer" maxlength="35" [(ngModel)]="firstTimemodel.Answer" required />
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                    <input type="password" autocomplete="off" id="text-input" name="newpassword" class="form-control"
+                      placeholder="password" maxlength="15" minlength={{paswdLength}} [(ngModel)]="firstTimemodel.newpassword"
+                      required>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group mb-3">
+                      <p class="text-muted">[Must include minimum {{paswdLength}} characters, atleast one uppercase,lowercase,numeric & special characters]
+                      </p>
+                    </div>
+
+                    <div class="input-group-prepend">
+                      <app-password-strength-bar [passwordToCheck]="firstTimemodel.newpassword" [min]="paswdLength" [barLabel]="barLabel"
+                        (passwordStrength)="passwordValid($event)">
+                      </app-password-strength-bar>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-check"></i></span>
+                    </div>
+                    <input type="password" autocomplete="off" id="text-input" name="confirmpassword"
+                      class="form-control" placeholder="confirm password" maxlength="15" minlength={{paswdLength}}
+                      [(ngModel)]="firstTimemodel.confirmpassword" required>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <button type="button" class="btn btn-block btn-primary px-4 align-items-center"
+                        [disabled]="!firsttimeForm.form.valid" (click)="FirstTimeLogin()">Change Password</button>
+                    </div>
+
+                  </div>
+                  <div class="row" *ngIf="Showmsg">
+                    <div class="col-12">
+                      <p style="color: red;">{{Message}}</p>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,11 @@
+.text-center {
+  color: var(--main-color) !important;
+}
+
+a {
+  color: var(--main-color);
+}
+
+.btn-primary:focus {
+  background-color: var(--main-color) !important;
+}

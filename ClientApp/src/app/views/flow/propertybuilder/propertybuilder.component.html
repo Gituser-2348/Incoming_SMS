@@ -1,0 +1,12 @@
+<div>
+  <!-- <button (click)="test()" >test</button> -->
+  <!-- <div class="arrowDiv" #arrowDiv (click)="propertyShow()"><i [className]="left ? 'arrow left' : 'arrow right'"
+      #arrow></i></div> -->
+  <div class="property-outer" #side [style.display]="show ? 'block' : 'none'">
+    <div class="d-flex fixedHeader">
+      <div class="property-header">Properties</div>
+      <i class="bi bi-x-lg ml-auto header-icon" (click)="propertyHide()"></i>
+    </div>
+    <ng-template #viewContainerRef></ng-template>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<!-- <div class="mlr-20">
+  <div class="flex">
+    <div class="logistic-outer">
+      <div class="logistic-icon">
+        <i class="bi bi-file-earmark-check "></i>
+      </div>
+      <div class="logistic-text">
+       Conditions
+      </div>
+    </div>
+    <div class="logistic-outer">
+      <div class="logistic-icon">
+        <i class="bi bi-link-45deg"></i>
+      </div>
+
+      <div class="logistic-text">
+        Integration
+      </div>
+    </div>
+  </div>
+  <div class="flex">
+    <div class="logistic-outer">
+      <div class="logistic-icon">
+        <i class="bi bi-person"></i>
+      </div>
+
+      <div class="logistic-text">
+       Live Agents
+      </div>
+    </div>
+    <div class="logistic-outer">
+      <div class="logistic-icon">
+        <i class="bi bi-check-all"></i>
+      </div>
+
+      <div class="logistic-text">
+       Chat Status
+      </div>
+    </div>
+  </div>
+</div>  -->
+
+<!-- <div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-file-earmark-check "></i></div>
+    <div class="inner-header-new">Conditions</div>
+  </div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-link-45deg"></i></div>
+    <div class="inner-header-new">Integrations</div>
+  </div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-person"></i></div>
+    <div class="inner-header-new">Live Agents</div>
+  </div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-check-all"></i></div>
+    <div class="inner-header-new">Chat Status</div>
+  </div>
+</div> -->
+
+<div>
+  <!-- <div class="bot-outer-new not-allowed">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-check-all"></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Chat Status</div>
+  </div> -->
+
+
+  <div *ngIf="objectFlags['conditions'] ==1" class="bot-outer-new drag-dragflow draggable" title="conditions" draggable="true" (dragstart)="ngDrag($event)" data-node="conditions">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-file-earmark-check "></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Conditions</div>
+  </div>
+  <div *ngIf="objectFlags['conditions'] ==0" class="bot-outer-new not-allowed">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-file-earmark-check "></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Conditions</div>
+  </div>
+
+  <div *ngIf="objectFlags['liveAgent'] ==0" class="bot-outer-new not-allowed">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-person"></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Connect Agents</div>
+  </div>
+  <div *ngIf="objectFlags['liveAgent'] ==1"  class="bot-outer-new drag-dragflow draggable" title="liveAgent" draggable="true" (dragstart)="ngDrag($event)" data-node="liveAgent">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-person"></i></div>
+    <div [ngClass]="collapsedValue =='false'?'inner-header-new':'collapsedTrue'">Connect Agents</div>
+  </div>
+
+  <div *ngIf="objectFlags['webhook'] ==1" class="bot-outer-new drag-dragflow draggable" title="webhook" draggable="true" (dragstart)="ngDrag($event)" data-node="webhook">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-link-45deg"></i></div>
+    <div [ngClass]="collapsedValue =='false'?'inner-header-new':'collapsedTrue'">Webhooks</div>
+  </div>
+  <div *ngIf="objectFlags['webhook'] ==0"  class="bot-outer-new drag-dragflow not-allowed">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-link-45deg"></i></div>
+    <div [ngClass]="collapsedValue =='false'?'inner-header-new':'collapsedTrue'">Webhooks</div>
+  </div>
+</div>
+
+

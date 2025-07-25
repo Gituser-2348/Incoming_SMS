@@ -1,0 +1,258 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <SpaProxyServerUrl>http://localhost:4200</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.14" />
+    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Security.AccessControl" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\views\accounts\**" />
+    <Compile Remove="ClientApp\src\app\views\configurarion\configure\**" />
+    <Compile Remove="ClientApp\src\app\views\configurarion\url\api-test\**" />
+    <Compile Remove="ClientApp\src\app\views\EndUser\**" />
+    <Compile Remove="ClientApp\src\app\views\management\**" />
+    <Compile Remove="ClientApp\src\app\views\report\**" />
+    <Compile Remove="ClientApp\src\app\views\smsservice\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\views\accounts\**" />
+    <Content Remove="ClientApp\src\app\views\configurarion\configure\**" />
+    <Content Remove="ClientApp\src\app\views\configurarion\url\api-test\**" />
+    <Content Remove="ClientApp\src\app\views\EndUser\**" />
+    <Content Remove="ClientApp\src\app\views\management\**" />
+    <Content Remove="ClientApp\src\app\views\report\**" />
+    <Content Remove="ClientApp\src\app\views\smsservice\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\accounts\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\configurarion\configure\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\configurarion\url\api-test\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\EndUser\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\management\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\report\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\views\smsservice\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\views\accounts\**" />
+    <None Remove="ClientApp\src\app\views\configurarion\configure\**" />
+    <None Remove="ClientApp\src\app\views\configurarion\url\api-test\**" />
+    <None Remove="ClientApp\src\app\views\EndUser\**" />
+    <None Remove="ClientApp\src\app\views\management\**" />
+    <None Remove="ClientApp\src\app\views\report\**" />
+    <None Remove="ClientApp\src\app\views\smsservice\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\src\app\views\configurarion\RequestModel.cs" />
+    <Compile Remove="Controllers\AccountController.cs" />
+    <Compile Remove="Controllers\api\CampaignController.cs" />
+    <Compile Remove="Controllers\api\ManagementController.cs" />
+    <Compile Remove="Controllers\api\SMSController.cs" />
+    <Compile Remove="Controllers\api\TemplateController.cs" />
+    <Compile Remove="DataAccess\AccountDataAccessLayer.cs" />
+    <Compile Remove="DataAccess\AccountDbPrcs.cs" />
+    <Compile Remove="DataAccess\SMSDataAccessLayer.cs" />
+    <Compile Remove="DataAccess\TemplateDataAccessLayer.cs" />
+    <Compile Remove="ICollection\IDataService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\accmanager.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\accmanager.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\accmanager.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\accmanager.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\confirmation-dialog.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accmanager\confirmation-dialog.html" />
+    <None Remove="ClientApp\src\app\views\accounts\account-management\account-management.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\account-management\account-management.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\account-management\account-management.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\account-management\account-management.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts-routing.module.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.model.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.module.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\accounts.service.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\agent-session\agent-session.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\agent-session\agent-session.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\agent-session\agent-session.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\agent-session\agent-session.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\chat-replies\chat-replies.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\chat-replies\chat-replies.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\chat-replies\chat-replies.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\chat-replies\chat-replies.component.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\model\accountmodel.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\model\mock.accountmodel.ts" />
+    <None Remove="ClientApp\src\app\views\accounts\user-management\user-management.component.html" />
+    <None Remove="ClientApp\src\app\views\accounts\user-management\user-management.component.scss" />
+    <None Remove="ClientApp\src\app\views\accounts\user-management\user-management.component.ts" />
+    <None Remove="ClientApp\src\app\views\configurarion\url\api-test\api-test.component.html" />
+    <None Remove="ClientApp\src\app\views\configurarion\url\api-test\api-test.component.scss" />
+    <None Remove="ClientApp\src\app\views\configurarion\url\api-test\api-test.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\configurarion\url\api-test\api-test.component.ts" />
+    <None Remove="ClientApp\src\app\views\management\accountInfo\account.model.ts" />
+    <None Remove="ClientApp\src\app\views\management\accountInfo\accountInfo.component.html" />
+    <None Remove="ClientApp\src\app\views\management\accountInfo\accountInfo.component.scss" />
+    <None Remove="ClientApp\src\app\views\management\accountInfo\accountInfo.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\management\accountInfo\accountInfo.component.ts" />
+    <None Remove="ClientApp\src\app\views\management\headers\header.model.ts" />
+    <None Remove="ClientApp\src\app\views\management\headers\headers.component.html" />
+    <None Remove="ClientApp\src\app\views\management\headers\headers.component.scss" />
+    <None Remove="ClientApp\src\app\views\management\headers\headers.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\management\headers\headers.component.ts" />
+    <None Remove="ClientApp\src\app\views\management\management-routing.module.ts" />
+    <None Remove="ClientApp\src\app\views\management\management.component.html" />
+    <None Remove="ClientApp\src\app\views\management\management.component.scss" />
+    <None Remove="ClientApp\src\app\views\management\management.component.ts" />
+    <None Remove="ClientApp\src\app\views\management\management.module.ts" />
+    <None Remove="ClientApp\src\app\views\management\management.service.spec.ts" />
+    <None Remove="ClientApp\src\app\views\management\management.service.ts" />
+    <None Remove="ClientApp\src\app\views\management\templates\action-renderer.ts" />
+    <None Remove="ClientApp\src\app\views\management\templates\template.model.ts" />
+    <None Remove="ClientApp\src\app\views\management\templates\templates.component.html" />
+    <None Remove="ClientApp\src\app\views\management\templates\templates.component.scss" />
+    <None Remove="ClientApp\src\app\views\management\templates\templates.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\management\templates\templates.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\apisms\apisms.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\apisms\apisms.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\apisms\apisms.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\apisms\apisms.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\base-upload-bulkSMS\base-upload-bulkSMS.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\base-upload-bulkSMS\base-upload-bulkSMS.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\base-upload-bulkSMS\base-upload-bulkSMS.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\base-upload-bulkSMS\base-upload-bulkSMS.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulk-report\bulk-report.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulk-report\bulk-report.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulk-report\bulk-report.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulk-report\bulk-report.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulksms.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulksms.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulksms.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\bulksms.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-list\campaign-list.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-list\campaign-list.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-list\campaign-list.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-list\campaign-list.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-status\campaign-status.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-status\campaign-status.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-status\campaign-status.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\campaign-status\campaign-status.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\create-campaign-bulkSMS\create-campaign-bulkSMS.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\create-campaign-bulkSMS\create-campaign-bulkSMS.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\create-campaign-bulkSMS\create-campaign-bulkSMS.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\create-campaign-bulkSMS\create-campaign-bulkSMS.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\shared-filter-bulk\shared-filter-bulk.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\shared-filter-bulk\shared-filter-bulk.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\shared-filter-bulk\shared-filter-bulk.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\shared-filter-bulk\shared-filter-bulk.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\summary-bulk\summary-bulk.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\summary-bulk\summary-bulk.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\summary-bulk\summary-bulk.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\bulksms\summary-bulk\summary-bulk.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\instantsms\instantsms.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\instantsms\instantsms.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\instantsms\instantsms.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\instantsms\instantsms.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\sms.service.spec.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\sms.service.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice-model.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice-routing.module.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice.component.html" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice.component.scss" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice.component.ts" />
+    <None Remove="ClientApp\src\app\views\smsservice\smsservice.module.ts" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <None Remove="ClientApp\src\app\views\configurarion\configure\configure.module.ts" />
+    <None Remove="ClientApp\src\app\views\configurarion\configure\index.ts" />
+  </ItemGroup>-->
+
+ <!--<ItemGroup>
+    <None Remove="ClientApp\src\app\views\report\agent-report\agent-report.component.html" />
+    <None Remove="ClientApp\src\app\views\report\agent-report\agent-report.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\agent-report\agent-report.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\agent-report\agent-report.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\chatHisotry\chat.component.html" />
+    <None Remove="ClientApp\src\app\views\report\chatHisotry\chat.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\chatHisotry\chat.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\chatHisotry\ngxt-for.directive.ts" />
+    <None Remove="ClientApp\src\app\views\report\chatreport\chatreport.component.html" />
+    <None Remove="ClientApp\src\app\views\report\chatreport\chatreport.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\chatreport\chatreport.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\chatreport\chatreport.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\config\config.component.html" />
+    <None Remove="ClientApp\src\app\views\report\config\config.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\config\config.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\config\config.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\detailed\detailed.component.html" />
+    <None Remove="ClientApp\src\app\views\report\detailed\detailed.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\detailed\detailed.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\detailed\detailed.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\errorcodes\errorcodes.component.html" />
+    <None Remove="ClientApp\src\app\views\report\errorcodes\errorcodes.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\errorcodes\errorcodes.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\errorcodes\errorcodes.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\pmmw\pmmw.component.html" />
+    <None Remove="ClientApp\src\app\views\report\pmmw\pmmw.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\pmmw\pmmw.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\pmmw\pmmw.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\report-routing.module.ts" />
+    <None Remove="ClientApp\src\app\views\report\report.component.html" />
+    <None Remove="ClientApp\src\app\views\report\report.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\report.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\report.component.ts" />
+    <None Remove="ClientApp\src\app\views\report\report.modal.ts" />
+    <None Remove="ClientApp\src\app\views\report\report.module.ts" />
+    <None Remove="ClientApp\src\app\views\report\report.service.ts" />
+    <None Remove="ClientApp\src\app\views\report\summary\summary.component.html" />
+    <None Remove="ClientApp\src\app\views\report\summary\summary.component.scss" />
+    <None Remove="ClientApp\src\app\views\report\summary\summary.component.spec.ts" />
+    <None Remove="ClientApp\src\app\views\report\summary\summary.component.ts" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <Folder Include="ICollection\" />
+    <Folder Include="Asset\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+    <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install --force" />
+  </Target>
+  
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install --force" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --production" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>

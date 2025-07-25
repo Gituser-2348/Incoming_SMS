@@ -1,0 +1,116 @@
+<div   *ngIf="dropdownData!=null && dropdownData.length>0">
+  <form #f="ngForm" class="d-flex"  (ngSubmit)="callReport(f)">
+    <h4 class="text textOptionAlign">Choose any Flow</h4>
+    <select class="form-control" required="true" [(ngModel)]="selected" name="selectedFlow"
+      [disabled]="dropdownData==null ||dropdownData.length==0">
+      <option value="-1">select any flow</option>>
+      <option *ngFor="let flowObject of dropdownData" [ngValue]="flowObject['id']">
+        {{flowObject["Name"]}}
+      </option>
+    </select>
+
+
+    <div class="dateRange">
+      <mat-label>Choose Date</mat-label>
+
+      <div class="d-flex" style="height: 20px;">
+        <input matInput class="matDatePicker" [(ngModel)]="date" name="date" [max]="maxDate" [matDatepicker]="dp3"
+        (keydown)="$event.preventDefault()">
+        <mat-datepicker-toggle class="dateToggler" matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3></mat-datepicker>
+      </div>
+    </div>
+
+    <h4 class="text textOptionAlign">Search By User</h4>
+
+    <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber"
+      (keydown)="checkingNumber($event)" placeholder="Enter Number" />
+
+    <button class="btn btn-primary buttonSearch ml-auto" [disabled]="!f.valid ||selected == -1">Search</button>
+  </form>
+</div>
+
+
+<div class="d-flex" style="max-height: 450px;">
+  <div class="mr-2" [ngClass]="{'w-75':chatOpen == true,'w-100':chatOpen == false}">
+    <div class="animated fadIin ">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card shadow-lg">
+            <div class="card-header" *ngIf="dropdownData != null && dropdownData.length>0">
+              <div class="searchbar" style="float:right">
+                <input class="search_input" type="text" name="" placeholder="Search..."
+                  (keyup)="applyFilter($event.target.value)">
+                <a class="search_icon"><i class="fas fa-search"></i></a>
+              </div>
+              <h2 class="card-title">List of Active users</h2>
+
+            </div>
+            <div class="card-body">
+              <ngx-spinner [fullScreen]="false" type="line-scale" size="default">
+                <!-- <p style="color: white" > Loading...</p> -->
+              </ngx-spinner>
+              <div style="overflow: auto;
+              max-height: 350px;" class="mat-elevation-z8 table-responsive" *ngIf="tableData?.length > 0; else noactiveflows">
+                <table mat-table class="table table-striped table-report" [dataSource]="dataSource" matSort>
+
+                  <ng-container matColumnDef="cus_name">
+                    <th mat-header-cell mat-sort *matHeaderCellDef>Customer Name</th>
+                    <td mat-cell *matCellDef="let row">{{ row.cus_name }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Number">
+                    <th mat-header-cell *matHeaderCellDef>Customer Number</th>
+                    <td mat-cell *matCellDef="let row">{{maskCustomerNumber(row.customer_num)}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>
+                      View Chat
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <button mat-icon-button color="primary" (click)="openChat(row)" matTooltip="View Chat">
+                        View</button></td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users">
+                </mat-paginator>
+              </div>
+              <ng-template #noactiveflows>
+                <div class="row insideDiv">
+                  <div class="col-md-3 pl-4">
+                    <i class="material-icons primary tbl-button">info</i>
+                  </div>
+                  <div class="col-md-9">
+                    <div *ngIf="accountID==undefined||accountID<0">
+                      <h4>Select Account</h4>
+                    </div>
+                    <div *ngIf="accountID>0 && selected == -1 && dropdownData != null && dropdownData.length == 0">
+                      <h4>No Flow Created</h4>
+                    </div>
+                    <div *ngIf="accountID>0 && selected == -1 && dropdownData != null && dropdownData.length != 0">
+                      <h4>Select any Flow</h4>
+                    </div>
+                    <div *ngIf="(accountID>0) && selected != -1">
+                      <h4>No active Users</h4>
+                    </div>
+                    <div *ngIf="accountID>0 && dropdownData == null">
+                      <h4>No flows Created</h4>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="chatOpen == true" class="ml-auto w-25">
+    <chat-history></chat-history>
+    <!-- <chatCreator></chatCreator> -->
+  </div>
+</div>

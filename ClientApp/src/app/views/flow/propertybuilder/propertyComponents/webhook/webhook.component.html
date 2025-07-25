@@ -1,0 +1,252 @@
+<div class="property">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="d-flex">
+      <div class="question-head">Property</div>
+      <div class=" ml-auto question-head">
+        <button *ngIf="helpBtn" class="btn-primary btn helpBtn" type="button" (click)="openHelp()">HELP <i class="ml-1 helpBi bi bi-question-circle-fill"></i> <i class="ml-1"><<<</i></button>
+
+        <i class="bi bi-question-circle tooltipBlue "
+          matTooltip="This helps to define the Properties of an Object in the flow"></i>
+      </div>
+    </div>
+    <api-component></api-component>
+    <input type="text" id="uniqueName" #initialCurser name="uniqueName" [(ngModel)]="webhook.uniqueName"
+      #uniqueName="ngModel" placeholder="Unique Name" [required]="true" maxlength="15"  class="form-control inputFull mt-1" (keyup)="checkUniqueName(webhook.uniqueName)" (paste)="checkUniqueName(webhook.uniqueName)">
+    <div *ngIf="uniqueName.errors && (uniqueName.touched || f.submitted)">
+      <small class="text-danger">Name Required</small>
+    </div>
+    <div *ngIf="duplicateUniquecheckFlag">
+      <small class="text-danger">Duplicate Unique name not allowed</small>
+    </div>
+    <div *ngIf="webhook.uniqueName.trim().length == 0">
+      <small class="text-danger">Space or Empty name not allowed</small>
+    </div>
+    <input type="text" id="message" name="message" [(ngModel)]="webhook.message" #message="ngModel"
+      placeholder="Description" maxlength="50" class="form-control inputFull mt-1" />
+    <div *ngIf="message.errors && (message.touched || f.submitted)">
+      <small class="text-danger">Description Required</small>
+    </div>
+    <input type="text" class="form-control inputFull mt-1" name="url" [(ngModel)]="webhook.url" #api="ngModel"
+      [required]="true" placeholder="Web API" />
+      <div *ngIf=" (api.touched || f.submitted) && webhook.url.trim().length == 0">
+        <small class="text-danger">Space or Empty API not allowed</small>
+      </div>
+    <div *ngIf="api.errors && (api.touched || f.submitted)">
+      <small class="text-danger">API Required</small>
+    </div>
+
+    <div class="box">
+      <div class="row mt-1">
+        <div class="col-6 col pTop">Method</div>
+        <div class="col-6 col"><select class="form-control formhaif" name="selectFieldValue"
+            [(ngModel)]="webhook.method" #selectFieldValue="ngModel" (change)="methodChange($event)" [required]="true">
+            <option value="1">GET</option>
+            <option value="2">POST</option>
+          </select>
+          <div *ngIf="selectFieldValue.errors && (selectFieldValue.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-6 col pTop">Content Type</div>
+        <div class="col-6 col"><select class="form-control formhaif" name="selectContentType"
+            [(ngModel)]="webhook.contentType" #selectContentType="ngModel" [required]="true">
+            <option value="1" >plain/text</option>
+            <option value="2" *ngIf="webhook.method !=1">application/json</option>
+          </select>
+          <div *ngIf="selectContentType.errors && (selectContentType.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-variable-pop (childToParent)="childToParent($event)"></app-variable-pop>
+
+    <div class="mt-2">
+      <div class="d-flex">
+        <div class="question-head">Header</div>
+        <div class="prop-label" (click)="addOption(1)"><i class="bi bi-plus-circle-fill propIconStyle"></i></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="ACP is supporting following authentication methods&#13;1)No Authentication&#13;2)HTTP basic authentication&#13;3)API access tokens&#13;4)Bearer Authentication"></i>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="" *ngFor="let val of webhook.headerItems; let i = index">
+        <div style=" display: flex; width :100%; margin-top: 3px;">
+          <div style="flex-basis: 48%;">
+            <input type="text" id="hparam{{i}}" name="hparam{{i}}" [(ngModel)]="val.param" placeholder="Key"
+              [required]="true"  class="propListTextBox" #hparam="ngModel">
+            <div *ngIf="hparam.errors && (hparam.touched || f.submitted)">
+              <small class="text-danger">Required</small>
+
+            </div>
+
+          </div>
+          <div style="flex-basis: 48%; ">
+            <input type="text" id="hval{{i}}" name="hval{{i}}" [(ngModel)]="val.variable"  placeholder="Value"
+              [required]="true" class="propListTextBox" #hval="ngModel">
+            <div *ngIf="hval.errors && (hval.touched || f.submitted)">
+              <small class="text-danger">Required</small>
+
+            </div>
+
+          </div>
+          <div style="flex-basis: 6%;" (click)="deleteOption(1,i,f)"><i
+              class="bi bi-dash-circle-fill propIconStyle"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex mt-2">
+      <div class="question-head">Request</div>
+      <div class="prop-label" (click)="addOption(2)"><i class="bi bi-plus-circle-fill propIconStyle"></i></div>
+      <div class=" ml-auto question-head">
+        <i class="bi bi-question-circle tooltipBlue "
+          matTooltip="Clients can define their own parameter names in the request body and will be able to assign system variables, user-defined variables, and static values ​​(length limit 200) to this parameter."></i>
+      </div>
+    </div>
+
+
+    <div class="" *ngFor="let val of webhook.reqItems; let i = index">
+      <div style=" display: flex; width :100%; margin-top: 3px;">
+        <div style="flex-basis: 48%; ;">
+          <input type="text" id="qparam{{i}}" name="qparam{{i}}" [(ngModel)]="val.param" maxlength=200 placeholder="Parameter"
+            [required]="true" class="propListTextBox" #qparam="ngModel">
+          <div *ngIf="qparam.errors && (qparam.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+
+        </div>
+        <div style="flex-basis: 48%; ">
+          <a class="icon" (click)="input(i,'reqValue')">{{icon}}</a>
+          <input type="text" id="qval{{i}}" name="qval{{i}}" [(ngModel)]="val.variable" maxlength=200 placeholder="Value"
+            [required]="true" #qval="ngModel" class="propListTextBox pr-4"
+            (keydown)="onKeydown($event,i,'ReqVariable')">
+          <div *ngIf="qval.errors && (qval.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+        </div>
+        <div style="flex-basis: 6%;" (click)="deleteOption(2,i,f)"><i class="bi bi-dash-circle-fill propIconStyle"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <div class="flex">
+        <div class="question-head">Response</div>
+        <div class="prop-label" (click)="addOption(3)"><i class="bi bi-plus-circle-fill propIconStyle"></i></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="Clients can define their own parameter names in the response body and will be able to assign to a user-defined variables."></i>
+        </div>
+      </div>
+    </div>
+    <div class="" *ngFor="let rsp of webhook.respItems; let i = index">
+      <div style=" display: flex; width :100%; margin-top: 3px;">
+        <div style="flex-basis: 48%; ;">
+          <a class="icon" (click)="input(i,'rrsp')">{{icon}}</a>
+          <input type="text" id="rrsp{{i}}" name="rrsp{{i}}" [(ngModel)]="rsp.param" maxlength=50 placeholder="Variable"
+            [required]="true" class="propListTextBox pr-4" #rrsp="ngModel" (keydown)="onKeydown($event,i,'RespParam')">
+          <div *ngIf="rrsp.errors && (rrsp.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+
+        </div>
+        <div style="flex-basis: 48%; ">
+          <input type="text" id="rval{{i}}" name="rval{{i}}" [(ngModel)]="rsp.variable" maxlength=50 placeholder="Parameter"
+            [required]="true" class="propListTextBox" #rval="ngModel">
+          <div *ngIf="rval.errors && (rval.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+
+          <!-- (keydown)="onKeydown($event,i,'RespVariable')" -->
+        </div>
+        <div style="flex-basis: 6%;" (click)="deleteOption(3,i,f)"><i class="bi bi-dash-circle-fill propIconStyle"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="row mt-2">
+        <div class="col-8 col pTop">
+          <div>Timeout in seconds</div>
+        </div>
+        <div class="col-4 col">
+          <input type="text" class="form-control formhaif" name="timeout" [(ngModel)]="webhook.timeOut"
+            #timeout="ngModel" [required]="true"  value="60" maxlength="5"(keydown)="checkNum($event)"  (paste)="preventPaste($event)" />
+          <div *ngIf="timeout.errors && (timeout.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-8 col pTop">
+          <div>Retry Count</div>
+        </div>
+        <div class="col-4 col">
+          <input type="text" class="form-control formhaif" name="retrycount" [(ngModel)]="webhook.retryCount"
+            #retry="ngModel" [required]="true"  value="0" maxlength="3"(keydown)="checkNum($event) " (paste)="preventPaste($event)" />
+          <div *ngIf="retry.errors && (retry.touched || f.submitted)">
+            <small class="text-danger">Required</small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="yes mt-2">
+      <div class="d-flex">
+        <div class="list">Success (200, Ok)</div>
+        <div class="ml-auto">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the success next of an Object in the flow"></i>
+        </div>
+      </div>
+      <next-object [index]={sec:0,index:0} [arrayNode]=selectedNode  [nodeId]=nodeId (childValue)="childValue($event, 'success',0)">
+      </next-object>
+
+    </div>
+    <div class="yes mt-2">
+      <div class="d-flex">
+        <div class="list">Failure/Error</div>
+        <div class="ml-auto">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the failure next of an Object in the flow"></i>
+        </div>
+      </div>
+      <next-object [index]={sec:0,index:1} [arrayNode]=selectedNode  [nodeId]=nodeId (childValue)="childValue($event, 'failure',1)">
+      </next-object>
+
+    </div>
+    <div class="d-flex fixedSave">
+      <button class="savebtn mt-2 ml-auto mr-auto mb-2"
+        [disabled]="!f.valid ||
+        disabledForView == true ||
+        webhook.uniqueName.trim().length == 0 ||
+        webhook.url.trim().length == 0
+        ||  duplicateUniquecheckFlag == true">
+          Submit
+      </button>
+      <button class="savebtn mt-2 ml-auto mr-auto mb-2" matTooltip="Used to test the Api.Enable only after submitting the object" (click)="apiTest($event)" [disabled]="submittedFlag == false">Test</button>
+      <!-- <button class="savebtn mt-2 ml-auto mr-auto mb-2" matTooltip="Used to test the Api.Enable only after submitting the object" (click)="apiTest($event)">Test</button> -->
+    </div>
+
+    <!-- <div class="d-flex">
+      <div class="ml-auto p-2 disabled">Test
+        <i class="bi bi-award-fill" (click)="f.reset(); clearForm()"></i>
+      </div>
+    </div> -->
+  </form>
+</div>

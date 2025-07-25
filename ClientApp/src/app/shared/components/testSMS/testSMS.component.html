@@ -1,0 +1,223 @@
+<!--<div class="modal" id="modal-new" tabindex="-1" #menu role="dialog" [ngStyle]="{'display':displayTestSMS}">
+  <div class="modal-dialog">
+    <div class="modal-content">-->
+      <!-- <div class="mod-hed">
+        <h5 class="modal-title question-head" id="ModalLabel">A Api</h5>
+        <i class="bi bi-x-lg ml-auto header-icon cursor-pointer" (click)="closeTemplatePopUp()"></i>
+      </div> -->
+      <!--<div class="card-border ">
+        <div class="card-header d-flex">
+          <h4 class="card-title mr-3" style="width: 15%;">Test SMS</h4>
+          <div class="w-50 d-flex arrangehead">
+            <div class="inline-size-inherit">Camapaign Name :</div>
+            <div> {{campaignDetails.campaignName}}</div>
+          </div>
+          <div class="w-50 d-flex arrangehead">
+            <div class="inline-size-inherit">Campaign ID :</div>
+            <div>{{campaignDetails.camapignId}}</div>
+          </div>
+          <div class="w-50 d-flex arrangehead">
+            <div class="inline-size-inherit">Campaign Window :</div>
+            <div>{{campaignDetails.campaignPeriodFrom}} to {{campaignDetails.campaignPeriodTo}}</div>
+          </div>
+          <span class="ml-auto" (click)="closeTemplateModal(2)" matTooltip="Close Template List"><i
+              class="refreshTemp bi bi-x-square-fill"></i></span>
+        </div>
+
+       <div class="overflow-y" style="height: calc(100vh - 215px)">
+        <div class="modal-body ">
+
+          <div class="w-99 m-1 card-border h-255">
+            <div class="card-header d-flex">
+              <h4 class="card-title">Template Details</h4>
+            </div>
+            <div class="mt-2 ml-2">
+              <div class="row">
+                <div class="col-md-2  my-auto">Sender ID</div>
+                <div class="col-md-4 my-auto font-weight-bold">
+                  {{TemplateDetails.senderId}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2  my-auto">Tempalte ID</div>
+                <div class="col-md-4 my-auto font-weight-bold">
+                  {{TemplateDetails.tempalteId}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2  my-auto">Tempalte Name</div>
+                <div class="col-md-4 my-auto font-weight-bold">
+                  {{TemplateDetails.templateName}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2  my-auto">Template Type</div>
+                <div class="col-md-4 my-auto font-weight-bold">
+                  {{TemplateDetails.templateType}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2  my-auto">Message Type</div>
+                <div class="col-md-4 my-auto font-weight-bold">
+                  {{TemplateDetails.contentType}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2  my-auto">Template Message</div>
+                <div class="col-md-7 my-auto">
+                  <div class="form-control textarea mb-2" id="content">{{TemplateDetails.content}}</div>
+                </div>
+                <div class="smsCount">SMS Count:{{charCount}}/{{msgCount}} (*W/o variables)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex mt-1">
+            <div>Compose Message</div>
+            <div class="ml-auto line" style="border:1px solid #b7b3b3"></div>
+          </div>
+
+          <div class="mt-1">
+            <div class="d-flex mt-1">
+              <input class="form-control formhaif w-25" id="test_Number{{0}}" name="testNumber{{0}}"
+                #testMsgModalNum1="ngModel" [(ngModel)]="testMsgModal.testNum[0]" placeholder="Enter Test Number"
+                type="text" InputValidator categoy="notnull" categoy="phoneNumber" (ngModelChange)="createTestMsg('')" required="true"
+                [ngClass]="{ 'is-invalid':testMsgModalNum1.touched && testMsgModalNum1.errors}">-->
+
+              <!-- <div class="ml-1" > -->
+              <!--<input *ngFor="let rowCount of dummyVar;let row_i = index" class=" ml-1 form-control formhaif w-25"
+                id="test_var0{{row_i}}" name="testvar0{{row_i}}" #testMsgModalNum0{{row_i}}="ngModel"
+                [(ngModel)]="testMsgModal.var[0][row_i]" placeholder="Var{{row_i+1}}" type="text" InputValidator
+                categoy="notnull" required="true" (ngModelChange)="createTestMsg('')">-->
+              <!-- </div> -->
+
+            <!--</div>
+            <div class="mt-3">
+              <div class="form-control textarea overFlow" id="composed_content1">{{testMsgModal.content[0]}}</div>
+              <div class="d-flex">
+                <div class="smsCount composed ml-auto">SMS Count:{{testMsgModal.content[0].length}}/{{msgCount}} (*W/o variables)</div>
+              </div>
+            </div>
+
+            <div class="d-flex  mt-1">
+              <input class="form-control formhaif w-25" id="test_Number{{1}}" name="testNumber{{1}}"
+                #testMsgModalNum2="ngModel" [(ngModel)]="testMsgModal.testNum[1]" placeholder="Enter Test Number"
+                type="text" InputValidator categoy="notnull" categoy="phoneNumber" (ngModelChange)="createTestMsg('')" required="true"
+                [ngClass]="{ 'is-invalid':testMsgModalNum2.touched && testMsgModalNum2.errors}">-->
+
+              <!-- <div class="ml-1"> -->
+              <!--<input *ngFor="let rowCount of dummyVar;let row_i = index" class="w-25 ml-1 form-control formhaif"
+                id="test_var0{{row_i}}" name="testvar0{{row_i}}" #testMsgModalNum0{{row_i}}="ngModel"
+                [(ngModel)]="testMsgModal.var[1][row_i]" placeholder="Var{{row_i+1}}" type="text" InputValidator
+                categoy="notnull" required="true" (ngModelChange)="createTestMsg('')">-->
+              <!-- </div> -->
+            <!--</div>
+            <div class="mt-3">
+              <div class="form-control textarea overFlow" id="composed_content1">{{testMsgModal.content[1]}}</div>
+              <div class="d-flex">
+                <div class="smsCount composed ml-auto">SMS Count:{{testMsgModal.content[1].length}}/{{msgCount}} (*W/o variables)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 d-flex">
+            <button class="savebtn ml-auto" (click)="sendTestSMS()" [disabled]="varEmptyFlag ==true">Send SMS</button>
+          </div>-->
+
+
+          <!-- <div class="testMsgDiv overFlow">
+          <form #testmsgForm="ngForm" novalidate (ngSubmit)="createTestMsg(testmsgForm)">
+            <div class="row">
+              <div class="col-md-3 offset-md-1 my-auto">
+                <div>Test Numbers</div>
+              </div>
+              <div class="col-md-3 my-auto">
+                <input class="form-control formhaif" id="test_Number{{0}}" name="testNumber{{0}}"
+                  #testMsgModalNum1="ngModel" [(ngModel)]="testMsgModal.testNum[0]" placeholder="Enter Test Number"
+                  type="text" InputValidator categoy="notnull" categoy="phoneNumber" required="true"
+                  [ngClass]="{ 'is-invalid':testMsgModalNum1.touched && testMsgModalNum1.errors}">
+              </div>
+              <div class="col-md-3 my-auto">
+                <input class="form-control formhaif" id="test_Number{{1}}" name="testNumber{{1}}"
+                  #testMsgModalNum2="ngModel" [(ngModel)]="testMsgModal.testNum[1]" placeholder="Enter Test Number"
+                  type="text" InputValidator categoy="notnull" categoy="phoneNumber" required="true"
+                  [ngClass]="{ 'is-invalid':testMsgModalNum2.touched && testMsgModalNum2.errors}">
+              </div>
+            </div>
+            <div class="row mt-1" *ngFor="let rowCount of dummyVar;let row_i = index">
+              <div class="col-md-3 offset-md-1 my-auto">
+                <div *ngIf="row_i == 0">Variables</div>
+              </div>
+              <div class="col-md-3 my-auto">
+                <div>{{"{var"+(row_i+1) + "}"}}</div>
+                <input class="form-control formhaif" id="test_var0{{row_i}}" name="testvar0{{row_i}}"
+                  #testMsgModalNum0{{row_i}}="ngModel" [(ngModel)]="testMsgModal.var[0][row_i]"
+                  placeholder="Enter Variable" type="text" InputValidator categoy="notnull" required="true">
+              </div>
+              <div class="col-md-3 my-auto">
+                <div>{{"{var"+(row_i+1) + "}"}}</div>
+                <input class="form-control formhaif" id="var1{{row_i}}" name="testvar1{{row_i}}"
+                  #testMsgModalNum1{{row_i}}="ngModel" [(ngModel)]="testMsgModal.var[1][row_i]"
+                  placeholder="Enter Variable" type="text" InputValidator categoy="notnull" required="true">
+              </div>
+            </div>
+            <div class="d-flex">
+              <button class="savebtn ml-auto" [disabled]="!testmsgForm.valid">Create</button>
+            </div>
+
+          </form>
+          <div *ngIf="testCreated">
+            <div class="d-flex mt-3">
+              <div class="ml-auto mr-auto w-75" style="border:1px solid var(--main-color)"></div>
+            </div>
+            <div class="mt-4">
+              <div class="row">
+                <div class="col-md-2 offset-md-1">
+                  <div>Composed Message</div>
+                </div>
+                <div class="col-md-4 my-auto">
+                  <div class="form-control textarea overFlow" id="composed_content1">{{testMsgModal.content[0]}}</div>
+                  <div class="smsCount composed">SMS Count:{{charCount}}/{{msgCount}} (*W/o variables)</div>
+                </div>
+                <div class="col-md-4 my-auto">
+                  <div class="form-control textarea overFlow" id="composed_content2">{{testMsgModal.content[1]}}</div>
+                  <div class="smsCount composed">SMS Count:{{charCount}}/{{msgCount}} (*W/o variables)</div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <button class="savebtn ml-auto" (click)="sendTestSMS()">Send</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div> -->
+        <!--</div>
+       </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displaySent}">
+  <div class=" modal-dialog modal1-dialog" role="document">
+    <div class="modal-content modal1-content">
+
+      <div class="modal-body">
+        <div class="col-12">
+          <p style="margin: 0px;text-align: center;font-size: 16px;color: black;">Success</p>
+          <p style="text-align: center;font-size: 13px;" class="mt-1">SMS Successfully Initiated Please check and verify</p>
+        </div>
+        <div class="d-flex">
+          <div class="savebtn text-center pt-1 mt-3 mx-auto" (click)="closeSendModal()" matTooltip="Redirecting to Camapign List Tab">OK</div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>-->

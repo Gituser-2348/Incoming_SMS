@@ -1,0 +1,322 @@
+<select-language></select-language>
+<div class="insideClass">
+  <div class="d-flex header">Agent Chat
+    <i *ngIf="!minimizeWindow" class="bi bi-chevron-double-right ml-2" (click)="minWindow()"
+      style="cursor: pointer;"></i>
+    <i *ngIf="minimizeWindow" class="bi bi-chevron-double-left ml-2" (click)="minWindow()" style="cursor: pointer;"></i>
+  </div>
+
+  <div *ngIf="!minimizeWindow" class="ratioDiv">A-C Ratio 1:{{maxSession}}</div>
+  <div>
+    <div class="d-flex" *ngIf="!minimizeWindow">
+      <div class="col-6">
+        <button *ngIf="chatStatus=='false'||chatStatus==undefined" class="btn btn-sm btn-primary countBtn"
+        (click)="enableChat('enable')">Enable Chat</button>
+        <button *ngIf="chatStatus=='true'" class="btn btn-sm btn-danger countBtn"
+        (click)="enableChat('disable')">Disable Chat</button>
+      </div>
+      <div class="col-6">
+        <button [disabled]="chatStatus=='false'||chatStatus==undefined" *ngIf="onBreak==undefined||onBreak=='0'"
+        class="btn btn-sm btn-primary countBtn" (click)="agentBreak('break')" style="margin-left: -6px;">Break</button>
+        <button *ngIf="onBreak=='1'" class="btn btn-sm btn-danger countBtn"
+        (click)="agentBreak('resume')" style="margin-left: -6px;">Resume</button>
+      </div>
+    </div>
+    <!-- <div class="timmer" *ngIf="showTimmer">
+      <div>Auto Resume In</div>
+      <div style="color: var(--main-color);">{{countTime}}</div>
+    </div> -->
+    <div class="insideDiv" id="insideDiv">
+      <div class="headerDiv">Live Chat</div>
+      <div style="max-height: 327px; overflow-y:auto; overflow-x:hidden">
+        <div *ngFor="let user of users,let i=index" class="about mt-2" (click)="openChat(user)"
+          [ngClass]="{'liveBox':minimizeWindow==true}">
+          <div class="userInfo scroll-left" *ngIf="this.userId!=user.customer_num"
+            [ngClass]="{'userInfoWhite':minimizeWindow==true}">
+            <h4 class="infos">{{user.customer_num}}</h4>
+            <p style="white-space: nowrap;">{{user.message}}</p>
+            <div class="bell blink_me" *ngIf="user.notification>0">
+              <i class="bi bi-bell-fill"></i>
+              <span class=" badge float-right">{{user.notification}}</span>
+
+            </div>
+          </div>
+          <!-- <div class="userInfoW scroll-left" *ngIf="this.userId==user.customer_num">
+                        <h4 class="infos">{{user.customer_num}}</h4>
+                        <p>{{user.message}}</p>
+                        <div class="bell blink_me" *ngIf="user.notification>0">
+                            <i class="bi bi-bell-fill"></i>
+                            <span class=" badge float-right">{{user.notification}}</span>
+                        </div>
+                    </div> -->
+          <button *ngIf="this.userId!=user.customer_num" id="openBtn" class="openBtn "><i
+              class="bi bi-chat-left-fill"></i></button>
+          <!-- <button *ngIf="this.userId==user.customer_num" class="openBtnEdit "><i class="bi bi-pencil"></i></button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex msgDiv" [ngClass]="{'msgDivMin':minimizeWindow==true}">
+    <div *ngFor="let window of chatWindows;let index=index" class="openBox" [class.height20]="file" id="openBox">
+      <div class="boxHead d-flex">
+        <!-- <img class="headImg" src="assets/img/brandImg/ico.png" alt="Prudent"> -->
+        <div class="headH2">
+          <h3>Chat With {{window.customer_num}}</h3>
+          <div class="userDet mt-2">Flow - {{window.flow_name}}</div>
+          <div class="userDet">Department - {{window.object_name}}</div>
+        </div>
+        <div class="closebtn">
+          <div (click)="closeChat(index)" matTooltip="Minimize chat">
+            <i class="minimize font-x-large fa fa-thin fa-angle-down"></i>
+          </div>
+          <div (click)="endSession(index)" matTooltip="End Session">
+            <i class="ml-2 font-x-large text-danger bi bi-x"></i>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="window.sessionCLose" class="sessionCLose">
+        <div class="headSession d-flex justify-content-center">Are you sure you want to end this chat?</div>
+        <div class="d-flex justify-content-center">
+          <button class="sessionBtn btn btn-primary mr-1" (click)="endSessionNow(index,window)">Yes</button><button
+            class="sessionBtn btn btn-primary" (click)="endSession(index)">No</button>
+        </div>
+      </div>
+
+      <div class="messageBody" [id]="'msgBody'+window.chat_id">
+        <div *ngxtFor="let node of window.messages;itemsAtOnce: 500;
+              intervalLength: 20">
+          <div class="d-flex" *ngIf="node['msg_type']=='msg_date'">
+            <div class="date ml-auto mr-auto pl-1 pr-1">{{node['msg_data']}}</div>
+          </div>
+          <div *ngIf="node['msg_type']=='msg_in' && node['msg_for']=='msg'"  class="message received"   [innerHTML]="node['msg_data']">
+
+          </div>
+          <div *ngIf="node['msg_type']=='msg_in' && node['msg_for']=='doc'"  class="message messageImage received"   [innerHTML]="node['msg_data']">
+
+          </div>
+
+          <div *ngIf="node['node_type']=='message'"> <!-- something to be changed with DB!-->
+            <div *ngIf="node['msg_type']=='msg_out'"
+              [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="message  sent"
+              [innerHTML]="node['msg_data']">
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='image'" class="message sent">
+              <img [src]="node['msg_data']" alt="image" style="height: 115px;" class="chatImage">
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']"></div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='audio'" class="message sent">
+              <audio controls style="max-width: 160px;height: 30px;">
+                <source [src]="node['msg_data']">
+              </audio>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']">
+              </div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='video'" class="message sent">
+              <video controls style="height: 115px; max-width: 160px;">
+                <source [src]="node['msg_data']">
+              </video>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']">
+              </div>
+            </div>
+
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='doc'" class="message sent">
+              <object [data]="node['msg_data']" height="115" [title]="node['name']"></object>
+              <div style="max-height: 115px;width: 160px;overflow-y: scroll; max-width: 160px;"><a [href]="node['msg_data']"
+                  target="_blank">{{node['msg_data']}}</a>
+                <span>Document Please Download it from Above Link</span>
+              </div>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']"></div>
+            </div>
+          </div>
+          <div *ngIf="node['node_type']=='list'">
+            <div *ngIf="node['msg_type']=='msg_out'"
+              [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+            </div>
+            <div
+              *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg' && node['header']!=''&& node['header']!=undefined"
+              class="message sent headerMessage" [innerHTML]="node['header']">
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="message message_list sent"
+              [innerHTML]="node['msg_data']"></div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['footer']!=undefined && node['footer']!=''"
+              class="message sentD footerMessage footerMessageList" [innerHTML]="node['footer']"></div>
+            <div class="message sentButton message_list listOptionsDiv">
+              <div *ngFor="let sections of node['optionArray'] index as i">
+                <div class="list-SectionName">{{node['sectionNameList'][i]}}</div>
+                <div *ngFor="let options of sections['sectionOptions']">
+                  <div class="d-flex">
+                    <div>{{options["optionName"]}}</div>
+                    <div class="ml-auto"><i class="bi bi-circle"></i></div>
+                  </div>
+                  <div class="list-description"
+                    *ngIf="options['description']!= ''&& options['description']!= undefined">{{options["description"]}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div *ngIf="node['node_type']=='button'">
+            <div *ngIf="node['msg_type']=='msg_out'"
+              [ngClass]="node['response_by'] == 1 ?'chatIcon bi bi-robot' : 'chatIcon bi bi-person'">
+            </div>
+            <div
+              *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg' && node['header']!=''&& node['header']!=undefined"
+              class="message sent headerMessage" [innerHTML]="node['header']"></div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='msg'" class="buttonMessage sent"
+              [innerHTML]="node['msg_data']">
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='image'" class="message sent">
+              <img [src]="node['msg_data']" alt="image" style="height: 115px;" class="chatImage">
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']"></div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='audio'" class="message sent">
+              <audio controls style="max-width: 160px;height: 30px;">
+                <source [src]="node['msg_data']">
+              </audio>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']">
+              </div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='video'" class="message sent">
+              <video controls style="height: 115px;max-width: 160px;">
+                <source [src]="node['msg_data']">
+              </video>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']">
+              </div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['msg_for']=='doc'" class="message sent">
+              <object [data]="node['msg_data']" height="115" [title]="node['name']"></object>
+
+              <div style="max-height: 115px;width: 160px;overflow-y: scroll;max-width: 160px;"><a [href]="node['msg_data']"
+                  target="_blank">{{node['msg_data']}}</a>
+                <span>Document Please Download it from Above Link</span>
+              </div>
+              <div *ngIf="node['msg_caption']!=undefined && node['msg_caption']!=''" class="chatCaption"
+                [innerHTML]="node['msg_caption']"></div>
+            </div>
+            <div *ngIf="node['msg_type']=='msg_out' && node['footer']!=undefined && node['footer']!=''"
+              class="message sentD footerMessage -mt-1" [innerHTML]="node['footer']"></div>
+            <div *ngFor="let options of node['optionArray']" class="">
+              <div class="message sentButton  messageButton">{{options['optionName']}}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="bodyEnd" [class.heightInc]="file">
+
+        <custom-textarea [model]="window.reply" minHeight=73 classOverride={{window.chat_id}}
+          (messageData)="getMessage($event,window)" maxLen=4000 [emojiFlag]=true [maxHeightFlag]=true
+          [arrangeButtonDiv]=true>
+        </custom-textarea>
+        <i class="emj bi bi-paperclip" (click)="fileHanler(window,index)" style="margin: -5px 5px 0px 5px;
+                position: absolute;"></i>
+        <button class="btn btn-primary btn-sm quick" (click)="showQuick(index)">Quick Reply</button>
+        <!-- <button class="btn btn-primary btn-sm quick" (click)="showSessionEnd(index)">Quick Reply</button> -->
+
+        <!-- <div class="row pl-3">
+          <div class="files pr-1" *ngIf="file"><i class="bi bi-paperclip"></i> {{file}}<i
+              class="bi float-right bi-trash" (click)="deleteFile()"></i></div>
+
+
+
+        </div> -->
+
+        <button id="reply_button" class="openBt col-4" [disabled]="replays[window.chat_id].trim().length == 0"
+          (click)="replyMsg(index,window)"><i class="bi bi-send"></i></button>
+      </div>
+      <div class="quickBox" *ngIf="window.quickBox==true">
+        <div class="d-flex quickBoxHead">
+          <div class="col-10 quickHeading">Quick Reply</div>
+          <div class="col-2" style="margin-top: 2px; margin-left: -3px;"><i class="bi bi-x-circle-fill"
+              (click)="closeQuick(index)" style="color: red;
+                        font-size: 13px; cursor: pointer;"></i></div>
+        </div>
+        <div class="insideQuick">
+          <div *ngFor="let data of quickReply" class="d-flex">
+            <div class="quickMsg">
+              <div class="quickData">{{data.reply_name}}</div>
+              <div class="MsgContent" [innerHTML]="replaceFunciton(data.content)"></div>
+            </div>
+            <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+              <button class="sendBt" (click)="sendQuick(data.content,index,window)"><i class="bi bi-send"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="quickBox" *ngIf="window.sessionEncBox==true">
+        <div class="d-flex quickBoxHead">
+          <div class="col-10 quickHeading">Session End Reply</div>
+          <div class="col-2" style="margin-top: 2px; margin-left: -3px;"><i class="bi bi-x-circle-fill"
+              (click)="closeSessionEnd(window,index)" style="color: red;
+                        font-size: 13px; cursor: pointer;"></i></div>
+        </div>
+        <div class="insideQuick">
+          <div *ngFor="let data of window.sessionEndReply" class="d-flex">
+            <div class="quickMsg">
+              <div class="quickData">{{data.reply_name}}</div>
+              <div class="MsgContent" [innerHTML]="replaceFunciton(data.content)"></div>
+            </div>
+            <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+              <button class="sendBt" (click)="sendSessionEnd(data.content,index,window)"><i
+                  class="bi bi-send"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <emoji-mart id="emoji-component" class="emoji-mart" set="{{set}}" *ngIf="showEmojiPicker"
+  (emojiSelect)="addEmoji($event)" [enableSearch]="true" [emojiTooltip]="false" [showPreview]="false" [sheetSize]="16"
+  [emojiSize]="20" [darkMode]="true" [perLine]="6" [totalFrequentLines]="1"
+  [style]="{width:'220px',position :'absolute',top:'-214px',right:'24px','z-index':'100'}">
+</emoji-mart> -->
+<file-handler-chat [fileHandlerId]="'file'" (dataTransfer)="getFileTransferData($event)"></file-handler-chat>
+
+
+<div aria-live="polite" aria-live="assertive" aria-atomic="true" class="noti"
+  style="position: relative; min-height: 200px;">
+  <!-- Position it -->
+  <div style="position: absolute;
+  bottom: 0px !important;
+  right: 0;">
+
+    <!-- Then put toasts within -->
+    <div *ngFor="let data of notifications;let i=index;" class="toast show " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header">
+        <i class="bi bi-exclamation-square-fill mr-2"></i> <!-- <img src="..." class="rounded " alt="..."> -->
+        <strong class="mr-auto">Warning</strong>
+        <small class="text-muted" *ngIf="data.time==0">just now</small>
+        <small class="text-muted" *ngIf="data.time>0">{{data.time}} seconds ago</small>
+
+        <button type="button" class="ml-2 mb-1 close" (click)="removeNotification(i)" data-dismiss="toast"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        {{data.notification}}
+      </div>
+    </div>
+  </div>
+</div>

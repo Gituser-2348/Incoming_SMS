@@ -1,0 +1,166 @@
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Creating new user account...</p>
+</ngx-spinner>
+<div class="row">
+    <div class="col-lg-12" style="padding-top:5px;">
+      <div class="card-header">
+        <div class='card shadow-lg '>
+          <div class="d-flex">
+            <h2 style="margin-left:5px;font-size:16px;" class="card-title">Add User Account </h2>
+
+          </div>
+
+        </div>
+        <button mat-button (click)="ViewUserList()">
+          <mat-icon style="color: var(--main-color);">visibility</mat-icon><mat-label style="color:var(--main-color);padding-left:3px;">View all user accounts</mat-label>
+        </button>
+        <div class="card-body scrollable-content" style="margin-top: 10px; overflow-y: auto; height: 32vw ">
+          <mat-stepper style="background-color:transparent" #stepper>
+            <mat-step label="Select Customer">
+              <!-- Step 1 content -->
+              <div style="margin-left:44px;">
+                <div class="d-flex">
+                  <div class="info_label d-flex ">
+                    <div style="height:20vw">
+                      <mat-form-field (click)="customer_click()">
+                        <mat-select  [(ngModel)]="customer" placeholder="Select Customer" (ngModelChange)="viewuser()">
+                          <mat-option value="">-select-</mat-option>
+                          <mat-option *ngFor="let item of customerlist" [value]="item.value">
+                            {{ item.text }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!--<mat-error *ngIf="!customer" style="margin-top:-1vw;" class="d-flex"><mat-icon>*</mat-icon> <div> Select customer</div></mat-error>-->
+                    </div>
+
+                    <!--<button matStepperNext mat-icon-button matSuffix (click)="viewuser()" class="search-button" [disabled]="!customer">
+                      <mat-icon>search</mat-icon>
+                    </button>-->
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <button style="bottom:0" *ngIf="is_show_next1" mat-button matStepperNext>Next >> </button>
+              </div>
+             
+            </mat-step>
+            <mat-step [disabled]="true" label="View Details">
+              <div style="margin-top:20px;" class="d-flex" *ngIf="info_show == true">
+                <div class="card fndiv">
+                  <mat-card>
+                    <p class="info_label">Request ID : <span class="binlabe">{{Request_ID}}</span></p>
+                    <p class="info_label">Circle :<span class="binlabe">{{Circle_Name}}</span></p>
+                    <p class="info_label">Customer :<span class="binlabe">{{Customer_Name}}</span></p>
+                    <p class="info_label">Plan Type :<span class="binlabe">{{Plan_Type}}</span></p>
+                    <p class="info_label">Plan Name :<span class="binlabe">{{Plan_Name}}</span></p>
+                    <p class="info_label">Platform :<span class="binlabe">{{Suggested_Platform}}</span></p>
+                    <button matStepperNext *ngIf="addbtn_show == true" (click)="adduser()" class="btn btnsave">Add User</button>
+                  </mat-card>
+                </div>
+              </div>
+
+              <!-- Step 2 content -->
+              <button mat-button matStepperPrevious><< Previous</button>
+              <!--<button *ngIf="is_show_viewstep" mat-button matStepperNext>Next</button>-->
+            </mat-step>
+            <mat-step label="Add User">
+              <!-- Step 3 content --> <div *ngIf="add_show == true" class="d-flex">
+                <div class="card fn2div">
+                  <mat-card>
+                    <div style="display:flex">
+                      <div style="padding:10px;">
+                        <mat-form-field>
+                          <mat-label>Customer Name :</mat-label>
+                          <div class="d-flex">
+                            <input readonly [(ngModel)]="Customer_Name" matInput placeholder="Customer Name" maxlength="30">
+                            <mat-icon style="color:gray">face</mat-icon>
+                          </div>
+
+                          <mat-hint></mat-hint>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_customer_name_err" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Customer name is required</div></mat-error>
+                      </div>
+                      <div style="padding:10px;">
+                        <mat-form-field style="margin-left: 5%; margin-left: 5%">
+                          <mat-label>User Name :</mat-label>
+                          <div class="d-flex">
+                            <input [(ngModel)]="user_name" matInput placeholder="User Name" maxlength="20">
+                            <mat-icon style="color:grey">person_outline</mat-icon>
+                          </div>
+
+                          <!--<mat-icon>person</mat-icon>-->
+                          <mat-hint></mat-hint>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_username_err" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> User name is required</div></mat-error>
+                      </div>
+
+                    </div>
+                    <div style="display:flex">
+                      <div style="padding:10px;">
+
+                        <mat-form-field>
+                          <mat-label>Mobile Number :</mat-label>
+                          <div class="d-flex">
+                            <input [(ngModel)]="mobile_number" matInput (input)="validateInput($event)" type="text" minlength="10" maxlength="10" placeholder="Mobile number">
+                            <mat-icon style="color:grey"> phone</mat-icon>
+                          </div>
+
+                          <mat-hint style="color:grey"></mat-hint>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_mobilenumber_err" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Mobile number is required</div></mat-error>
+                      </div>
+                      <div style="padding:10px;">
+                        <mat-form-field style="margin-left: 5%; margin-left: 5%">
+                          <mat-label> Email:</mat-label>
+                          <div class="d-flex">
+                            <input [(ngModel)]="email_id" matInput placeholder="Email" maxlength="30">
+                            <mat-icon style="color:grey"> email</mat-icon>
+                          </div>
+
+                          <mat-hint></mat-hint>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_emailid_err" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Email ID is required</div></mat-error>
+                      </div>
+
+                    </div>
+                    <div style="display:flex">
+                      <div style="padding:10px;">
+
+                        <mat-form-field>
+                          <mat-label> Address :</mat-label>
+                          <div class="d-flex">
+                            <input [(ngModel)]="address" matInput placeholder="Address" type="text" maxlength="50">
+                            <mat-icon style="color:grey"> home</mat-icon>
+                          </div>
+
+                          <mat-hint></mat-hint>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_address_err" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Address is required</div></mat-error>
+                      </div>
+                      <div style="padding:20px;">
+                        <button (click)="createuser()" class="btn btnsave" style="margin-left:20%">Create User</button>
+                      </div>
+
+                    </div>
+
+                  </mat-card>
+                </div>
+
+              </div>
+
+              <button mat-button matStepperPrevious><< Previous</button>
+              <!--<button mat-button matStepperNext>Next</button>-->
+            </mat-step>
+          </mat-stepper>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

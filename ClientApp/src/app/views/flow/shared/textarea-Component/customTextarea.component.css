@@ -1,0 +1,242 @@
+.icon{
+  position: absolute;
+  margin-left: -22px;
+  cursor: pointer;
+  background-color: #e7e7e7;
+    color: black;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 8px;
+    padding: 0px;
+    min-width: 19px;
+    max-height: 19px;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 49;
+    font-weight: bold;
+    padding-top: 0.5px
+}
+.displayNone{
+  display: none !important;
+}
+.textarea {
+  background-color: rgba(236, 236, 236, 0.212);
+  position: relative;
+  /* border: 1px solid gray; */
+  /* background-color: #F7F8FC; */
+  border: 1px solid #719ECE;
+  border-radius: 10px;
+  /* min-height: 50px; */
+  overflow: auto;
+  padding-top: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 26px;
+  resize: vertical;
+  width: 100%;
+  color: #000;
+  /* z-index: 10; */
+  font-size: 12px;
+  /* max-height: 140px; */
+}
+.textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #719ECE;
+}
+
+.placeHolder {
+  position: absolute;
+  /* top: 0px; */
+  font-size: 10px;
+  left: 15px;
+  padding: 5px 5px;
+}
+.emoji-button{
+  position: relative;
+  top: -19px;
+  left: 87px;
+  font-size: 16px;
+  width: 19px;
+  cursor: pointer;
+  z-index: 50;
+}
+.button {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  /* margin: 2px 2px; */
+  padding: 0px;
+  margin: 0px;
+  min-width: 19px;
+  max-height: 19px;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 99;
+}
+.text-limit{
+  position: relative;
+  right: -111px;
+  top: -42px;
+  font-size: 8px;
+}
+.button-active {
+  background-color: rgba(248, 248, 3, 0.397);
+}
+
+.button-div{
+  position: absolute;
+  margin-top: -27px;
+  margin-left: 40px;
+  /* z-index: 60; */
+  height: 26px;
+}
+.buttonChatDiv{
+  position: absolute;
+  margin-top: -5px;
+  margin-left: 25px;
+  height: 26px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: rgb(196, 196, 196);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(158, 158, 158);
+}
+
+.list {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+.list .name {
+  align-self: center;
+}
+.formcontrol{
+  display: block;
+  width: 100%;
+  height: 23px;
+  /* height: calc(-0.5em + 0.75rem + 2px); */
+  padding: 0.375rem 0.75rem;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #5c6873;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e4e7ea;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.languageWindow{
+  padding: 6px;
+  border-radius: 5px;
+  width: 145px;
+  height: 140px;
+  background-color: white;
+  overflow-y: auto;
+  scrollbar-width: 1px;
+  position: absolute;
+  margin-left: 347px;
+  border: 1px #00a3ad solid;
+}
+
+.list li {
+  display: flex;
+}
+
+.list button {
+  color: rgb(75, 74, 74);
+  background-color: white;
+  padding: 0px;
+  border-bottom: solid 1px rgba(196, 192, 192, 0.212);
+  border-width: 0px 0em 1px 0;
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  margin: 1px;
+  height: 1.6em;
+  display: flex;
+  align-items: stretch;
+  height: 1.8em;
+}
+
+.list button:hover {
+  color: #2c3a41;
+  background-color: #e4e0e02c;
+  left: .1em;
+}
+
+.list button:active {
+  background-color: rgba(151, 151, 151, 0.103);
+  color: #050505;
+}
+
+.list button.selected {
+  background-color: rgba(151, 151, 151, 0.103);
+  color: rgb(14, 13, 13);
+}
+
+
+.chatEmoji{
+  width: 220px;
+  position: relative;
+  /* top: -474px; */
+  top: -10;
+  right: 40px;
+  z-index: 100;
+}
+.textAreaEmjoi{
+  width:220px;
+  position :relative;
+  top:-37px;
+  right:50px;
+  z-index:100;
+}
+
+.Maxheight{
+  resize: none;
+  max-height: 74px;
+}
+.chatTextArea{
+  background-color: rgba(236, 236, 236, 0.212);
+    position: relative;
+    border: 1px solid #719ECE;
+    border-radius: 10px;
+    overflow: auto;
+    padding-top: 2px;
+    padding-left: 4px;
+    padding-right: 45px;
+    padding-bottom: 26px;
+    resize: vertical;
+    width: 100%;
+    color: #000;
+    font-size: 12px;
+    border-bottom: none !important;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.chatTextArea:focus {
+  outline: none !important;
+  box-shadow: 0 0 0px #719ECE;
+}

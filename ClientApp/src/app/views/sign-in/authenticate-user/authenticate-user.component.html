@@ -1,0 +1,119 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Generate OTP...</p>
+</ngx-spinner>
+<div class="app-body"
+style=" background-image:linear-gradient(0deg, rgba(84.47757616639137, 136.29560083150864, 184.87500607967377, 1) 0%,rgba(138.73885452747345, 181.19622588157654, 221.00000202655792, 1) 100%);
+background-image: url(./assets/img/logo/pattern_3.png); background-repeat: repeat-x; object-fit: cover;
+"
+>
+  <main class="main d-flex align-items-center" >
+    <div class="container" style="width: 770px;">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                  <form  action="" #authuserForm="ngForm" method="post" enctype="multipart/form-data" class="form-horizontal"
+                  style="color:#25347C;
+                font-family: Verdana;">
+                      <div class="row align-items-center" *ngIf="showMessageFlag">
+                          <div class="col-12 ">
+                           <p>{{Message}} .{{MessageDesc}}</p>
+                          </div>
+
+                        </div>
+                  <h2 *ngIf="showResetFlag; else Forgot" class="text-center"><b>Reset Password</b></h2>
+                  <ng-template #Forgot>
+                      <h2 class="text-center"><b>Forgot Password</b></h2>
+                    </ng-template>
+                  <p class="text-muted">Fill the details below</p>
+                  <div *ngIf="showResetFlag; else username">
+
+                  </div>
+                  <ng-template #username>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-user"></i></span>
+                      </div>
+                      <input type="text" id="text-input" name="username" class="form-control" placeholder="username" maxlength="35"
+                      [(ngModel)]="authmodel.username" (cut)="$event.preventDefault()" (copy)="$event.preventDefault()" (paste)="$event.preventDefault()" required>
+                    </div>
+                    </ng-template>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-question-circle"></i></span>
+                      </div>
+
+                      <select id="select4" name="SecurityQuestion" [(ngModel)]="authmodel.SecurityQuestion" class="form-control">
+                        <option value="-1">--Select--</option>
+                      <option *ngFor="let type of SecQuestion"
+                              value={{type.Value}}>
+                          {{type.Text}}
+                      </option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-reply"></i></span>
+                      </div>
+                      <input type="text" id="text-input" name="Answer" class="form-control" placeholder="Answer" maxlength="35"
+                      [(ngModel)]="authmodel.Answer" (cut)="$event.preventDefault()" (copy)="$event.preventDefault()" (paste)="$event.preventDefault()" required>
+                    </div>
+                    <div *ngIf="showResetFlag;" >
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-reply"></i></span>
+                      </div>
+                      <input type="password" id="text-input" name="oldpassword" class="form-control" placeholder="oldpassword" maxlength=15 minlength={{paswdLength}}
+                        [(ngModel)]="authmodel.oldpassword" (cut)="$event.preventDefault()" (copy)="$event.preventDefault()" (paste)="$event.preventDefault()" required>
+                    </div>
+                    <div class="input-group mb-3">
+                      <p class="text-muted">[Must include minimum {{paswdLength}} characters, atleast one uppercase,lowercase,numeric & special characters]</p>
+                      </div>
+                      <div class="input-group mb-3">
+                        <app-password-strength-bar [passwordToCheck]="authmodel.oldpassword" [min]="paswdLength" [barLabel]="barLabel"    (passwordStrength)="passwordValid($event)">
+                        </app-password-strength-bar>
+                      </div>
+                     </div>
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <button type="button" class="btn btn-block btn-primary px-4" [disabled]="!authuserForm.form.valid" (click)="GenerateOTP()">Generate OTP</button>
+                    </div>
+                  </div>
+
+
+                  <div class="row"></div>
+                  <div class="row" *ngIf="CanLater">
+                    <div class="col-12 text-center" style="padding-top: 20px;">
+                     <a routerLink="/dashboard">Do it Later</a>
+                    </div>
+
+                  </div>
+
+                  <h1 *ngIf="showResetFlag; else Login"></h1>
+                  <ng-template #Login>
+                    <div class="col-12 text-center" style="padding-top: 20px;">
+                    <a routerLink="/login">Login</a>
+                  </div>
+                  </ng-template>
+                  <div class="row" *ngIf="showMessagefromDBFlag">
+                    <div class="col-12">
+                     <p style="color: red">{{MessagefromDB}}</p>
+                    </div>
+
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div>

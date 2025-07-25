@@ -1,0 +1,55 @@
+.input{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+label{
+    margin: 0px;
+    margin-top: 20px;
+}
+.attention{
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.textOnInput {
+    position: relative;
+}
+.textOnInput div{
+    position: absolute;
+    display: flex;
+    top: -11px;
+    left: 18px;
+    padding: 2px;
+    z-index: 1;
+    height: 15px;
+}
+.textOnInput p{
+ font-size: 12px;
+}
+.tool{
+    background-color: white;
+}
+
+.form-control {
+    box-shadow: none !important;
+
+}
+.danger{
+    color: red;
+}
+.ms{
+    margin-left: 10px;
+}
+.flex{
+    display: flex;
+}
+.input-red{
+    border-color: red;
+}
+.code{
+    width: 100%;
+}
+

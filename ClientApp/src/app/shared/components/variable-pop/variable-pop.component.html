@@ -1,0 +1,60 @@
+<div class="modal" tabindex="-1" #menu role="dialog" >
+    <div class="modal-dialog" cdkDrag>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Variables</h5>
+                <!-- <a type="button" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseHandled()">X</a> -->
+            </div>
+            <div class="modal-body">
+                <!-- <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                        (change)="change('all')" checked>
+                    <label class="form-check-label pointer" for="flexRadioDefault1">
+                        All Variables
+                    </label>
+                </div> -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
+                        (change)="change('system')" [checked]="myVar1">
+                    <label class="form-check-label">
+                        System Variables
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault0"
+                        (change)="change('user')" [checked]="myVar2">
+                    <label class="form-check-label" >
+                        User defined Variables
+                    </label>
+                </div>
+
+                <div *ngIf="selected==systemVariables">
+                    <i class="bi bi-search icon"></i>
+                    <input class="form-control" [(ngModel)] = "search" (ngModelChange) = "onSearch($event)" placeholder="Search"/></div>
+
+                    <div *ngIf="selected=='userVariables'" class="d-flex">
+                        <!-- <i class="bi bi-search icon"></i> -->
+                        <input class="form-control w-75 addInput" [(ngModel)] = "newVariable" placeholder="Add Variable" (paste)="preventPaste($event)"/>
+                        <button class="add btn-primary" type="button" (click)="addVariable()" [disabled]="!newVariable">Add</button>
+                    </div>
+
+                <div class="field">
+                    <ul class="heroes">
+                        <li *ngFor="let variable of variableList,let i = index">
+                            <button class="buttontype" [class.selected]="variable === selectedVariable" type="button"
+                                (click)="onSelect(variable,i)">
+                                <span class="name">{{variable}}</span>
+                            </button>
+                            <!-- <i *ngIf="selected=='userVariables'" class="bi bi-trash trash" (click)="delete(i)"></i> -->
+
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div class="footer">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="onClick()">Save</button>
+                    <button type="button" class="btn btn-sm btn-primary" (click)="onCloseHandled()">Close</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

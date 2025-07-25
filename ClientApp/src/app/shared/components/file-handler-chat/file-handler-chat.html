@@ -1,0 +1,39 @@
+<div class="modal-new" id="file" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Add FIle - for {{data.customer_num}}</h5>
+        <div class="cursorPointer" (click)="close()">close</div>
+      </div>
+      <div class="modal-body">
+        <form #uploadForm="ngForm">
+          <div class="d-flex">
+            <select class="form-control w-50 inputFull" (change)="multimediaSelect($event)" name="multimediaFieldValue"
+            [(ngModel)]="mulSelectFieldToggle" #multimediaFieldValue="ngModel" [required]="false">
+            <option value="1">Image</option>
+            <option value="2">Audio</option>
+            <option value="3">Video</option>
+            <option value="4">Document</option>
+            <option value="7">Sticker</option>
+          </select>
+            <input type="file" class="ml-4 form-control inputFull file" [required]="true" name="fileHandler" [(ngModel)]="upload.file" (change)="getFileMedia($event)">
+
+          </div>
+          <div class="d-flex mt-2"  *ngIf="mulSelectFieldToggle ==4">
+            <div class="mt-1">
+              File Name
+            </div>
+            <input
+          type="text"  class="ml-auto  form-control inputFull w-75"  placeholder="File Name" [(ngModel)]="upload.fileName" name="caption">
+          </div>
+          <input
+            *ngIf="mulSelectFieldToggle !=2 && mulSelectFieldToggle !=7"
+          type="text"  class="mt-2 form-control inputFull"  placeholder="caption" [(ngModel)]="upload.caption" name="caption" maxlength="1024" >
+          <div class="d-flex">
+            <button class="btn btnSend ml-auto mr-auto cursorPointer" [disabled]="desableFlag==false" (click)="sendFile()">Send File</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<!--
+<div class="max-720">
+  <div class="bot-outer drag-dragflow" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotSays">
+    <div class="inner-icon"><i class="bi bi-chat-dots"></i></div>
+    <div>
+      <span class="inner-header">Bot Says</span><br/>
+      <span class="inner-text">With no response required from visitor</span>
+    </div>
+  </div>
+  <div  class="bot-outer drag-dragflow" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotAsk">
+    <div class="inner-icon"><i class="bi bi-question-circle"></i></div>
+    <div>
+      <span class="inner-header">Bot Asks</span><br/>
+      <span class="inner-text">Ask question and store user input in variable</span>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <div>
+  <div class="bot-outer-new drag-dragflow draggable" title="wpBotSays" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotSays">
+    <div class="inner-icon-new"><i class="bi bi-chat-dots"></i></div>
+    <div class="inner-header-new">Bot Says</div>
+  </div>
+  <div>
+    <div class="bot-outer-new drag-dragflow draggable" title="wpBotAsk" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotAsk">
+      <div class="inner-icon-new"><i class="bi bi-question-circle"></i></div>
+      <div class="inner-header-new">Bot Asks</div>
+    </div>
+  </div>
+</div> -->
+
+<div>
+  <div>
+    <div class="bot-outer-new drag-dragflow draggable" title="wpBotAsk" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotAsk">
+      <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-question-circle"></i></div>
+      <div [ngClass]="collapsedValue =='false'?'inner-header-new':'collapsedTrue'">Bot Asks</div>
+    </div>
+  </div>
+  <div class="bot-outer-new drag-dragflow draggable" title="wpBotSays" draggable="true" (dragstart)="ngDrag($event)" data-node="wpBotSays">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-chat-dots"></i></div>
+    <div [ngClass]="collapsedValue =='false'?'inner-header-new':'collapsedTrue'">Bot Says</div>
+  </div>
+</div>
+

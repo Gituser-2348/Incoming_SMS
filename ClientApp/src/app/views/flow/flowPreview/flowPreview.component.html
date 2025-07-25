@@ -1,0 +1,28 @@
+
+<div class="wrapper">
+  <!-- <div class="custom_col" id="customCol">
+    <flow-builder-sidebar></flow-builder-sidebar>
+  </div> -->
+    <div id="drawflow" (drop)="drop($event)" (click)="ngClick()" (dragover)="allowDrop($event)">
+      <div class="btn-export btn-validate btn-close" matTooltip="Close" (click)="redirectToFlow()">
+        <i class="bi bi-x"></i>
+      </div>
+      <div class="btn-export btn-validate" (click)="jsonValidation()" matTooltip="Validate Flow">
+        <!-- <img src="./assets/images/floppy-disk.png" alt=""> -->
+        <i class="bi bi-check2-all"></i>
+      </div>
+
+    <!-- <div class="bar-zoom"> -->
+      <div class="zoom zoom-" (click)="zoom_out()"><i class="bi bi-zoom-out" matTooltip="Zoom Out"></i></div>
+      <div class="zoom zoomP" (click)="zoom_in()"><i class="bi bi-zoom-in" matTooltip="Zoom In"></i></div>
+      <!-- <div  (click)="resetPosition()"><i class="bi bi-zoom-in"></i></div> -->
+    <!-- </div> -->
+
+  </div>
+  <div><div id="minimap" [ngStyle]="{'right':propertywithMinimap=='false'?'20px':'250px'}"></div></div>
+  <!-- <div><div id="minimap" style="right:20px ;"></div></div> -->
+
+  <property-builder node = {{element}} showProperty={{showPropertyWindow}}  ></property-builder>
+</div>
+
+

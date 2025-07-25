@@ -1,0 +1,41 @@
+<!-- <div *ngIf="right; else elseBlock" (click)="propertyShow()">Test Div</div>
+<ng-template class="arrowDiv" #arrowDiv id="sideBarArrow" (click)="propertyShow()"  #elseBlock><i  class="arrow left"></i></ng-template> -->
+
+
+
+
+
+
+<!-- <div class="custom_sidebar" #side [style.display]="show ? 'block' : 'none'"> -->
+  <div [ngClass]="isCollapsed == 'false'?'custom_sidebar':'custom_sidebar_collapsed'" #side [style.width.px]="width">
+  <!-- <div class="sidebar-text">Drag and Drop steps into your flow</div>
+
+  <drop-down heading="Trigger"></drop-down> -->
+
+  <!-- <div [ngClass]="{'trigger-start-icon-div':isCollapsed == 'false','trigger-start-icon-div-collapsed':isCollapsed =='true'}">
+    <i class="bi bi-whatsapp trigger-wp-icon"></i>
+    <img class="trigger-wp-icon" src="./assets/images/whatsapp.png" alt="Whatsapp-Logo" />
+    <img [ngClass]="{'trigger-wp-icon':isCollapsed == 'false','trigger-wp-icon-collapsed':isCollapsed == 'true'}"src="./assets/images/whatsapp.png" alt="Whatsapp-Logo" />
+  </div> -->
+  <div [ngClass]="{'component-div':isCollapsed == 'false','component-div-collapsed':isCollapsed =='true'}">
+    <div>Components</div>
+    <span>Drag and drop steps into your flow</span>
+  </div>
+  <div [ngClass]="{'sidebar-scroll':isCollapsed == 'false','sidebar-scroll-collapsed':isCollapsed =='true'}">
+    <!-- <drop-down heading="Bot Response" iconClass="bi bi-robot" collapsedValue={{isCollapsed}}></drop-down> -->
+    <drop-down heading="WhatsApp" iconClass="bi bi-robot" collapsedValue={{isCollapsed}}></drop-down>
+    <drop-down heading="Logistics" iconClass="bi bi-file-bar-graph" collapsedValue={{isCollapsed}}></drop-down>
+
+    <!-- <drop-down heading="Operations" iconClass="bi bi-gear" collapsedValue={{isCollapsed}}></drop-down> -->
+  </div>
+  <div class="scrollDiv-outer">
+    <div id="scrollDiv"  [ngClass]="{'scroll-div':isCollapsed == 'false','scroll-div-collapsed':isCollapsed =='true'}">
+      <div [ngClass]="isCollapsed == 'false'?'arrowDiv':'arrowDiv_collapsed'" #arrowDiv id="sideBarArrow" (click)="sidebarShow()"><i [className]="right ? 'arrow right' : 'arrow left'"
+        #arrow></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="condition; else elseBlock">Content to render when condition is true.</div>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template> -->
+

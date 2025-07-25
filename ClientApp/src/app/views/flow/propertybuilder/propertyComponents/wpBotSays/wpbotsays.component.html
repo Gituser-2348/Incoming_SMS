@@ -1,0 +1,462 @@
+<div class="property">
+  <form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+    <div>
+      <div class="d-flex">
+        <div class="question-head">Name <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the Name of an Object in the flow"></i>
+        </div>
+      </div>
+
+      <input type="text" class="form-control inputFull" #initialCurser maxlength="15"
+        (keyup)="checkUniqueName(botsays.uniqueName)" (paste)="checkUniqueName(botsays.uniqueName)" name="uniqueName" #uniqueName="ngModel"
+        [(ngModel)]="botsays.uniqueName" placeholder="Enter Name *" [required]="true" />
+      <div *ngIf="uniqueName.errors && (uniqueName.touched || f.submitted)">
+        <small class="text-danger">Name Required</small>
+      </div>
+      <div *ngIf="duplicateUniquecheckFlag">
+        <small class="text-danger">Duplicate Unique name not allowed</small>
+      </div>
+      <div *ngIf="botsays.uniqueName.trim().length == 0">
+        <small class="text-danger">Space or Empty name not allowed</small>
+      </div>
+      <div class="d-flex">
+        <div class="question-head">Keyword</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue " matTooltip="This property will help the user to define the Key words to define
+            the beginning of a flow.
+            With Single number user can manage different routes"></i>
+        </div>
+      </div>
+      <!-- <div *ngIf="keywordFlag"> -->
+      <input type="text" class="form-control inputFull" maxlength="15" id="keyword" name="keyword"
+        [(ngModel)]="botsays.keyword" (keyup)="checkKeyword(botsays.keyword)" (paste)="preventPaste($event)" placeholder="Enter Keyword"
+        #keyword="ngModel" />
+      <!-- </div> -->
+      <!-- <span class="ml-3" style="font-size: 10px;">{{botsays.uniqueName.length}}/15</span> -->
+      <div *ngIf="duplicatekeywordcheckFlag">
+        <small class="text-danger">Duplicate Keyword not allowed</small>
+      </div>
+      <div class="d-flex">
+        <div class="question-head ">Content Type <span class="text text-danger">*</span></div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue " matTooltip="Property used for the communication"></i>
+        </div>
+      </div>
+      <select class="form-control inputFull" (change)="multimediaSelect($event)" name="multimediaFieldValue"
+        [(ngModel)]="botsays.multimediaFieldValue" #multimediaFieldValue="ngModel" [required]="false">
+        <option value="1">Image</option>
+        <option value="2">Audio</option>
+        <option value="3">Video</option>
+        <option value="4">Document</option>
+        <option value="5" selected>Message</option>
+        <!-- <option value="6">Contact</option> -->
+        <option value="7">Sticker</option>
+        <!-- <option value="8">Location</option> -->
+      </select>
+
+      <!-- <text-component
+            [model]="botsays.message"
+            (textareaData)="botsays.message=$event"
+            placeholder="Hello Welocome to my store"
+            (textLength)="getTextLength($event)"
+            >
+          </text-component> -->
+
+
+      <!-- <select class="form-control inputFull" (change)="select($event)" name="selectFieldValue"
+        [(ngModel)]="botsays.selectFieldvalue" #selectFieldValue="ngModel"  [required]="true">
+        <option value="1">Text</option>
+        <option value="2">Multimedia</option>
+      </select> -->
+      <!-- <container-element [ngSwitch]="selectFieldToggle">
+        <div *ngSwitchCase="1" class="mt-3">
+
+        </div>
+        <div *ngSwitchCase="2" class="mt-3">
+
+        </div>
+        <div *ngSwitchDefault></div>
+      </container-element> -->
+      <div>
+        <ngx-loading-bar fixed color="#4CAF50"></ngx-loading-bar>
+      </div>
+
+      <div *ngIf="mulSelectFieldToggle !=5 && mulSelectFieldToggle !=6 && mulSelectFieldToggle !=8" class="row mt-2">
+        <div class="col-sm small">From File</div>
+        <div class="col-sm">
+          <mat-slide-toggle class="example-margin" color="primary" (change)="switchMediaUrlFlag()" matTooltip="Activate"
+            [checked]="mediaUrlFlag"></mat-slide-toggle>
+        </div>
+        <div class="col-sm small">Media Url</div>
+      </div>
+      <container-element [ngSwitch]="mulSelectFieldToggle">
+        <div *ngSwitchCase="1" class="form-group  mt-3">
+          <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+            <div class="custom-file " style="font-size: 11px; width: 100%;">
+              <input type="file" class="custom-file-input" accept="image/*" name="multimediaImage"
+                [(ngModel)]="botsays.multimediaImage" #multimediaImage="ngModel" (change)="getMediaPath($event)">
+              <label class="custom-file-label w-100 small" for="image">
+                {{botsays.fileName.image}}
+              </label>
+              <ng-template [ngIf]="sizeLimit && gifWarning == false">
+                <div class="text-danger">Max size 5 MB</div>
+              </ng-template>
+              <ng-template [ngIf]="gifWarning == true">
+                <div class="text-danger">Only support .png, .jpg and .jpeg</div>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-template #mediaUrl>
+            <input type="text" class="form-control inputFull" id="imageMediaurl" name="imageMediaUrl"
+              [(ngModel)]="botsays.mediaUrl.image" #imageMediaurl="ngModel" placeholder="Enter Media Url *"
+              [required]="true" />
+              <!-- (keyup)="checkExtension()" (paste)="checkExtension() -->
+            <div *ngIf="imageMediaurl.errors && (imageMediaurl.touched || f.submitted)">
+              <small class="text-danger">Media Url required</small>
+            </div>
+            <!-- <ng-template [ngIf]="gifWarning == true">
+              <div class="text-danger">Only support .png, .jpg and .jpeg</div>
+            </ng-template> -->
+          </ng-template>
+        </div>
+        <div *ngSwitchCase="2" class="form-group mt-3">
+          <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+            <div class="custom-file" style="font-size: 11px; width: 100%;">
+              <input type="file" class="custom-file-input" id="audio" accept="audio/*" name="multimediaAudio"
+                [(ngModel)]="botsays.multimediaAudio" #multimediaAudio="ngModel" (change)="getMediaPath($event)">
+              <label class="custom-file-label small" for="audio">{{botsays.fileName.audio}}</label>
+              <ng-template [ngIf]="sizeLimit">
+                <div class="text-danger">Max size 16 MB</div>
+              </ng-template>
+              <ng-template [ngIf]="gifWarning == true">
+                <div class="text-danger">Only support .aac, .amr, .mp3, .mp4 and .opus</div>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-template #mediaUrl>
+            <input type="text" class="form-control inputFull" id="audioMediaurl" name="audioMediaUrl"
+              [(ngModel)]="botsays.mediaUrl.audio" #audioMediaurl="ngModel" placeholder="Enter Media Url *"
+              [required]="true" />
+            <div *ngIf="audioMediaurl.errors && (audioMediaurl.touched || f.submitted)">
+              <small class="text-danger">Media Url required</small>
+            </div>
+          </ng-template>
+        </div>
+        <div *ngSwitchCase="3" class="form-group mt-3">
+          <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+            <div class="custom-file" style="font-size: 11px; width: 100%;">
+              <input type="file" class="custom-file-input" id="video" accept=".3gp,.mp4" name="multimediaVideo"
+                [(ngModel)]="botsays.multimediaVideo" #multimediaVideo="ngModel" (change)="getMediaPath($event)">
+              <label class="custom-file-label small" for="video">{{botsays.fileName.video}}</label>
+              <ng-template [ngIf]="sizeLimit && gifWarning ==false">
+                <div class="text-danger">Max size 16 MB</div>
+              </ng-template>
+              <ng-template [ngIf]="gifWarning">
+                <div class="text-danger">Only support 3gp and mp4</div>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-template #mediaUrl>
+            <input type="text" class="form-control inputFull" id="videoMediaurl" name="videoMediaUrl"
+              [(ngModel)]="botsays.mediaUrl.video" #videoMediaUrl="ngModel" placeholder="Enter Media Url *"
+              [required]="true"  />
+              <!-- (keyup)="checkExtension()" (paste)="checkExtension() -->
+            <div *ngIf="videoMediaUrl.errors && (videoMediaUrl.touched || f.submitted)">
+              <small class="text-danger">Media Url required</small>
+            </div>
+            <!-- <ng-template [ngIf]="gifWarning">
+              <div class="text-danger">Only support 3gp and mp4</div>
+            </ng-template> -->
+          </ng-template>
+
+
+
+        </div>
+        <div *ngSwitchCase="4" class="form-group mt-3">
+          <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+            <div class="custom-file" style="font-size: 11px; width: 100%;">
+              <input type="file" class="custom-file-input" id="document"
+                accept=".pdf,.xlsx,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                name="multimediaDocument" [(ngModel)]="botsays.multimediaDocument" #multimediaDocument="ngModel"
+                (change)="getMediaPath($event)">
+              <label class="custom-file-label small" for="document">{{botsays.fileName.document}}
+              </label>
+              <ng-template [ngIf]="sizeLimit">
+                <div class="text-danger">Max size 100 MB</div>
+              </ng-template>
+              <input type="text" class="form-control inputFull" [(ngModel)]="this.botsays.documentFileName"
+                placeholder="File Name" name="documentFileName" maxlength="240">
+            </div>
+          </ng-container>
+          <ng-template #mediaUrl>
+            <input type="text" class="form-control inputFull" id="documentMediaurl" name="documentMediaUrl"
+              [(ngModel)]="botsays.mediaUrl.document" #documentMediaUrl="ngModel" placeholder="Enter Media Url *"
+              [required]="true" />
+            <div *ngIf="documentMediaUrl.errors && (documentMediaUrl.touched || f.submitted)">
+              <small class="text-danger">Media Url required</small>
+            </div>
+          </ng-template>
+
+
+        </div>
+        <div *ngSwitchCase="6" class="form-group mt-2">
+          <div class="d-flex">
+            <div class="question-head">Name</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the Personal Details Like Firstname Lastname etc"></i>
+            </div>
+          </div>
+          <input type="text" class="form-control inputFull" placeholder="First Name *"
+            [(ngModel)]="botsays.contact.name.firstName" name="nameFullName" #nameFullName="ngModel" [required]="true" maxlength="50">
+          <div *ngIf="nameFullName.errors && (nameFullName.touched || f.submitted)">
+            <small class="text-danger">Firstname required</small>
+          </div>
+          <input type="text" class="form-control inputFull mt-1" placeholder="Formated Name *"
+            [(ngModel)]="botsays.contact.name.formatedName" #nameFormatedName="ngModel" name="nameFormatedName"
+            [required]="true" maxlength="50">
+          <div *ngIf="nameFormatedName.errors && (nameFormatedName.touched || f.submitted)">
+            <small class="text-danger">Formated Name required</small>
+          </div>
+          <input type="text" class="form-control inputFull mt-1" placeholder="Middle Name"
+            [(ngModel)]="botsays.contact.name.middleName" name="nameMiddleName" maxlength="50">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Prefix"
+            [(ngModel)]="botsays.contact.name.prefix" name="namePrefix" maxlength="50">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Suffix"
+            [(ngModel)]="botsays.contact.name.suffix" name="namesuffix" maxlength="50">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Last Name"
+            [(ngModel)]="botsays.contact.name.lastName" name="nameLastName" maxlength="50">
+          <div class="d-flex">
+            <div class="question-head">Addresses</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-plus-circle-fill" matTooltip="helps to add more options" (click)="addAddress()"></i>
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the Detailed Address in Object"></i>
+            </div>
+          </div>
+          <div *ngFor="let address of this.botsays.address; let i = index" class="addressBox">
+            <input type="text" class="form-control inputFull" [(ngModel)]="botsays.address[i].city" [name]="'city'+i"
+              placeholder="City" maxlength="50">
+            <input type="text" class="form-control inputFull mt-1" [(ngModel)]="botsays.address[i].country"
+              [name]="'country'+i" placeholder="Country" maxlength="50">
+            <input type="text" class="form-control inputFull mt-1" [(ngModel)]="botsays.address[i].countryCode"
+              [name]="'addressCountryCode'+i" placeholder="Country code" maxlength="50">
+            <input type="text" class="form-control inputFull mt-1" [(ngModel)]="botsays.address[i].street"
+              [name]="'addressStreet'+i" placeholder="Street" maxlength="100">
+            <input type="text" class="form-control inputFull mt-1" [(ngModel)]="botsays.address[i].addressType"
+              [name]="'addressType'+i" placeholder="Type" maxlength="50">
+            <input type="text" class="form-control inputFull mt-1" [(ngModel)]="botsays.address[i].zip"
+              [name]="'addressZip'+i" placeholder="Zip" maxlength="50">
+          </div>
+
+          <div class="d-flex">
+            <div class="question-head">Birthday</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue " matTooltip="This helps to define the Birthday Details"></i>
+            </div>
+          </div>
+          <input type="text" class="form-control inputFull" placeholder="Birthday"
+            [(ngModel)]="botsays.contact.birthday" name="birthday">
+          <div class="d-flex">
+            <div class="question-head">Email</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-plus-circle-fill" matTooltip="helps to add more options" (click)="addEmail()"></i>
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the email address of individual/Company"></i>
+            </div>
+          </div>
+          <div *ngFor="let email of this.botsays.email; let i = index" class="addressBox">
+            <input type="text" class="form-control inputFull" placeholder="Email" [(ngModel)]="botsays.email[i].email"
+             name="emailEmail_{{i}}">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Type"
+            [(ngModel)]="botsays.email[i].type"  name="emailType_{{i}}">
+          </div>
+
+          <div class="d-flex">
+            <div class="question-head">Org</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the details of Organisation"></i>
+            </div>
+          </div>
+          <input type="text" class="form-control inputFull" placeholder="Company" [(ngModel)]="botsays.contact.org.company"
+            name="company">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Department"
+            [(ngModel)]="botsays.contact.org.department" name="department">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Title"
+            [(ngModel)]="botsays.contact.org.orgTitle" name="orgTitle">
+          <div class="d-flex">
+            <div class="question-head">Phones</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-plus-circle-fill" matTooltip="helps to add more options" (click)="addPhones()"></i>
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the phone number of individual/Company"></i>
+            </div>
+          </div>
+          <div *ngFor="let phone of this.botsays.phones; let i = index" class="addressBox">
+            <input type="text" class="form-control inputFull" placeholder="Phone" [(ngModel)]="botsays.phones[i].phone"
+              [name]="'phone'+i">
+            <input type="text" class="form-control inputFull mt-1" placeholder="Type"
+              [(ngModel)]="botsays.phones[i].phoneType" [name]="'phoneType'+i">
+            <input type="text" class="form-control inputFull mt-1" placeholder="Wa_id"
+              [(ngModel)]="botsays.phones[i].wa_id" [name]="'wa_id'+i">
+          </div>
+          <div class="d-flex">
+            <div class="question-head">Urls</div>
+            <div class=" ml-auto question-head">
+              <i class="bi bi-plus-circle-fill" matTooltip="helps to add more options" (click)="addUrl()"></i>
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the Urls for the website of individual/Company"></i>
+            </div>
+          </div>
+          <div *ngFor="let url of this.botsays.url; let i = index" class="addressBox">
+            <input type="text" class="form-control inputFull" placeholder="Url" [(ngModel)]="botsays.url[i].url"
+            name="url_{{i}}">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Type"
+            [(ngModel)]="botsays.url[i].type" name="urlType_{{i}}">
+          </div>
+        </div>
+        <div *ngSwitchCase="7" class="form-group mt-3">
+          <ng-container *ngIf="mediaUrlFlag == false;else mediaUrl">
+            <div class="custom-file " style="font-size: 11px; width: 100%;">
+              <input type="file" class="custom-file-input" accept="image/webp" name="multimediaSticker"
+                [(ngModel)]="botsays.multimediaSticker" (change)="getMediaPath($event)">
+
+              <label class="custom-file-label w-100 small" for="sticker">
+                {{botsays.fileName.sticker}}
+              </label>
+              <ng-template [ngIf]="sizeLimit && gifWarning == false">
+                <div class="text-danger">Max size 100 KB</div>
+              </ng-template>
+              <ng-template [ngIf]="gifWarning == true">
+                <div class="text-danger">Only support .webp format</div>
+              </ng-template>
+              <ng-template [ngIf]="mediaErrorFlag">
+                <div class="text-danger">Media Required</div>
+              </ng-template>
+              <ng-template [ngIf]="dimensionFlag">
+                <div class="text-danger">Sticker Dimension should be 512 X 512</div>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-template #mediaUrl>
+            <input type="text" class="form-control inputFull" id="stickerMediaurl" name="stickerMediaUrl"
+              [(ngModel)]="botsays.mediaUrl.sticker" #stickerMediaUrl="ngModel" placeholder="Enter Sticker Url *"
+              [required]="true" />
+            <div *ngIf="stickerMediaUrl.errors && (stickerMediaUrl.touched || f.submitted)">
+              <small class="text-danger">Media Url required</small>
+            </div>
+          </ng-template>
+
+        </div>
+        <div *ngSwitchCase="8" class="form-group mt-3">
+          <div class="d-flex ">
+            <div class="question-head">Location Details</div>
+            <div class=" ml-auto question-head ">
+              <i class="bi bi-question-circle tooltipBlue "
+                matTooltip="This helps to define the Details of the location like Latitude,Longitude etc..."></i>
+            </div>
+          </div>
+          <input type="text" class="form-control inputFull" placeholder="Latitude *" #latitude="ngModel"
+            [(ngModel)]="botsays.location.latitude" name="latitude" required="true" (keydown)="checkingNumber($event)" >
+          <div *ngIf="latitude.errors && (latitude.touched || f.submitted)">
+            <small class="text-danger">Latitude Required</small>
+          </div>
+          <div *ngIf="botsays.location.latitude < -90 || botsays.location.latitude > 90">
+            <small class="text-danger">Latitude should be between -90 to 90</small>
+          </div>
+          <input type="text" class="form-control inputFull mt-1" placeholder="Longitude *" #longitude="ngModel"
+            [(ngModel)]="botsays.location.longitude" name="longitude" required="true"
+            (keydown)="checkingNumber($event)">
+          <div *ngIf="longitude.errors && (longitude.touched || f.submitted)">
+            <small class="text-danger">Longitude Required </small>
+          </div>
+          <div *ngIf="botsays.location.longitude < -180 || botsays.location.longitude > 180">
+            <small class="text-danger">Latitude should be between -180 to 180</small>
+          </div>
+          <input type="text" class="form-control inputFull mt-1" placeholder="Name" [(ngModel)]="botsays.location.name"
+            name="name" maxlength="1000">
+          <input type="text" class="form-control inputFull mt-1" placeholder="Address"
+            [(ngModel)]="botsays.location.address" name="address" maxlength="1000">
+        </div>
+
+
+
+
+        <div *ngSwitchCase="'default'"></div>
+      </container-element>
+      <div
+        *ngIf="botsays.multimediaFieldValue!=2 && botsays.multimediaFieldValue!=6 && botsays.multimediaFieldValue!=7 && botsays.multimediaFieldValue!=8">
+        <div class="d-flex">
+          <div class="question-head">{{content}}</div>
+          <div class=" ml-auto question-head">
+            <i class="bi bi-question-circle tooltipBlue "
+              matTooltip="This helps to define the content of an Object in the flow"></i>
+          </div>
+        </div>
+        <custom-textarea placeHolder="Enter {{content}}" [model]="modelToPass" minHeight=100 classOverride={{tempModel}}
+          (messageData)="getMessage($event,tempModel)" (textLength)="getTextLength($event)" maxLen={{maxLength}}></custom-textarea>
+
+      </div>
+      <div *ngIf="mulSelectFieldToggle==5" class="d-flex">
+        <div class="question-head">Check Url</div>
+        <!-- <input class="form-control"
+          type="checkbox"
+          [checked]="previewUrlFlag"
+          (change)="setPreviewUrl()" /> -->
+        <input class="ml-auto arrange-checkbox" type="checkbox" style="position: relative;top: 8px;"
+          [checked]="previewUrlFlag" (change)="setPreviewUrl()" matTooltip="used to check if the content have any valid urls.
+          NB:'Automatically disabled(unchecked) after submitting if the content doesn't have any valid URL'"/>
+      </div>
+      <div class="row mt-2">
+        <div class="col-7 col pTop">
+          <div>Wait in sec</div>
+        </div>
+        <div class="col-5 col">
+          <input #timeout="ngModel" type="text" class="form-control formhaif" name="waitTime"
+            [(ngModel)]="botsays.waitTime" placeholder="0" maxlength="8" (keydown)="checkingNumber($event)" matTooltip="This object will wait for the mentioned time">
+          <!-- <div *ngIf="timeout.errors && (timeout.touched || f.submitted)">
+              <small class="text-danger">Required</small>
+            </div> -->
+        </div>
+
+      </div>
+      <div class="mt-2 d-flex">
+        <div class="question-head">Next Object</div>
+        <div class=" ml-auto question-head">
+          <i class="bi bi-question-circle tooltipBlue "
+            matTooltip="This helps to define the next Object in the flow"></i>
+        </div>
+      </div>
+      <next-object [index]={sec:0,index:0} [arrayNode]=selectedNode [nodeId]=nodeId (childValue)="childValue($event)">
+      </next-object>
+
+    </div>
+    <div class="d-flex fixedSave mt-3">
+      <button class="savebtn ml-auto mr-auto mt-3 mb-2" [disabled]="!f.valid ||
+      sizeLimit==true ||
+      textLength==false ||
+      fileUploadFlag==false ||
+      duplicatekeywordcheckFlag == true||
+      duplicateUniquecheckFlag == true ||
+      (botsays.location.longitude < -180 || botsays.location.longitude > 180) ||
+      (botsays.location.latitude < -90 || botsays.location.latitude > 90)||
+      botsays.uniqueName.trim().length == 0 ||
+      gifWarning == true||
+      mediaErrorFlag == true||
+      dimensionFlag == true ||
+      disabledForView == true">
+        Submit
+      </button>
+
+
+      <!-- <i class="bi bi-trash delete-icon" (click)="f.reset();clearForm();"></i> -->
+    </div>
+    <!-- {{f.valid}}-"formvalidity", {{sizeLimit}}-"sizeLimit", {{textLength}}-"textLength", {{fileUploadFlag}}-"fileUploadFlag" -->
+  </form>
+</div>
+
+
+<!-- [disabled]="!f.valid ||sizeLimit==true ||textLength==false || fileUploadFlag==false"> -->

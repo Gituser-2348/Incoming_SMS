@@ -1,0 +1,35 @@
+<!-- <div class="mlr-20">
+  <div class="flex">
+    <div class="operation-outer">
+      <div class="operation-icon">
+        <i class="bi bi-bell"></i>
+      </div>
+    </div>
+    <div class="operation-outer">
+      <div class="operation-icon">
+        <i class="bi bi-bell-slash"></i>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-bell"></i></div>
+    <div class="inner-header-new">Subscribe</div>
+  </div>
+  <div class="bot-outer-new ">
+    <div class="inner-icon-new"><i class="bi bi-bell-slash"></i></div>
+    <div class="inner-header-new">Unsubscribe</div>
+  </div>
+</div> -->
+
+<div>
+  <div class="bot-outer-new not-allowed">
+    <div [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-bell"></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Subscribe</div>
+  </div>
+  <div class="bot-outer-new not-allowed">
+    <div  [ngClass]="collapsedValue =='false'?'inner-icon-new':'inner-icon-new-collapsed'"><i class="bi bi-bell-slash"></i></div>
+    <div [ngClass]="collapsedValue == 'false'?'inner-header-new':'collapsedTrue'">Unsubscribe</div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+
+div{
+  font-family: Poppins !important;
+}
+.modal-open {
+  overflow: hidden;
+}
+.cursor-pointer:hover{
+  cursor: pointer;
+}
+.cursor-default:hover{
+  cursor: context-menu;
+}
+.modal-open .modal-new {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.mod-hed{
+  display: flex;
+  margin: 0px 15px;
+}
+
+.modal-new {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+  background-color: #000000ad;
+}
+
+.modal-new-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000ad;
+}
+.modal-dialog{
+  max-width:  600px;
+}
+.modal-header{
+  height: 45px !important;
+}
+.file{
+  padding: 2px 5px !important;
+}
+.btnSend{
+  border-radius: 8px !important;
+  width: 95px !important;
+  margin-top: 12px;
+  margin-bottom: -25px;
+  background: #20a8d8;
+  color: white;
+  height: 35px;
+}
+
+
+.cursorPointer:hover{
+  cursor: pointer;
+}

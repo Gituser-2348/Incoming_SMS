@@ -1,0 +1,480 @@
+<mat-card>
+  <div class="card-body scrollable-content" style="overflow-y: auto; ">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2 mat-dialog-title style="flex-grow: 1;font-size:16px;">VMN Action</h2>
+      <button mat-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div>
+      <div>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
+          <mat-tab label="Change Status">
+            <div style="padding-top: 20px;padding:40px; display: flex; justify-content: space-between; align-items: center;width:100%;">
+              <div>
+                <p>
+                  <mat-label style="padding:20px;font-weight:bold;">VMN : {{VMN_}}</mat-label>
+                  <mat-label style="padding: 20px; font-weight: bold;">IMSI : {{IMSI_}}</mat-label>
+
+                </p>
+                <p>
+                  <mat-label style="padding: 20px; font-weight: bold;">Customer : {{Customer}}</mat-label>
+                  <mat-label style="padding: 20px; font-weight: bold;">Status : {{Status}}</mat-label>
+                </p>
+                <div style="display:flex;">
+
+                  <div>
+                    <mat-form-field style="margin-top:8%">
+                      <mat-label>Status</mat-label>
+                      <mat-select [(ngModel)]="Status_" placeholder="Select status">
+                        <mat-option value="">-select-</mat-option>
+                        <ng-container *ngIf="Status === 'Active'">
+                          <mat-option value="2">Inactive</mat-option>
+                          <mat-option value="3">Terminated</mat-option>
+                        </ng-container>
+                        <ng-container *ngIf="Status === 'Inactive'">
+                          <mat-option value="1">Active</mat-option>
+                          <mat-option value="3">Terminated</mat-option>
+                        </ng-container>
+                        <ng-container *ngIf="Status === 'Terminated'">
+                          <mat-option value="1">Active</mat-option>
+                          <mat-option value="2">Inactive</mat-option>
+                        </ng-container>
+                        <!--<mat-option *ngFor="let item of statuslist" [value]="item.value">
+    {{ item.text }}
+  </mat-option>-->
+                      </mat-select>
+
+                    </mat-form-field>
+                   
+                    <mat-error *ngIf="showError_status" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> Status is required</div></mat-error>
+                  </div>
+                  <div>
+                    <mat-form-field style="padding-left: 30px;">
+                      <mat-label>Remark</mat-label>
+                      <textarea [(ngModel)]="Remark" maxlength="100" matInput placeholder="Enter Remark"></textarea>
+
+                    </mat-form-field>
+                    
+                    <mat-error *ngIf="showError_remark" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>Remark is required</div></mat-error>
+                  </div>
+
+
+
+                  <div>
+                    <button style="padding-left:20px;" mat-button color="primary" (click)="saveChanges()">Update</button>
+                  </div>
+
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Change URL">
+            <div class="card-body " style="margin-top: 10px;   height: 30vw; ">
+              <div style="display:flex">
+                <div>
+                  <!--flex1 -->
+                  <p style="text-decoration: underline;font-weight: bold;">URL Details : </p>
+                  <div class="d-flex">
+                    <div>
+                      <p>
+                        <mat-form-field>
+                          <mat-label>URL :</mat-label>
+                          <input matTooltip="Don't add either parameter name or values to url " maxlength="100" [(ngModel)]="url" matInput placeholder="URL">
+
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_url_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div> please fill url</div></mat-error>
+                      </p>
+
+                      <p>
+                        <mat-form-field required>
+                          <mat-select required [(ngModel)]="method_">
+
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let type of urlmethodlist" [value]="type.value">
+                              {{ type.text }}
+                            </mat-option>
+
+                          </mat-select>
+                          <mat-label>
+                            <mat-label>Method</mat-label>
+                          </mat-label>
+                        </mat-form-field>
+                        <mat-error *ngIf="is_show_method_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>please select method</div></mat-error>
+                      </p>
+                    </div>
+                    <div>
+                      <div style="padding-left:10px;">
+                        <p>
+                          <mat-form-field required>
+                            <mat-select required [(ngModel)]="content_type">
+
+                              <mat-option value="">--Select--</mat-option>
+                              <mat-option *ngFor="let type of contenttypelist" [value]="type.value">
+                                {{ type.text }}
+                              </mat-option>
+
+                            </mat-select>
+                            <mat-label>
+                              <mat-label> Content Type</mat-label>
+                            </mat-label>
+                          </mat-form-field>
+                          <mat-error *ngIf="is_show_content_type_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>please select content type </div></mat-error>
+                        </p>
+                        <p style="margin-left:30%">
+                          <mat-slide-toggle [color]="color" style="font-weight:bold;" [(ngModel)]="proxy_s">Proxy</mat-slide-toggle>
+                        </p>
+
+                        <!--<p>
+                          <mat-form-field required>
+                            <mat-select required [(ngModel)]="date_format">
+
+                              <mat-option value="undefined">--Select--</mat-option>
+                              <mat-option *ngFor="let type of dateformatlist" [value]="type.value">
+                                {{ type.text }}
+                              </mat-option>
+
+                            </mat-select>
+                            <mat-label>
+                              <mat-label> Date Format</mat-label>
+                            </mat-label>
+                          </mat-form-field>
+                        </p>-->
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!--<p style="text-decoration: underline;font-weight: bold;">Proxy  <span style="padding-left:10px;"><input style="height:10%" type="checkbox" [(ngModel)]="proxy_s" /></span></p>-->
+                  <div style="margin-left:32px;">
+                    <p style="text-decoration: underline;font-weight: bold;">Response : </p>
+                    <div style="display:flex;">
+
+                      <div>
+
+                        <div>
+                          <p>
+                            <mat-form-field>
+                              <mat-label>Success :</mat-label>
+                              <input maxlength="50" [(ngModel)]="success_response" matInput placeholder="Success">
+
+                              <mat-hint></mat-hint>
+                            </mat-form-field>
+                            <mat-error *ngIf="is_show_success_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>please fill success response</div></mat-error>
+                          </p>
+                          <p>
+                            <mat-form-field>
+                              <mat-label>Failure :</mat-label>
+                              <input maxlength="50" [(ngModel)]="failure_response" matInput placeholder="Failure">
+
+                              <mat-hint></mat-hint>
+                            </mat-form-field>
+                            <mat-error *ngIf="is_show_failure_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>please fill failure response</div></mat-error>
+                          </p>
+
+                        </div>
+                      </div>
+
+                      <div style="margin-left:25px;">
+                        <p>
+                          <mat-form-field>
+                            <mat-label>Time Out :</mat-label>
+                            <input  maxlength="1" [(ngModel)]="timeout" matInput placeholder="Time Out" (input)="validateInput($event)" type="text" min="0" max="9">
+
+                            <mat-hint></mat-hint>
+                          </mat-form-field>
+                          <mat-error *ngIf="is_show_timeout_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>please add Time out</div></mat-error>
+                        </p>
+                        <p>
+                          <mat-form-field>
+                            <mat-label>Retry Count :</mat-label>
+                            <input maxlength="1" [(ngModel)]="retry_count" matInput placeholder="Retry Count" (input)="validateInput($event)" type="text" min="0" max="9" >
+
+                            <mat-hint></mat-hint>
+
+                          </mat-form-field>
+                          <mat-error *ngIf="is_show_retry_err_msg" style="margin-top:-1vw;" class="d-flex"><mat-icon>priority_high</mat-icon> <div>Please add retry count</div></mat-error>
+                        </p>
+
+                      </div>
+
+                    </div>
+
+
+
+                  </div>
+
+                  <button (click)="update();" class="btn btnsave">UPDATE</button>
+
+                  <button mat-raised-button (click)="apiurltest()" class="btn btntest">API Tester</button>
+                  <!--flex 1 ends-->
+                </div>
+                <div style="margin-left:35px;margin-top:20px;">
+                  <!--flex 2-->
+                  <!--<div style="display:flex">
+                    <label style="font-weight: bold;">
+                      Request :
+                      <button mat-icon-button class="table-button" (click)="addparameter()">
+                        <mat-icon [ngStyle]="{'color':'green'}">library_add</mat-icon>
+                      </button>
+                    </label>
+                  </div>-->
+
+                  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" #innerTabGroup>
+                    <mat-tab label="Parameters">
+                      <div  class=" scrollable-content" style="padding-left:10px;overflow-y: auto;height:25vw" >
+                        <div style="display:flex">
+                          <label style="text-decoration: underline;font-weight: bold;">
+                            Request :
+                            <!--<button (click)="addparameter()" class="btnnumb"> <i class="bi bi-plus-circle addi"></i></button>-->
+                            <button mat-icon-button class="table-button" (click)="addparameter()" color="accent">
+                              <mat-icon [ngStyle]="{'color':'green'}">library_add</mat-icon>
+                            </button>
+                          </label>
+                        </div>
+                        <table style="background-color: #e5e6e8;width:90%">
+                          <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                          </tr>
+
+                          <tr *ngFor="let item of parameter_final_arr; let i=index">
+                            <td><input maxlength="30" class="in_box1" type="text" [(ngModel)]="item.parameter_key"></td>
+                            <td class="d-flex" style="padding-left:20px;">
+                              <span>
+                                <select style="width:125px;" id="select" class="form-control" [(ngModel)]="item.parameter_keyvalue">
+                                  <option value="" disabled selected hidden>--Select--</option>
+                                  <option *ngFor="let type of parameterlist" [value]="type.value">
+                                    {{ type.text }}
+                                  </option>
+                                </select>
+                              </span>
+                              <span *ngIf="item.parameter_keyvalue === '7'" style="margin-left: 10px;">
+                                <!--other -->
+                                <input maxlength="30" style="border:0;" type="text" [(ngModel)]="item.parameter_customevalue" placeholder="value">
+                              </span>
+                              <span *ngIf="item.parameter_keyvalue === '3'" style="margin-left: 10px;">
+                                <!--time format-->
+                                <select style="width:125px;" id="select" class="form-control" [(ngModel)]="date_format">
+                              
+                                  <option value="0">select</option>
+
+                                  <option *ngFor="let type of dateformatlist" [value]="type.value">
+                                    {{ type.text }}
+                                  </option>
+                                </select>
+                              </span>
+                              <span *ngIf="item.parameter_keyvalue === '4'" style="margin-left: 10px;">
+                                <!-- vmn format-->
+                                <select [(ngModel)]="vmn_length_flag" style="width:125px;" id="select" class="form-control">
+                                  <option value="" disabled selected hidden>--Select--</option>
+                                  <option *ngFor="let type of vmn_length_list" [value]="type.value">
+                                    {{ type.text }}
+                                  </option>
+                                </select>
+                              </span>
+                              <span>
+                                <button (click)="minusparameter(i)" style="color: red; background-color: transparent;" class="btnnumb">
+                                  <mat-icon>remove_circle</mat-icon>
+                                </button>
+                              </span>
+                            </td>
+                          </tr>
+
+                        </table>
+                        <mat-error class="d-flex" *ngIf="is_show_parameter_err"><mat-icon>priority_high</mat-icon> <div>{{parameter_arr_err_msg}}</div></mat-error>
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Authentication">
+                      <div style="display:flex;">
+
+
+                        <div style="margin-top:10px;">
+                          <mat-form-field required>
+                            <mat-select required [(ngModel)]="authentication_">
+
+                              <mat-option value="0">--None--</mat-option>
+                              <mat-option *ngFor="let type of authenticatonlist" [value]="type.value">
+                                {{ type.text }}
+                              </mat-option>
+
+                            </mat-select>
+                            <mat-label>
+                              <mat-label>Authentication</mat-label>
+                            </mat-label>
+                          </mat-form-field>
+                        </div>
+
+
+
+
+                        <div *ngIf="authentication_ === 1" style="margin-left:25px;">
+
+
+                          <div>
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Token</mat-label>
+                              <textarea maxlength="250" [(ngModel)]="Bearer_token_value" matInput id="token" name="Token" required></textarea>
+                            </mat-form-field>
+                            <mat-error class="d-flex" *ngIf="is_show_bearer_msg"><mat-icon>priority_high</mat-icon> <div>Please add Bearer Token</div></mat-error>
+                          </div>
+
+                        </div>
+                        <div *ngIf="authentication_ === 2" style="margin-left:25px;">
+
+
+                          <div>
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Basic</mat-label>
+                              <textarea maxlength="250" [(ngModel)]="Basic_auth_value" matInput id="basic" name="Basic" required></textarea>
+                            </mat-form-field>
+                            <mat-error *ngIf="is_show_basic_msg" class="d-flex"><mat-icon>priority_high</mat-icon> <div>Please add basic authentication</div></mat-error>
+                          </div>
+
+                        </div>
+                      </div>
+                      <!---->
+
+
+                    </mat-tab>
+                    <mat-tab label="Header">
+                      <div class=" scrollable-content" style="padding-left:10px;overflow-y: auto;height:25vw">
+                        <!--<p style="text-decoration: underline;font-weight: bold;">Header : </p>-->
+                        <label>
+                          Header : <button mat-icon-button class="table-button" (click)="addheader()" color="accent">
+                            <mat-icon [ngStyle]="{'color':'green'}">library_add</mat-icon>
+                          </button>
+                        </label>
+
+                        <!--<button (click)="addheader()" class="btnnumb"> <i class="bi bi-plus-circle addi"></i></button>-->
+
+
+                        <table style="border: 1px thin; background-color: #e5e6e8;width:80%;">
+                          <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                          </tr>
+
+                          <tr *ngFor="let item of header_arr; let i=index">
+                            <td><input maxlength="30" class="in_box1" type="text" [(ngModel)]="item.key"></td>
+                            <td style="padding-left:20px;"><input maxlength="30" class="in_box1" type="text" [(ngModel)]="item.value"><span><button (click)="minusheader(i)" style="color:red;background-color:transparent;" class="btnnumb">  <mat-icon>remove_circle</mat-icon></button></span></td>
+                          </tr>
+
+                        </table>
+                        <mat-error class="d-flex" *ngIf="is_show_header_err"><mat-icon>priority_high</mat-icon> <div>{{header_arr_err_msg}}</div></mat-error>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+
+                  <!--flex 2 ends-->
+
+                </div>
+
+
+
+
+
+
+              </div>
+
+
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
+
+
+      </div>
+
+      <!--<div>
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Change Status
+              </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <div style="padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+              <div style="padding-top:10px;">
+                <p>
+                  <mat-label style="padding:20px">VMN : {{VMN_}}</mat-label>
+                  <mat-label style="padding:20px;">IMSI : {{IMSI_}}</mat-label>
+                  <mat-label style="padding:20px;">Customer : {{Customer}}</mat-label>
+                  <mat-label style="padding:20px;">Status : {{Status}}</mat-label>
+                </p>
+                <div style="display:flex;">
+                  <p>
+
+                    <mat-form-field>
+                      <mat-label style="padding:30px;">Status</mat-label>
+                      <mat-select  [(ngModel)]="Status_" placeholder="Select status">
+                        <mat-option value=" ">-select-</mat-option>
+                        <mat-option *ngFor="let item of statuslist" [value]="item.value">
+                          {{ item.text }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <mat-label style="padding: 30px;">Remark</mat-label>
+                      <textarea matInput [(ngModel)]="Remark" placeholder="Enter Remark"></textarea>
+                    </mat-form-field>
+
+
+                    <button style="padding-left:20px;" mat-button color="primary" (click)="saveChanges()">Save</button>
+                  </p>
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </div>
+      <div style="padding-top:20px;">
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Change URL
+              </mat-panel-title>
+
+            </mat-expansion-panel-header>
+
+
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="card-header">
+
+                  <div class="card-body" style="margin-top: 10px;">
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>-->
+
+    </div>
+  </div>
+ 
+</mat-card>
+
+

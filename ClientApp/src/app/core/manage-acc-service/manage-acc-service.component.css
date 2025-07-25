@@ -1,0 +1,63 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 35%;
+}
+
+.example-full-width {
+  width: 35%;
+  font-size: 4mm;
+}
+.mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
+  line-height: initial;
+}
+
+.toolbar-button {
+  height: 40px;
+  width: inherit;
+  padding: 0px;
+}
+
+.container .row {
+  width: 300px;
+}
+.nav-item{
+  margin-top: 5px;
+  width:130px;
+}
+@media (min-width: 768px) {
+  .container .row {
+    width: 300px;
+  }
+} 
+
+@media (max-width: 668px) {
+  .container .row {
+    width: 200px;
+    display: flex;
+    flex-wrap: initial;
+  }
+}
+
+.mat-form-field-flex {
+  width: 60% !important;
+  
+}
+
+.mat-form-field-infix {
+  width: 60% !important;
+}
+
+::ng-deep .mat-select-arrow {
+  color: var(--main-select)
+}
+
+::ng-deep .mat-select-value {
+  color: var(--main-select)
+}
+mat-label{
+  color: var(--main-label)
+}

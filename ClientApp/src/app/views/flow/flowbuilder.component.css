@@ -1,0 +1,42 @@
+.svg-inline--fa.fa-w-16 {
+  width: 2em !important;
+}
+/* #drawflow {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  border: 1px solid red;
+} */
+.zoom-{
+  right: 106px;
+}
+.zoomP{
+  right: 143px;
+}
+#minimap {
+    float: right;
+    border: 1px solid #b7b7b7;
+    border-radius: 8px;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 60px;
+    cursor: move;
+    /* left: 270px; */
+    /* right: 10px; */
+    background: #f8f8f8
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' fill='none' %3E%3Ccircle cx='2.609' cy='3.061' r='2.599' fill='%23DEDEDE' fill-opacity='1'/%3E%3C/svg%3E")
+    repeat !important;
+
+}
+#minimap * {
+    cursor: move;
+    pointer-events: none;
+}
+
+#minimap .mask {
+  border-radius: 4px;
+  position: absolute;
+  opacity: 0.3;
+  pointer-events: none;
+}

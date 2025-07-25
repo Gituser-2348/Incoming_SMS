@@ -1,0 +1,121 @@
+
+
+
+
+<div class="card-body " >
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2 mat-dialog-title style="flex-grow: 1;font-size:16px;">User Account Details</h2>
+    <button mat-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="row">
+
+    <div style="margin-left:44px;">
+      <div class="d-flex">
+        <div class="info_label d-flex ">
+          <div>
+            <mat-form-field >
+              <mat-select [(ngModel)]="customer" placeholder="Select Customer" (ngModelChange)="GetRequestTable()">
+                <mat-option value="0">-All-</mat-option>
+                <mat-option *ngFor="let item of userlist" [value]="item.value">
+                  {{ item.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+           
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card-body" >
+    
+    <div class="card-body scrollable-content" style="overflow-y: auto; height:27vw;width:60vw;">
+
+
+      <div *ngIf="dataSource?.data.length > 0">
+        <div class="example-header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+          </mat-form-field>
+        </div>
+
+        <div mat-elevation-z8>
+          
+
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;" matSort>
+
+
+            <ng-container matColumnDef="Request_ID">
+              <th mat-header-cell *matHeaderCellDef> Request ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.Request_ID}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Customer_Name">
+              <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.Customer_Name}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="User_Name">
+              <th mat-header-cell *matHeaderCellDef> User Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.User_Name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Phone_No">
+              <th mat-header-cell *matHeaderCellDef> Phone No </th>
+              <td mat-cell *matCellDef="let element"> {{element.Phone_No}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Email_ID">
+              <th mat-header-cell *matHeaderCellDef> Email ID </th>
+              <td mat-cell class="fixed-width-column" *matCellDef="let element"> {{element.Email_ID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Address">
+              <th mat-header-cell *matHeaderCellDef> Address </th>
+
+              <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Created_Date">
+              <th mat-header-cell *matHeaderCellDef> Created Date </th>
+
+              <td mat-cell *matCellDef="let element"> {{element.Created_Date}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Created_By">
+              <th mat-header-cell *matHeaderCellDef> Created By </th>
+
+              <td mat-cell *matCellDef="let element"> {{element.Created_By}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+
+          </table>
+          <mat-paginator #paginator
+                         [pageSize]="10"
+                         [pageSizeOptions]="[10, 100, 1000]"
+                         [showFirstLastButtons]="true"
+                          [length]="dataSource?.data.length">
+          </mat-paginator>
+
+        </div>
+      </div>
+      <div *ngIf="dataSource?.data.length === 0">
+        <p style="text-align:center;">No data available.</p>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+</div>

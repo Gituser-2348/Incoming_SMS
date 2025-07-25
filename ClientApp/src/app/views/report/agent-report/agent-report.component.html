@@ -1,0 +1,69 @@
+<div class="mainDiv p-2" *ngIf="accountID>0">
+  <div class="d-flex">
+    <div class="ml-2 menuDiv prevent-select" id="menuOne" (click)='selectMenu("menuOne")'>Login Report</div>
+    <div class="menuDiv unSelected prevent-select" id="menuTwo" (click)='selectMenu("menuTwo")'>Break Details</div>
+    <div class="menuDiv unSelected prevent-select" id="menuThree" (click)='selectMenu("menuThree")'>Chat Report</div>
+    <div class="menuDiv unSelected prevent-select" id="menuFour" (click)='selectMenu("menuFour")'>Perfomance Report</div>
+  </div>
+  <div class="insideDiv">
+    <div class="d-flex pl-4 pr-4 pt-3 pb-3">
+      <select name="" id="" class="form-control inputSelect mr-2" (change)="selectAgent($event)"
+        [(ngModel)]="selectedAgent" *ngIf="userRole!=5">
+        <option value="">Select Agent</option>
+        <option *ngFor="let agent of agentList" [value]=agent.user_id>{{agent.name}}</option>
+      </select>
+      <label class="ml-2 mt-1">Select Date Range</label>
+      <app-daterange-picker class="ml-2 form-control inputPicker" (startDate)="dateRange.FromDate = $event"
+        (endDate)="dateRange.ToDate = $event">
+      </app-daterange-picker>
+      <button type="button" class="ml-2 btn btn-round btn-primary" (click)="getReport()"><i
+          class="fa fa-search"></i></button>
+      <button type="button" (click)="downloadReport()" class="ml-1 btn btn-round btn-primary "><i
+          class="bi bi-download"></i></button>
+    </div>
+    <div class="position-relative" style="margin: 0px 10px;">
+      <ngx-spinner [fullScreen]="false" type="line-scale" size="default">
+        <!-- <p style="color: white" > Loading...</p> -->
+      </ngx-spinner>
+      <!-- <div *ngIf="selectedMenu=='menuOne'&&rowData.length>0" class="summaryDiv">
+        <div class="d-flex" *ngIf="userRole==3">
+          <div class="card1 card">
+            <div class="cardDisc">{{loginRepDetail.date}}</div>
+            <div class="cardHead">Date Range</div>
+          </div>
+          <div class="card1 card">
+            <div class="cardDisc">{{loginRepDetail.avarageLogin}}</div>
+            <div class="cardHead">Avgerage Login Time</div>
+          </div>
+          <div class="card1 card">
+            <div class="cardDisc">{{loginRepDetail.totalChat}}</div>
+            <div class="cardHead">Total Chat Login Time</div>
+          </div>
+          <div class="card1 card">
+            <div class="cardDisc">{{loginRepDetail.totalWeb}}</div>
+            <div class="cardHead">Total Web Login Time</div>
+          </div>
+        </div>
+      </div> -->
+      <ag-grid-angular *ngIf="!noData" #agGrid id="myGrid" [paginationPageSize]="50"
+        style="width: 100%; height: 100%;" class="ag-theme-alpine" [domLayout]="domLayout"
+        [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [rowData]="rowData" (gridReady)="onGridReady($event)"
+        [pagination]="true" [rowHeight]="rowHeight" [headerHeight]="headerHeight"
+        [overlayNoRowsTemplate]="noRowsTemplate" (firstDataRendered)="onFirstDataRendered($event)"
+        [suppressAggFuncInHeader]="true"></ag-grid-angular>
+    </div>
+
+    <div class="pl-2 pr-2">
+
+      <div class="noData" *ngIf="noData&&!selectedAgent&&userRole<5">Select Agent*</div>
+      <div class="noData" *ngIf="noData&&selectedAgent||noData&&userRole>4">Report Not Available*</div>
+    </div>
+  </div>
+</div>
+
+<div class="mainDiv p-2" *ngIf="accountID==undefined||accountID<0">
+  <div class="d-flex info">
+    <i class="bi bi-exclamation-circle-fill mr-2"></i>
+    Select Account
+  </div>
+</div>

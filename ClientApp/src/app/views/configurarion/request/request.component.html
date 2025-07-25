@@ -1,0 +1,144 @@
+<div class="row" >
+  <div class="col-lg-12">
+    <div class="card-header">
+      <div class='card '>
+        <div style="display:flex;">
+          <button mat-button (click)="createnewrequest()">
+            <mat-icon style="color: var(--main-color);">add</mat-icon><mat-label style="color:var(--main-color);padding-left:3px;">New Request</mat-label>
+          </button>
+          <!--<div style="align-items:center;width:100%" >
+    <mat-form-field class="reqin" style="display:flex;">
+      <input maxlength="4" matInput type="number" placeholder="-Request ID-"
+             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+             [(ngModel)]="ReqID" id="ReqId">
+      <button mat-button matSuffix class="bi-search btnreq" (click)="req_search();">
+      </button>
+    </mat-form-field>
+    <div *ngIf="is_show_no_data_err" class="d-flex" style="color:red"><mat-icon>warning</mat-icon> Invalid request ID found.</div>
+  </div>-->
+          <div style="display: flex; align-items: center; width: 100%;">
+            <mat-form-field  class="reqin" style="flex: 1;">
+              <input  maxlength="4"
+                     matInput
+                     type="number"
+                     placeholder="-Request ID-"
+                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                     [(ngModel)]="ReqID"
+                     id="ReqId"
+                     style="max-width: 100%;"(ngModelChange)="req_search()"
+                     (keydown)="preventNegativeInput($event)"
+                      (keydown.ArrowDown)="preventNegativeInput_($event)"/>
+              <!--<button  mat-button matSuffix class="bi-search btnreq" (click)="req_search();"></button>-->
+            </mat-form-field>
+            <div *ngIf="is_show_no_data_err" class="d-flex" style="color: red;"><mat-icon>warning</mat-icon> Invalid request ID found.</div>
+          </div>
+
+
+        </div>
+
+        <!--<div class="card-header">
+      <div class="d-flex">
+        <input class="reqin" type="text" placeholder="-Request ID-" [(ngModel)]="ReqID" id="ReqId">
+      <button class="bi-search btnreq" (click)="req_search();"></button>
+        </div>
+      </div>-->
+        <div class="card-body" style="margin-top: 10px; ">
+          <!-- <div class="mainDiv p-2"> -->
+          <div class="card-body scrollable-content" style="overflow-y: auto; height: 29vw;">
+
+
+            <div *ngIf="dataSource?.data.length > 0">
+              <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                </mat-form-field>
+              </div>
+             
+              <div mat-elevation-z8>
+                <!--<mat-table [dataSource]="dataSource" matSort>-->
+
+
+
+
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;" matSort>
+
+
+                  <!--['Request ID', 'Circle', 'Date of Request', 'Request By', 'Customer', 'Plan', 'Services', 'Platform','Status'];-->
+                  <ng-container matColumnDef="Request_ID">
+                    <th mat-header-cell *matHeaderCellDef> Request ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Request_ID}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="Circle">
+                    <th mat-header-cell *matHeaderCellDef> Circle </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Circle}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="Date_of_Request">
+                    <th mat-header-cell *matHeaderCellDef> Date of Request </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Date_of_Request}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Request_By">
+                    <th mat-header-cell *matHeaderCellDef> Request By </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Request_By}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Customer">
+                    <th mat-header-cell *matHeaderCellDef> Customer </th>
+                    <td mat-cell class="fixed-width-column" matTooltip={{element.Customer}} *matCellDef="let element"> {{element.Customer}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Plan">
+                    <th mat-header-cell *matHeaderCellDef> Plan </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Plan}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Services">
+                    <th mat-header-cell *matHeaderCellDef> Services </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Services}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Platform">
+                    <th mat-header-cell *matHeaderCellDef> Platform </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Platform}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="view">
+
+                    <th mat-header-cell *matHeaderCellDef> View </th>
+                    <td  mat-cell *matCellDef="let element" (click)="configure(element.Request_ID,element.Customer);" style="color: var(--main-color); padding: 15px;cursor:pointer;"> configure </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+
+                </table>
+                <mat-paginator #paginator
+                               [pageSize]="10"
+                               [pageSizeOptions]="[10, 100, 1000]"
+                               [showFirstLastButtons]="true">
+                </mat-paginator>
+
+              </div>
+            </div>
+              <div *ngIf="dataSource?.data.length === 0">
+                <p style="text-align:center;">No data available.</p>
+              </div>
+
+
+
+           
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+   
+  </div>
