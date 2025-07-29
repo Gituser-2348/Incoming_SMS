@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "http://localhost:4200",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

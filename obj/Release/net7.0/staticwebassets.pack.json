@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\wwwroot\\images\\Etisalat Logo AI-01.png",
+      "PackagePath": "staticwebassets\\images\\Etisalat Logo AI-01.png"
+    },
+    {
+      "Id": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\wwwroot\\images\\Prudent New.PNG",
+      "PackagePath": "staticwebassets\\images\\Prudent New.PNG"
+    },
+    {
+      "Id": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\wwwroot\\images\\Prudent New1.png",
+      "PackagePath": "staticwebassets\\images\\Prudent New1.png"
+    },
+    {
+      "Id": "G:\\Shiril\\Devops\\IncomingSMS\\IncomingSMS\\wwwroot\\images\\Prudent.jpeg",
+      "PackagePath": "staticwebassets\\images\\Prudent.jpeg"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.IncomingSMS.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.build.IncomingSMS.props",
+      "PackagePath": "build\\IncomingSMS.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.IncomingSMS.props",
+      "PackagePath": "buildMultiTargeting\\IncomingSMS.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildTransitive.IncomingSMS.props",
+      "PackagePath": "buildTransitive\\IncomingSMS.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
