@@ -448,7 +448,7 @@ G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ly.3514ba7172a0ce55.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ly.8140565bca112106.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ma.65053fc4f18712d7.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ma.88ada30c96a321c4.svg
-G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\main.109bb5da85d5263a.js
+G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\main.98c0c3f1fbf38a1a.js
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\manifest.webmanifest
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\mc.2c03ea5ca3fe15b4.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\mc.89b532e8f340a68a.svg
@@ -665,7 +665,7 @@ G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vc.37cf5ba15afef44b.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vc.3e4ac6d49bfeff4f.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ve.4cd0e3ed5530e857.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\ve.9cd63506009c3e10.svg
-G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vendor.f55bb93d24bbb2a9.js
+G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vendor.af06bda37fec2058.js
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vg.1da31aa8819a13eb.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vg.6143eb720f64f46b.svg
 G:\Shiril\Devops\IncomingSMS\IncomingSMS\publish\wwwroot\vi.372d16a7a17dc48a.svg

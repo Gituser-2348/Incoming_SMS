@@ -1,0 +1,7 @@
+{
+  "url": "/",
+  "appName": "IncomingSMS",
+  "api": {
+    "sms": "/IncomingSMS/"
+  }
+}

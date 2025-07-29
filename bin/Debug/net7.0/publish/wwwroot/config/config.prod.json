@@ -1,7 +1,0 @@
-{
-  "url": "/",
-  "appName": "IncomingSMS",
-  "api": {
-    "sms": "/"
-  }
-}
