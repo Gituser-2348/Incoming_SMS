@@ -1,0 +1,34 @@
+.mat-expansion-panel-body {
+  padding: 0 10px 16px !important;
+}
+
+.mat-list-base .mat-list-item {
+  font-size: 15px;
+  height: 45px !important;
+  font-size: 16px !important;
+}
+
+.mat-list-base .mat-list-item .mat-list-icon,
+.mat-list-base .mat-list-option .mat-list-icon {
+  font-size: 20px !important;
+}
+
+.card-title {
+  font-size: 16px !important;
+}
+
+.card-header {
+  padding: 10px 15px !important;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: 40px !important;
+}
+
+.mat-form-field-wrapper {
+  padding: 2px;
+}
+/* .mat-list-base .mat-list-item.mat-list-item-with-avatar, .mat-list-base .mat-list-option.mat-list-item-with-avatar {
+  height: 40px !important;
+} */

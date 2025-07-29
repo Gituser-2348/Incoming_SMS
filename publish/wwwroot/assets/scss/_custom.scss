@@ -1,0 +1,382 @@
+// Here you can add other styles
+
+body {
+    font-family: Roboto, arial, sans-serif;
+    font-size: 12px !important;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #666;
+    overflow: overlay;
+  }
+  
+  app-canvas {
+    display: contents;
+    min-height: 100vh;
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+  .displayNone{
+    display: none !important;
+  }
+  input:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+  
+  .tbl-icon {
+    font-size: initial;
+  }
+  
+  .tbl-button {
+    display: contents !important;
+  }
+  
+  .nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .display-content {
+    display: contents;
+  }
+  
+  .expansion-pannel-header {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .table-responsive table th {
+    font-weight: bold;
+  }
+  
+  .table-tab {
+    overflow-y: auto;
+    height: 50vh;
+    margin: 1rem;
+    padding: 0px !important;
+  }
+  
+  .table-nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+    // width: fit-content !important;
+  }
+  
+  .table-nopadding th {
+    padding: 2px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+  }
+  
+  .table-nopadding td {
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+  }
+  
+  .table-medium {
+    margin: 10px 0 0 0;
+  }
+  
+  .table-medium thead {
+    vertical-align: middle !important;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+  
+  .table-medium thead th {
+    padding: 10px 5px 10px 5px !important;
+  }
+  
+  .table-medium tbody tr {
+    height: 30px;
+  }
+  
+  .table-medium tbody td {
+    vertical-align: middle !important;
+    text-align: left !important;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    width: fit-content;
+    height: fit-content;
+    font-size: 12px;
+  }
+  
+  .mat-paginator-sm .mat-paginator-range-label {
+    margin: 0 22px 0 20px !important;
+  }
+  
+  .table-nopadding .slno {
+    min-width: 5px;
+  }
+  
+  .table-nopadding .voice {
+    min-width: 160px;
+  }
+  
+  .table-nopadding .delete {
+    min-width: 5px;
+  }
+  
+  .timepicker-small * {
+    font-size: 12px;
+  }
+  
+  .timepicker-small input {
+    padding: 2px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .timepicker-small a span {
+    padding: 2px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+    width: 5px;
+    height: 5px;
+    border-width: 1px 0px 0 1px;
+  }
+  
+  .timepicker-small button {
+    padding: 2px !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .cdk-overlay-container {
+    z-index: 99999999999 !important;
+  }
+  
+  .agent-active {
+    color: green;
+    font-size: small;
+  }
+  
+  .agent-inactive {
+    color: red;
+    font-size: small;
+  }
+  
+  .dropdown-sm .mat-form-field-wrapper {
+    padding: 0px !important;
+  }
+
+  .voice-tbl {
+    margin-left: -18px !important;
+    margin-right: -18px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  
+  .grid-container-report {
+    display: grid;
+    grid-template-columns: auto auto auto auto min-content min-content;
+    grid-gap: 10px;
+  }
+  
+  .grid-container-dropdown {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-gap: 10px;
+  }
+  
+  .table-report td,
+  th {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  
+  .table-report tr {
+    height: min-content !important;
+  }
+  
+  .table-report td {
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+  
+  .table-report .table-message {
+    text-align: center;
+  }
+  // .grid-container:focus .tooltip-container {
+  //   display: none;
+  // }
+  
+  .tooltip-header {
+    font-size: 10px !important;
+    font-weight: bold;
+  }
+  
+  .tooltip-body {
+    font-size: 9px !important;
+  }
+  
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .rpt-audio-player-container {
+    display: flex !important;
+  }
+  
+  .rpt-audio-player-container .mat-card {
+    height: 18px !important;
+    padding: 3px 10px;
+  }
+  
+  .rpt-audio-player .ngx-audio-player {
+    min-width: 200px !important;
+    font-size: 8px !important;
+  }
+  
+  .rpt-audio-player .mat-card {
+    height: 18px !important;
+  }
+  
+  .rpt-audio-player .mat-button {
+    min-width: 15px !important;
+    line-height: 16px !important;
+    padding: 0px !important;
+  }
+  
+  .rpt-audio-player .ngx-p-1[mat-button] {
+    padding: 0px !important;
+  }
+  
+  .rpt-audio-player .mat-icon[role="img"] {
+    font-size: 8px !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+  
+  .rpt-audio-player .mat-icon svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  
+  .rpt-audio-player
+    .play-pause
+    svg[style="margin: auto; display: block; shape-rendering: auto;"] {
+    // width: 15px !important;
+    height: 21px !important;
+  }
+  .rpt-audio-player .ngx-col {
+    padding: 0px 0px !important;
+  }
+  
+  .rpt-audio-player .mat-slider {
+    height: 10px !important;
+  }
+  
+  .rpt-audio-player .mat-slider-horizontal .mat-slider-wrapper {
+    top: 8px !important;
+  }
+  
+  .rpt-audio-player .ngx-col .ngx-py-3,
+  .ngx-px-1 {
+    padding: 2px 0px !important;
+    font-size: 11px !important;
+  }
+  
+  .dropdown-menu-sm {
+    min-width: max-content !important;
+    background-color: lightgreen;
+  }
+  
+  .dropdown-menu-sm .dropdown-item {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .table-agent {
+    display: table;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mat-form-field-sm {
+    .mat-form-field-infix {
+      padding-top: 3px !important;
+      padding-bottom: 10px !important;
+    }
+  }
+  
+  .delete-btn-1 {
+    padding: 1px;
+    position: absolute;
+    top: -13px;
+    right: -6px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+  }
+  
+  .variable-select-content .mat-option {
+    font-size: 13px;
+    padding: 0px 6px !important;
+    height: 30px !important;
+  }
+  
+  .nav-tabs {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .mat-expansion-panel-body {
+    padding: 0 8px 0 !important;
+  }
+  
+  .mat-expansion-panel-header {
+    font-size: 13px !important;
+    font-weight: 400;
+    height: 38px !important;
+  }
+  
+  .mat-expansion-panel-content {
+    font: 450 13px/20px Roboto, "Helvetica Neue", sans-serif !important;
+    letter-spacing: normal;
+  }
+  
+  .mat-action-row {
+    padding: 4px !important;
+  }
+  
+  @media only screen and (max-width: 800px) {
+    .grid-container-report {
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-gap: 10px;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .grid-container-report {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 10px;
+    }
+  }
+
+:root {
+  --main-flowName: #3c3c3c;
+}
+
+.mainHeader{
+  background-color: #5f004b !important;
+}
+
+
